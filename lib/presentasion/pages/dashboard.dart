@@ -3,6 +3,7 @@ import 'package:hcm1011/presentasion/widgets/body/cardDashboard.dart';
 import 'package:hcm1011/presentasion/widgets/body/dashboard.dart';
 import 'package:hcm1011/presentasion/widgets/body/date.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
+import 'package:hcm1011/presentasion/pages/profile.dart';
 
 class dashboard extends StatefulWidget {
   // const name({super.key});
@@ -16,18 +17,9 @@ class _dashboardState extends State<dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PT Group'),
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: Icon(
-                  Icons.menu), // Ganti ikon hamburger sesuai keinginan Anda
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-            );
-          },
-        ),
+        title: Text('PT Sepuluh Sebelas Group'),
+        automaticallyImplyLeading: false,
+        leading: null,
         elevation: 0.0,
         backgroundColor: darkdarkBlueColor,
       ),
@@ -38,7 +30,12 @@ class _dashboardState extends State<dashboard> {
             ListTile(
               title: Text('Profile'),
               onTap: () {
-                // Tambahkan fungsi yang ingin Anda jalankan saat menu 1 diklik
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyProfile(),
+                  ),
+                );
               },
             ),
             ListTile(

@@ -101,26 +101,47 @@ class _BodyDashboardState extends State<bodyDashboard> {
                 height: 200.0,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment
-                          .spaceEvenly, // Use spaceEvenly to evenly space items
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         // Menu 1
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => listAtandance(),
-                              ),
-                            );
-                          },
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => listAtandance(),
+                                ),
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/Attandance.png',
+                                  width: 50.0,
+                                  height: 50.0,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Attendance',
+                                  style: TextStyle(fontSize: 14.0),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // Menu 2
+                        Expanded(
                           child: Column(
                             children: [
                               Image.asset(
-                                'assets/images/Attandance.png',
+                                'assets/images/Salary.png',
                                 width: 50.0,
                                 height: 50.0,
                               ),
@@ -128,77 +149,95 @@ class _BodyDashboardState extends State<bodyDashboard> {
                                 height: 10,
                               ),
                               Text(
-                                'Attendance',
+                                'Salary',
                                 style: TextStyle(fontSize: 14.0),
+                                textAlign: TextAlign.center,
                               ),
                             ],
                           ),
                         ),
-                        // Menu 2
-                        Column(
-                          children: [
-                            Image.asset(
-                              'assets/images/Salary.png',
-                              width: 50.0,
-                              height: 50.0,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Salary',
-                              style: TextStyle(fontSize: 14.0),
-                            ),
-                          ],
-                        ),
                         // Menu 3
-                        Column(
-                          children: [
-                            Image.asset(
-                              'assets/images/Leave.png',
-                              width: 50.0,
-                              height: 50.0,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Leave',
-                              style: TextStyle(
-                                fontSize: 14.0,
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/Leave.png',
+                                width: 50.0,
+                                height: 50.0,
                               ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Leave',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Menu 4
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/Training.png',
+                                width: 50.0,
+                                height: 50.0,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Training',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(
+                      height: 25,
+                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment
-                          .spaceEvenly, // Use spaceEvenly to evenly space items
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // Menu 4
-                        Column(
-                          children: [
-                            Image.asset(
-                              'assets/images/Training.png',
-                              width: 50.0,
-                              height: 50.0,
+                        // Menu 1
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => listAtandance(),
+                                ),
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/Attandance.png',
+                                  width: 50.0,
+                                  height: 50.0,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Coming son',
+                                  style: TextStyle(fontSize: 14.0),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Training',
-                              style: TextStyle(
-                                fontSize: 14.0,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
+                          ),
                         ),
-                        // Add more menu items here if needed
                       ],
                     ),
                   ],

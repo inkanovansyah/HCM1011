@@ -20,7 +20,97 @@ class _AttendanceState extends State<listAtandance> {
       ),
       body: ListView(
         children: [
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+              '13 Septembar 2023',
+              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          listAttandance(
+            label_1: 'Chack In',
+            label_2: '09:00',
+            label_3: 'Chack Out',
+            label_4: '18:00',
+          ),
           SizedBox(height: 10),
+          listAttandance(
+            label_1: 'Chack In',
+            label_2: '10:00',
+            label_3: 'Chack Out',
+            label_4: '20:00',
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+              '14 Septembar 2023',
+              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          listAttandance(
+            label_1: 'Chack In',
+            label_2: '09:00',
+            label_3: 'Chack Out',
+            label_4: '18:00',
+          ),
+          SizedBox(height: 10),
+          listAttandance(
+            label_1: 'Chack In',
+            label_2: '10:00',
+            label_3: 'Chack Out',
+            label_4: '20:00',
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+              '15 Septembar 2023',
+              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          listAttandance(
+            label_1: 'Chack In',
+            label_2: '09:00',
+            label_3: 'Chack Out',
+            label_4: '18:00',
+          ),
+          SizedBox(height: 10),
+          listAttandance(
+            label_1: 'Chack In',
+            label_2: '10:00',
+            label_3: 'Chack Out',
+            label_4: '20:00',
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+              '16 Septembar 2023',
+              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
           listAttandance(
             label_1: 'Chack In',
             label_2: '09:00',

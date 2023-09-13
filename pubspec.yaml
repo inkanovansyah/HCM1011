@@ -83,6 +83,7 @@ flutter:
     - assets/images/Salary.png
     - assets/images/Leave.png
     - assets/images/Training.png
+    - assets/images/Profile-1.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

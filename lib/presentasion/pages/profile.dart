@@ -29,11 +29,12 @@ class _profileState extends State<MyProfile> {
       ),
       body: ListView(
         children: [
+          SizedBox(
+            height: 20,
+          ),
           profile(
-            label_1: '',
-            label_2: '',
-            label_3: '',
-            label_4: '',
+            nama: 'Wardhatul Aini',
+            jabatan: 'HR Manager',
           ),
           SizedBox(
             height: 20,

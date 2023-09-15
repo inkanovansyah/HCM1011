@@ -124,23 +124,27 @@ class _CameraPageState extends State<CameraPage> {
                 });
               },
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: 10,
-                  ),
-                  child: Text(
-                    'Ini Image',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      color: whiteColor,
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 0),
+                    child: Image.asset(
+                      'assets/images/imageface.png', // Ganti dengan path gambar yang sesuai
+                      width:
+                          430, // Sesuaikan lebar gambar sesuai kebutuhan Anda
+                      height:
+                          490, // Sesuaikan tinggi gambar sesuai kebutuhan Anda
+                      fit: BoxFit
+                          .cover, // Sesuaikan dengan kebutuhan tampilan gambar
                     ),
                   ),
-                )
-              ],
+                ],
+              ),
             ), //belom tau masih ambigu
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

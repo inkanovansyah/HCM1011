@@ -27,11 +27,11 @@ class _AttendanceState extends State<listAtandance> {
             padding: EdgeInsets.only(left: 20.0),
             child: Text(
               '13 Septembar 2023',
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 6,
           ),
           listAttandance(
             label_1: 'Chack In',
@@ -52,12 +52,12 @@ class _AttendanceState extends State<listAtandance> {
           Padding(
             padding: EdgeInsets.only(left: 20.0),
             child: Text(
-              '14 Septembar 2023',
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+              '13 Septembar 2023',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 6,
           ),
           listAttandance(
             label_1: 'Chack In',
@@ -78,12 +78,12 @@ class _AttendanceState extends State<listAtandance> {
           Padding(
             padding: EdgeInsets.only(left: 20.0),
             child: Text(
-              '15 Septembar 2023',
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+              '13 Septembar 2023',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 6,
           ),
           listAttandance(
             label_1: 'Chack In',
@@ -104,12 +104,12 @@ class _AttendanceState extends State<listAtandance> {
           Padding(
             padding: EdgeInsets.only(left: 20.0),
             child: Text(
-              '16 Septembar 2023',
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+              '13 Septembar 2023',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 6,
           ),
           listAttandance(
             label_1: 'Chack In',

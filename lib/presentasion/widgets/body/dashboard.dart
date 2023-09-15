@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
-// import 'package:hcm1011/presentasion/pages/face_recognition.dart';
+import 'package:hcm1011/presentasion/pages/face_recognition.dart';
 import 'package:hcm1011/presentasion/pages/attandance.dart';
+import 'package:hcm1011/presentasion/pages/leave.dart';
 
 class bodyDashboard extends StatefulWidget {
   @override
@@ -138,44 +139,64 @@ class _BodyDashboardState extends State<bodyDashboard> {
                         ),
                         // Menu 2
                         Expanded(
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/images/Salary.png',
-                                width: 50.0,
-                                height: 50.0,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                'Salary',
-                                style: TextStyle(fontSize: 14.0),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => face_recognition(),
+                                ),
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/Salary.png',
+                                  width: 50.0,
+                                  height: 50.0,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Salary',
+                                  style: TextStyle(fontSize: 14.0),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         // Menu 3
                         Expanded(
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/images/Leave.png',
-                                width: 50.0,
-                                height: 50.0,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                'Leave',
-                                style: TextStyle(
-                                  fontSize: 14.0,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => leave(),
                                 ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/Leave.png',
+                                  width: 50.0,
+                                  height: 50.0,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Leave',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         // Menu 4

@@ -14,8 +14,7 @@ class splash_screen extends StatelessWidget {
       pages: [
         PageViewModel(
             title: 'Pengenalan HCM',
-            body:
-                'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla',
+            body: 'hahaha hahah haha haha haha',
             image: Image.asset(
               'assets/images/onboarding.png',
               width: 200,
@@ -23,8 +22,7 @@ class splash_screen extends StatelessWidget {
             decoration: pageDecoration),
         PageViewModel(
             title: 'Pengenalan HCM',
-            body:
-                'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla',
+            body: 'hahaha hahah haha haha haha',
             image: Image.asset(
               'assets/images/onboarding.png',
               width: 200,
@@ -32,8 +30,7 @@ class splash_screen extends StatelessWidget {
             decoration: pageDecoration),
         PageViewModel(
           title: 'Pengenalan HCM',
-          body:
-              'bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla',
+          body: 'hahaha hahah haha haha haha',
           image: Image.asset(
             'assets/images/onboarding.png',
             width: 200,

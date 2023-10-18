@@ -18,9 +18,9 @@ class _profileState extends State<profile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Card(
-        elevation: 15, // Elevasi card
+        elevation: 10, // Elevasi card
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0), // Bentuk border card
         ),

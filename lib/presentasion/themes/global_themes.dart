@@ -12,6 +12,8 @@ Color whiteColor = Color(0xffFFFFFF);
 Color grayColor = Color(0xffEFEFEF);
 Color grayLightColor = Color(0xffEFEFEF);
 Color greenColor = Color(0xff50CD89);
+Color bluesskyColor = Color(0xffE6F2FF);
+Color bluesskyColors = Color.fromARGB(255, 201, 201, 201);
 
 TextStyle poppinsThinDark = GoogleFonts.poppins(
   fontWeight: FontWeight.w100,

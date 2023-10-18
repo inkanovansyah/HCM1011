@@ -30,23 +30,26 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
+  firebase_auth: ^4.10.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  equatable: ^2.0.5
+  uuid: ^3.0.0
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.1.3
   google_fonts: ^4.0.4
   introduction_screen: ^3.1.8
-  shared_preferences: ^2.2.1
+  shared_preferences: ^2.2.2
   bloc: ^8.1.2
   http: ^0.13.6
   weekly_date_picker: ^1.3.1
   camera: ^0.10.5+4
   path_provider: ^2.1.1
   get_it: ^7.6.4
-
+  easy_date_timeline: ^0.1.1
+  d_chart: ^2.6.2
   
+  dio: ^4.0.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -73,7 +76,7 @@ flutter:
   assets:
     - assets/images/logo.png
     - assets/images/onboarding.png
-    - assets/images/LOgin.png
+    - assets/images/Login.png
     - assets/images/Profile.png
     - assets/images/image_0.png
     - assets/images/image_1.png
@@ -85,6 +88,11 @@ flutter:
     - assets/images/Training.png
     - assets/images/Profile-1.png
     - assets/images/imageface.png
+    - assets/images/icon.png
+    - assets/images/icon_1.png
+    - assets/images/icon_2.png
+    - assets/images/icon_3.png
+    - assets/images/icon_4.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -99,16 +107,19 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+    # - family: GoogleSans
+    #   fonts:
+    #     - asset: assets/fonts/GoogleSans-Reguler.ttf
+    #       weight: 400
+    #     - asset: assets/fonts/GoogleSans-Madium.ttf
+    #       weight: 500
+    #     - asset: assets/fonts/GoogleSans-Bold.ttf
+    #       weight: 700
+  # - family: Trajan Pro
+  #   fonts:
+  #     - asset: fonts/TrajanPro.ttf
+  #     - asset: fonts/TrajanPro_Bold.ttf
+  #       weight: 700
+  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

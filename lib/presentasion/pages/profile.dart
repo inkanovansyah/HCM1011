@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/MyProfile/userprofile.dart';
 import 'package:hcm1011/presentasion/widgets/MyProfile/datauser.dart';
+import 'package:hcm1011/presentasion/widgets/MyProfile/chart.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
@@ -45,9 +46,38 @@ class _profileState extends State<MyProfile> {
             nik: 'SS.0020.0002',
             temlahir: 'Jakarta',
             tanglahir: '20 September 2023',
-            email: 'Pablo@1011.id',
+            email: 'wir@1011.id',
             hp: '08939949955',
           ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+                'Performance',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+                'Task Per Day',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+          viewchart(),
         ],
       ),
     );

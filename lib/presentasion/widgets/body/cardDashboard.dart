@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 
-class cardSchedule extends StatefulWidget {
+class CardSchedule extends StatefulWidget {
   // const cardSchedule({super.key});
   final String label_1;
   final String label_2;
   final String label_3;
   final String img;
 
-  cardSchedule({
+  CardSchedule({
     required this.label_1,
     required this.label_2,
     required this.label_3,
@@ -16,16 +16,16 @@ class cardSchedule extends StatefulWidget {
   });
 
   @override
-  State<cardSchedule> createState() => _cardSchedule();
+  State<CardSchedule> createState() => _cardSchedule();
 }
 
-class _cardSchedule extends State<cardSchedule> {
+class _cardSchedule extends State<CardSchedule> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Card(
-        elevation: 2.0,
+        elevation: 1.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -37,6 +37,10 @@ class _cardSchedule extends State<cardSchedule> {
             decoration: BoxDecoration(
               color: whiteColor,
               borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Color(0xFF1BEFC7), // Warna garis tepi (strok)
+                width: 1.0, // Lebar garis tepi (strok)
+              ),
             ),
             child: Row(
               children: [
@@ -44,11 +48,10 @@ class _cardSchedule extends State<cardSchedule> {
                   width: 20,
                 ),
                 Container(
-                  height: 50, // Ubah tinggi sesuai kebutuhan
-                  width: 50, // Ubah lebar sesuai kebutuhan
+                  height: 50,
+                  width: 50,
                   child: Image.asset(
                     widget.img,
-// Sesuaikan mode tampilan gambar sesuai kebutuhan
                   ),
                 ),
                 Column(
@@ -58,8 +61,7 @@ class _cardSchedule extends State<cardSchedule> {
                       height: 20,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 10.0), // Atur padding kiri sesuai kebutuhan
+                      padding: EdgeInsets.only(left: 10.0),
                       child: Text(
                         widget.label_1,
                         style: openSensBoldDark.copyWith(
@@ -73,8 +75,7 @@ class _cardSchedule extends State<cardSchedule> {
                       height: 4,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 10.0), // Atur padding kiri sesuai kebutuhan
+                      padding: EdgeInsets.only(left: 10.0),
                       child: Text(
                         widget.label_2,
                         style: openSensMediumDark.copyWith(
@@ -87,25 +88,6 @@ class _cardSchedule extends State<cardSchedule> {
                 ),
                 SizedBox(
                   width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 35,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: 10.0), // Atur padding kiri sesuai kebutuhan
-                      child: Text(
-                        widget.label_2,
-                        style: openSensMediumDark.copyWith(
-                          fontSize: 15,
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ],
                 ),
               ],
             ),

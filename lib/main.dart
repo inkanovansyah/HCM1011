@@ -5,7 +5,9 @@ import 'package:hcm1011/presentasion/pages/splash_screen.dart';
 // import 'injector.dart' as di;
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: splash_screen(),
       theme: ThemeData(
+        fontFamily: 'GoogleSans',
         scaffoldBackgroundColor: Colors.white,
       ),
     );

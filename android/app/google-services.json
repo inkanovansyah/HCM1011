@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "644330977145",
+    "project_id": "hcm-1011",
+    "storage_bucket": "hcm-1011.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644330977145:android:a42df05b4a06454245e1a8",
+        "android_client_info": {
+          "package_name": "hcm.sepuluhsebelas.test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG2SxW50Cjrj1IvDyd1Ru8S95AAoyaVsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

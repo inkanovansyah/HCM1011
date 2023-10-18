@@ -21,7 +21,7 @@ class _nameDate extends State<date> {
               _selectedDay = value;
             }),
             enableWeeknumberText: false,
-            weeknumberColor: const Color(0xFF57AF87),
+            weeknumberColor: Color.fromARGB(255, 28, 15, 48),
             weeknumberTextColor: Color.fromARGB(255, 49, 45, 45),
             backgroundColor: Colors.white,
             weekdayTextColor: const Color(0xFF8A8A8A),

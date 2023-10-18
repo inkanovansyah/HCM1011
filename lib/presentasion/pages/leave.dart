@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/leave/leave.dart';
+import 'package:hcm1011/presentasion/widgets/leave/cardRequest.dart';
 
 class leave extends StatefulWidget {
   const leave({super.key});
@@ -16,7 +17,16 @@ class _leaveState extends State<leave> {
       appBar: AppBar(
         backgroundColor: darkdarkBlueColor, // Mengatur warna biru gelap
         centerTitle: true,
-        title: Text('Leave Request'),
+        // elevation: 0.0,
+        title: Text(
+          'Leave Request',
+          // style: TextStyle(
+          //   color: Colors.black, // Mengatur warna teks menjadi hitam
+          // ),
+        ),
+        // iconTheme: IconThemeData(
+        //   color: Colors.black, // Mengatur warna ikon menjadi hitam
+        // ),
         actions: <Widget>[
           IconButton(
             icon: Icon(
@@ -31,131 +41,68 @@ class _leaveState extends State<leave> {
       body: ListView(
         children: [
           SizedBox(
-            height: 20,
+            height: 10,
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Text(
-              '13 Septembar 2023',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          leaveW(
-            label_1: 'Leave',
-            label_2: 'Status',
-            label_3: 'Duration',
-            label_4: 'Note',
-            leave: 'Cuti Tahunan',
-            status: 'Apply',
-            durasi: '13-09-2023 16-09-2023',
-            note: '',
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Text(
-              '12 Septembar 2023',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-                margin: EdgeInsets.only(top: 6, bottom: 6),
-                child: Text(
-                  'Tidak Ada Pengajuan',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          leaveW(),
+          Container(
+            color: Color.fromARGB(255, 248, 248, 248), // Mengatur warna abu-abu
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Text(
-              '11 Septembar 2023',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-                margin: EdgeInsets.only(top: 6, bottom: 6),
-                child: Text(
-                  'Tidak Ada Pengajuan',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                CardRequest(
+                  label_1: 'leave Request',
+                  label_2: 'Sept, 12 - Sept, 12 2023',
+                  label_4: 'sick',
+                  topRightLabel: 'Approved',
+                  status: 'Approved',
                 ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Text(
-              '10 Septembar 2023',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-                margin: EdgeInsets.only(top: 6, bottom: 6),
-                child: Text(
-                  'Tidak Ada Pengajuan',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                SizedBox(
+                  height: 10, // Sesuaikan dengan tinggi yang Anda inginkan
                 ),
-              ),
+                CardRequest(
+                  label_1: 'leave Request',
+                  label_2: 'Sept, 12 - Sept, 12 2023',
+                  label_4: 'sick',
+                  topRightLabel: 'Declined',
+                  status: 'Declined',
+                ),
+                SizedBox(
+                  height: 10, // Sesuaikan dengan tinggi yang Anda inginkan
+                ),
+                CardRequest(
+                  label_1: 'leave Request',
+                  label_2: 'Sept, 12 - Sept, 12 2023',
+                  label_4: 'sick',
+                  topRightLabel: 'Approved',
+                  status: 'Approved',
+                ),
+                SizedBox(
+                  height: 10, // Sesuaikan dengan tinggi yang Anda inginkan
+                ),
+                CardRequest(
+                  label_1: 'leave Request',
+                  label_2: 'Sept, 12 - Sept, 12 2023',
+                  label_4: 'sick',
+                  topRightLabel: 'Approved',
+                  status: 'Approved',
+                ),
+                SizedBox(
+                  height: 10, // Sesuaikan dengan tinggi yang Anda inginkan
+                ),
+                CardRequest(
+                  label_1: 'leave Request',
+                  label_2: 'Sept, 12 - Sept, 12 2023',
+                  label_4: 'sick',
+                  topRightLabel: 'Pending',
+                  status: 'Pending',
+                ),
+                SizedBox(
+                  height: 10, // Sesuaikan dengan tinggi yang Anda inginkan
+                ),
+              ],
             ),
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Text(
-              '09 Septembar 2023',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          leaveW(
-            label_1: 'Leave',
-            label_2: 'Status',
-            label_3: 'Duration',
-            label_4: 'Note',
-            leave: 'Cuti Tahunan',
-            status: 'Apply',
-            durasi: '13-09-2023 16-09-2023',
-            note: '',
-          ),
-          SizedBox(
-            height: 20,
           ),
         ],
       ),

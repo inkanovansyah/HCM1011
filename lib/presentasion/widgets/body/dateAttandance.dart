@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weekly_date_picker/weekly_date_picker.dart';
-import 'package:hcm1011/presentasion/widgets/listatandance/attandance-detil.dart';
 
 class dateAttandance extends StatefulWidget {
   const dateAttandance({Key? key});

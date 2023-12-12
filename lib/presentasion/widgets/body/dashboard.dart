@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
-import 'package:hcm1011/presentasion/pages/face_recognition.dart';
-import 'package:hcm1011/presentasion/pages/attandance.dart';
-import 'package:hcm1011/presentasion/pages/leave.dart';
-import 'package:hcm1011/presentasion/widgets/navbar/navbar_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../data/service/ApiLogin.dart';
+import '../../../data/service/api_login.dart';
 
 class BodyDashboard extends StatefulWidget {
   @override
@@ -17,11 +13,13 @@ class _BodyDashboardState extends State<BodyDashboard> {
   bool isLoggedIn = false;
   String fullName = '';
   String departmentName = '';
+  String image = '';
+  String token = '';
 
   @override
   void initState() {
     super.initState();
-    Network();
+    NetworkLogin();
 
     // Memanggil metode loadUserInfo saat tampilan dimuat
     loadUserInfo();
@@ -32,10 +30,12 @@ class _BodyDashboardState extends State<BodyDashboard> {
     final prefs = await SharedPreferences.getInstance();
     final fullName = prefs.getString('fullname') ?? '';
     final departmentName = prefs.getString('position_name') ?? '';
+    final image = prefs.getString('image') ?? '';
 
     setState(() {
       this.fullName = fullName;
       this.departmentName = departmentName;
+      this.image = image;
     });
   }
 
@@ -47,15 +47,9 @@ class _BodyDashboardState extends State<BodyDashboard> {
           Align(
             alignment: Alignment.bottomLeft,
             child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                bottomLeft:
-                    Radius.circular(20.0), // Adjust the radius as needed
-                bottomRight:
-                    Radius.circular(20.0), // Adjust the radius as needed
-              ),
               child: Container(
                 height: MediaQuery.of(context).size.height *
-                    0.15, // 15% of screen height
+                    0.14, // 15% of screen height
                 width: MediaQuery.of(context).size.width,
                 color:
                     darkdarkBlueColor, // Background color (darkdarkBlueColor)
@@ -68,6 +62,35 @@ class _BodyDashboardState extends State<BodyDashboard> {
               padding: const EdgeInsets.only(left: 16.0, top: 12.0),
               child: Row(
                 children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$fullName',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 4),
+                          child: Text(
+                            '$departmentName',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                  ),
                   ClipOval(
                     child: Container(
                       width: 80.0,
@@ -82,42 +105,21 @@ class _BodyDashboardState extends State<BodyDashboard> {
                           ),
                         ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: ClipOval(
-                          child: Image.asset(
-                            'assets/images/Profile.png',
+                      child: Image.network(
+                        image,
+                        fit: BoxFit.cover, // Sesuaikan dengan kebutuhan Anda
+                        errorBuilder: (context, error, stackTrace) {
+                          // Menambahkan errorBuilder untuk menampilkan gambar default jika terjadi kesalahan
+                          return Image.asset(
+                            'assets/images/default.png',
                             fit: BoxFit.cover,
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ),
                   ),
                   const SizedBox(
                     width: 20.0,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '$fullName',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        '$departmentName',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),

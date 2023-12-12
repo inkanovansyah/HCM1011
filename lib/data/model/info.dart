@@ -1,100 +1,102 @@
-// To parse this JSON data, do
-//
-//     final news = newsFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-NewsModel newsFromJson(String str) => NewsModel.fromJson(json.decode(str));
+class ModelListInfo {
+  int status;
+  dynamic error;
+  String message;
+  List<Datum> data;
 
-String newsToJson(NewsModel data) => json.encode(data.toJson());
-
-class NewsModel {
-  final String status;
-  final int totalResults;
-  final List<Article> articles;
-  String? error;
-
-  NewsModel({
+  ModelListInfo({
     required this.status,
-    required this.totalResults,
-    required this.articles,
+    required this.error,
+    required this.message,
+    required this.data,
   });
 
-  factory NewsModel.fromJson(Map<String, dynamic> json) => NewsModel(
+  factory ModelListInfo.fromRawJson(String str) =>
+      ModelListInfo.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory ModelListInfo.fromJson(Map<String, dynamic> json) => ModelListInfo(
         status: json["status"],
-        totalResults: json["totalResults"],
-        articles: List<Article>.from(
-            json["articles"].map((x) => Article.fromJson(x))),
+        error: json["error"],
+        message: json["message"],
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
-        "totalResults": totalResults,
-        "articles": List<dynamic>.from(articles.map((x) => x.toJson())),
+        "error": error,
+        "message": message,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
 
-class Article {
-  final Source source;
-  final String author;
-  final String title;
-  final String description;
-  final String url;
-  final String urlToImage;
-  final DateTime publishedAt;
-  final String content;
+class Datum {
+  String id;
+  String author;
+  String title;
+  String alias;
+  String content;
+  String summary;
+  dynamic categories;
+  dynamic linkUrl;
+  dynamic media;
+  String hits;
+  String isActive;
+  DateTime createdAt;
+  DateTime updateAt;
 
-  Article({
-    required this.source,
+  Datum({
+    required this.id,
     required this.author,
     required this.title,
-    required this.description,
-    required this.url,
-    required this.urlToImage,
-    required this.publishedAt,
+    required this.alias,
     required this.content,
+    required this.summary,
+    required this.categories,
+    required this.linkUrl,
+    required this.media,
+    required this.hits,
+    required this.isActive,
+    required this.createdAt,
+    required this.updateAt,
   });
 
-  factory Article.fromJson(Map<String, dynamic> json) => Article(
-        source: Source.fromJson(json["source"]),
+  factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["id"],
         author: json["author"],
         title: json["title"],
-        description: json["description"],
-        url: json["url"],
-        urlToImage: json["urlToImage"],
-        publishedAt: DateTime.parse(json["publishedAt"]),
+        alias: json["alias"],
         content: json["content"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "source": source.toJson(),
-        "author": author,
-        "title": title,
-        "description": description,
-        "url": url,
-        "urlToImage": urlToImage,
-        "publishedAt": publishedAt.toIso8601String(),
-        "content": content,
-      };
-}
-
-class Source {
-  final String id;
-  final String name;
-
-  Source({
-    required this.id,
-    required this.name,
-  });
-
-  factory Source.fromJson(Map<String, dynamic> json) => Source(
-        id: json["id"],
-        name: json["name"],
+        summary: json["summary"],
+        categories: json["categories"],
+        linkUrl: json["link_url"],
+        media: json["media"],
+        hits: json["hits"],
+        isActive: json["is_active"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updateAt: DateTime.parse(json["update_at"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
+        "author": author,
+        "title": title,
+        "alias": alias,
+        "content": content,
+        "summary": summary,
+        "categories": categories,
+        "link_url": linkUrl,
+        "media": media,
+        "hits": hits,
+        "is_active": isActive,
+        "created_at": createdAt.toIso8601String(),
+        "update_at": updateAt.toIso8601String(),
       };
 }

@@ -27,6 +27,7 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
 dependencies:
   flutter:
     sdk: flutter
@@ -47,13 +48,28 @@ dependencies:
   path_provider: ^2.1.1
   get_it: ^7.6.4
   easy_date_timeline: ^0.1.1
-  d_chart: ^2.6.2
-  
-  dio: ^4.0.4
+  flutter_native_splash: ^2.3.4
+  intl: ^0.18.1
+  banner_carousel: ^1.2.1
+  calendar_date_picker2: ^0.5.3
+  flutter_localization: ^0.1.14
+  syncfusion_flutter_charts: ^23.2.4
+  flutter_map: ^4.0.0
+  latlong2: ^0.8.2
+  url_launcher: ^6.2.1
+  datepicker_dropdown: ^0.0.8
+  cached_network_image: ^3.3.0
+  carousel_slider: ^4.2.1
+  geolocator: ^10.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+flutter_native_splash:
+  background_image: "assets/bg/bg_one.png"
+  # image: "assets/logo_1.png"
+  android: true
+  ios: true
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -78,21 +94,42 @@ flutter:
     - assets/images/onboarding.png
     - assets/images/Login.png
     - assets/images/Profile.png
-    - assets/images/image_0.png
-    - assets/images/image_1.png
-    - assets/images/image_2.png
-    - assets/images/image_3.png
-    - assets/images/Attandance.png
-    - assets/images/Salary.png
-    - assets/images/Leave.png
-    - assets/images/Training.png
     - assets/images/Profile-1.png
     - assets/images/imageface.png
     - assets/images/icon.png
     - assets/images/icon_1.png
     - assets/images/icon_2.png
     - assets/images/icon_3.png
+    - assets/images/icon_1_ac.png
+    - assets/images/icon_2_ac.png
+    - assets/images/icon_3_ac.png
     - assets/images/icon_4.png
+    - assets/banner/banner_1.png
+    - assets/banner/banner_2.png
+    - assets/status/success.png
+    - assets/test/Storytest.png
+    - assets/banner/logo.png
+    - assets/images/Asset_1.png
+    - assets/images/Asset_2.png
+    - assets/banner/info.png
+    - assets/images/Profile_fo.png
+    - assets/images/Profile_test.png
+    - assets/images/Logo_profile.png
+    - assets/images/ambil_foto.png
+    - assets/images/pin-map.png
+    - assets/images/icon_modal_1.png
+    - assets/images/icon_modal_2.png
+    - assets/images/icon_modal_3.png
+    - assets/images/petir.png
+    - assets/images/log_out.png
+    - assets/images/Support.png
+    - assets/images/Data.png
+    - assets/images/default.png
+    - assets/images/splash.png
+    - assets/images/splash_1.png
+    - assets/images/splash_2.png
+    - assets/images/splash_3.png
+    - assets/images/splash_4.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

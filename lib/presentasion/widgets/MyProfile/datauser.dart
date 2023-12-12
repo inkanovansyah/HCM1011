@@ -1,31 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:hcm1011/presentasion/themes/global_themes.dart';
 
-class dataProfile extends StatefulWidget {
-  // const dataProfile({super.key});
-  final String name;
-  final String jabatan;
-  final String nik;
-  final String temlahir;
-  final String tanglahir;
-  final String email;
-  final String hp;
+import 'package:syncfusion_flutter_charts/charts.dart';
 
-  dataProfile({
-    required this.name,
-    required this.jabatan,
-    required this.nik,
-    required this.temlahir,
-    required this.tanglahir,
-    required this.email,
-    required this.hp,
-  });
-
+class ChartKpi extends StatefulWidget {
+  ChartKpi(this.year, this.sales, this.profit);
+  final String year;
+  final double sales;
+  final double profit;
   @override
-  State<dataProfile> createState() => _profileState();
+  State<ChartKpi> createState() => _ChartKpiState();
 }
 
-class _profileState extends State<dataProfile> {
+class _ChartKpiState extends State<ChartKpi> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,60 +20,50 @@ class _profileState extends State<dataProfile> {
       child: Card(
         elevation: 10,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0), // Bentuk border card
+          borderRadius: BorderRadius.circular(20.0), // Bentuk border card
         ), // Card elevation for a shadow effect
-        child: Padding(
-          padding: EdgeInsets.all(18), // Padding inside the card
-          child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start, // Align content to the left
-            children: [
-              Text(
-                'nik:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                widget.nik,
-                style: TextStyle(fontSize: 20),
-              ),
-              SizedBox(height: 10), // Add spacing between sections
-              Text(
-                'Tempat lahir:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                widget.temlahir,
-                style: TextStyle(fontSize: 20),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'tanggal lahir:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                widget.tanglahir,
-                style: TextStyle(fontSize: 20),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'email:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                widget.email,
-                style: TextStyle(fontSize: 20),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'hp:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                widget.hp,
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
+        child: SfCartesianChart(
+          title: ChartTitle(text: 'Performance'),
+          primaryXAxis: CategoryAxis(),
+          axes: <ChartAxis>[
+            NumericAxis(
+              opposedPosition: true,
+              name: 'yAxis1',
+              title: AxisTitle(text: 'Key Value'),
+            ),
+            NumericAxis(
+              name: 'yAxis2',
+              title: AxisTitle(text: 'Key Value'),
+            ),
+          ],
+          series: <ChartSeries>[
+            LineSeries<ChartKpi, String>(
+              dataSource: <ChartKpi>[
+                ChartKpi('EPM', 35, 30),
+                ChartKpi('KPI', 28, 34),
+                ChartKpi('Leave', 34, 28),
+                ChartKpi('Training', 32, 36),
+                ChartKpi('Attan', 40, 32),
+              ],
+              xValueMapper: (ChartKpi point, _) => point.year,
+              yValueMapper: (ChartKpi point, _) => point.sales,
+              yAxisName: 'yAxis1',
+              name: 'Primary Axis',
+            ),
+            LineSeries<ChartKpi, String>(
+              dataSource: <ChartKpi>[
+                ChartKpi('EPM', 35, 30),
+                ChartKpi('KPI', 28, 34),
+                ChartKpi('Leave', 34, 28),
+                ChartKpi('Training', 32, 36),
+                ChartKpi('Attan', 40, 32),
+              ],
+              xValueMapper: (ChartKpi point, _) => point.year,
+              yValueMapper: (ChartKpi point, _) => point.profit,
+              yAxisName: 'yAxis2',
+              name: 'Secondary Axis',
+            ),
+          ],
         ),
       ),
     );

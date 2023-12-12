@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
-import 'package:hcm1011/presentasion/pages/Dashboard.dart';
-import 'package:hcm1011/data/service/ApiLogin.dart';
-import 'dart:convert';
+import 'package:hcm1011/data/service/api_login.dart';
+import 'package:hcm1011/presentasion/widgets/menunavigasi/menu.dart';
 
 class BodyLogin extends StatefulWidget {
   @override
@@ -13,7 +14,28 @@ class _BodyLoginState extends State<BodyLogin> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
-  final Network network = Network();
+  final NetworkLogin network = NetworkLogin();
+  bool isLoading = false; // Define isLoading here
+
+  void initState() {
+    super.initState();
+    // Panggil fungsi untuk memeriksa status login saat aplikasi dimulai
+    checkInitialLogin();
+  }
+
+  Future<void> checkInitialLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    final bool isLoggedIn = prefs.getBool('isLogin') ?? false;
+
+    if (isLoggedIn) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MenuNavigasi(),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +49,37 @@ class _BodyLoginState extends State<BodyLogin> {
               SizedBox(
                 height: 10,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 10.0),
-                child: Text(
-                  'Sign in to your Account',
-                  textAlign: TextAlign.start,
-                  style: openSensBoldDark.copyWith(
-                    fontSize: 18,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        'Welcome, Heroes!',
+                        textAlign: TextAlign.start,
+                        style: openSensBoldDark.copyWith(
+                          fontSize: 24,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        'Yuk login teman teman',
+                        textAlign: TextAlign.start,
+                        style: openSensBoldDark.copyWith(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 20,
@@ -92,53 +136,63 @@ class _BodyLoginState extends State<BodyLogin> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: MaterialButton(
-                  elevation: 0,
-                  minWidth: double.maxFinite,
-                  height: 50,
-                  onPressed: () {
-                    final email = emailController.text;
-                    final password = passwordController.text;
+                child: ElevatedButton(
+                  onPressed: isLoading
+                      ? null
+                      : () async {
+                          final email = emailController.text;
+                          final password = passwordController.text;
 
-                    // Panggil fungsi login dari Network
-                    network.loginApi(email, password).then((loggedIn) {
-                      if (loggedIn) {
-                        // Jika login berhasil, Anda dapat melakukan navigasi atau menampilkan pesan sukses.
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Dashboard(),
-                          ),
-                        );
-                      } else {
-                        // Jika login gagal, tampilkan pesan error.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('Login failed. cek email dan password.'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      }
-                    });
-                  },
-                  color: darkdarkBlueColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                          setState(() {
+                            // Set a flag to indicate loading
+                            isLoading = true;
+                          });
+
+                          bool loggedIn =
+                              await network.loginApi(email, password);
+
+                          setState(() {
+                            // Set the loading flag to false once login process completes
+                            isLoading = false;
+                          });
+
+                          if (loggedIn) {
+                            await network.chackLogin();
+                            // If login is successful, navigate to the next screen
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MenuNavigasi(),
+                              ),
+                            );
+                          } else {
+                            // If login fails, show an error message
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    'Login failed. Check email and password.'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    primary: darkdarkBlueColor,
+                    minimumSize: Size(double.infinity, 50),
                   ),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  textColor: Colors.white,
+                  child: isLoading
+                      ? CircularProgressIndicator() // Show CircularProgressIndicator when loading
+                      : Text(
+                          'Login',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
                 ),
               ),
               SizedBox(
                 height: 30,
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: _buildFooterLogo(),
               ),
             ],
           ),
@@ -195,9 +249,11 @@ class _BodyLoginState extends State<BodyLogin> {
                     color: semiblueColor,
                   ),
                   onPressed: () {
-                    setState(() {
-                      isPasswordVisible = !isPasswordVisible;
-                    });
+                    setState(
+                      () {
+                        isPasswordVisible = !isPasswordVisible;
+                      },
+                    );
                   },
                 )
               : null,

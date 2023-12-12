@@ -1,43 +1,33 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/body/login.dart';
 
-class login extends StatefulWidget {
+class Login extends StatefulWidget {
+  static String route = "/login";
   // const name({super.key});
 
   @override
-  State<login> createState() => _LoginState();
+  State<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<login> {
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Hapus properti ini
+        leading: null, // Hapus properti ini
+        elevation: 0.0,
         backgroundColor: darkdarkBlueColor,
-        toolbarHeight: 70.0,
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SizedBox(width: 77),
-            Image.asset(
-              'assets/images/logo.png', // Replace with the path to your image
-              width: 60, // Adjust the width as needed
-              height: 60, // Adjust the height as needed
-            ),
-            const SizedBox(
-                width: 0), // Adjust the spacing between image and text
-            const Text(
-              'HCM 1011',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
+        toolbarHeight: 10.0,
       ),
       body: ListView(
         children: [
+          Image.asset(
+            'assets/images/Login.png',
+            height: 124,
+            width: 300,
+          ),
           BodyLogin(),
         ],
       ),

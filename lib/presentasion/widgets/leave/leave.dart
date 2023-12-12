@@ -1,26 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:easy_date_timeline/easy_date_timeline.dart';
+import 'package:hcm1011/presentasion/themes/global_themes.dart';
 
 class leaveW extends StatefulWidget {
-  // final String label_1;
-  // final String label_2;
-  // final String label_3;
-  // final String label_4;
-  // final String leave;
-  // final String status;
-  // final String durasi;
-  // final String note;
-
-  // leaveW({
-  //   required this.label_1,
-  //   required this.label_2,
-  //   required this.label_3,
-  //   required this.label_4,
-  //   required this.leave,
-  //   required this.status,
-  //   required this.durasi,
-  //   required this.note,
-  // });
+  // const profile({super.key});
 
   @override
   State<leaveW> createState() => _leaveState();
@@ -29,37 +11,111 @@ class leaveW extends StatefulWidget {
 class _leaveState extends State<leaveW> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: 5.0), // Jarak kanan dan kiri 10 piksel
-          child: _customizeDayAppearanceExample(context),
+    return Positioned(
+      top: 10,
+      left: 10,
+      right: 10,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 1.0, // Adjust as needed
+        height: 130, // Adjust as needed
+        child: Card(
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF1BEFC7),
+                  Color(0xFFF993E5),
+                  Color(0xFFFFF1CA),
+                  Color(0xFF62F4F4),
+                ], // Replace with your desired colors
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(3.0),
+              child: Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: 120.0,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Image.asset(
+                            'assets/images/petir.png',
+                            fit: BoxFit.cover,
+                            width:
+                                54, // Sesuaikan lebar gambar sesuai kebutuhan
+                            height:
+                                80, // Sesuaikan tinggi gambar sesuai kebutuhan
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    '10',
+                                    style: TextStyle(
+                                      color: whiteColor,
+                                      fontSize: 50,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'Days',
+                                    style: TextStyle(
+                                      color: whiteColor,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                  height: 6), // Memberikan jarak antara teks
+                              Row(
+                                children: [
+                                  Text(
+                                    'Remaining Leaves | ', // Teks yang ditambahkan di bawah '10 Days'
+                                    style: TextStyle(
+                                      color: whiteColor,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    ' 2 Days Used', // Teks yang ditambahkan di bawah '10 Days'
+                                    style: TextStyle(
+                                      color: whiteColor,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 14.0),
+                ],
+              ),
+            ),
+          ),
         ),
-        SizedBox(
-          height: 30.0,
-        ),
-      ],
-    );
-  }
-
-  EasyDateTimeLine _customizeDayAppearanceExample(BuildContext context) {
-    return EasyDateTimeLine(
-      initialDate: DateTime.now(),
-      onDateChange: (selectedDate) {
-        //`selectedDate` the new date selected.
-      },
-      headerProps: const EasyHeaderProps(
-        selectedDateFormat: SelectedDateFormat.fullDateMonthAsStrDY,
-      ),
-      activeColor: Color.fromARGB(255, 255, 255, 255),
-      dayProps: const EasyDayProps(
-        height: 80.0,
-        width: 75.0,
-        dayStructure: DayStructure.dayNumDayStr,
-        todayHighlightStyle: TodayHighlightStyle.withBackground,
-        todayHighlightColor: Color.fromARGB(255, 255, 255, 255),
       ),
     );
   }

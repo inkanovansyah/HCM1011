@@ -4,14 +4,12 @@ import 'package:hcm1011/presentasion/themes/global_themes.dart';
 class CardRequest extends StatefulWidget {
   final String label_1;
   final String label_2;
-  final String label_4;
   final String topRightLabel;
   final String status; // New status parameter
 
   CardRequest({
     required this.label_1,
     required this.label_2,
-    required this.label_4,
     required this.topRightLabel,
     required this.status, // New status parameter
   });
@@ -110,17 +108,6 @@ class _CardRequest extends State<CardRequest> {
                         ),
                         SizedBox(
                           height: 4,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: 10.0), // Atur padding kiri sesuai kebutuhan
-                          child: Text(
-                            widget.label_4,
-                            style: openSensMediumDark.copyWith(
-                              fontSize: 13,
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
                         ),
                       ],
                     ),

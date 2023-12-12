@@ -2,9 +2,11 @@
     package="com.example.hcmapps">
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
    <application
-        android:label="hcmapps"
+        android:label="HCM1011"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
       

@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:hcm1011/presentasion/themes/global_themes.dart';
+
 import 'dart:io'; // Import dart:io
 
 enum EnumCameraDescription {
@@ -67,6 +67,10 @@ class _CameraPageState extends State<CameraPage> {
     }
   }
 
+  void _saveImageToTimeCard(String imagePath) {
+    Navigator.pop(context, imagePath); // Return image path to previous screen
+  }
+
   @override
   void dispose() {
     cameraController?.dispose();
@@ -75,23 +79,17 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> imagePaths = [
-      'assets/images/image_0.png',
-      'assets/images/image_1.png',
-      'assets/images/image_2.png',
-      'assets/images/image_3.png',
-    ];
+    Size screenSize = MediaQuery.of(context).size;
     if (cameraController?.value.isInitialized == true) {
       return Scaffold(
         body: Stack(
           children: [
-            SizedBox(
-              height: 10,
-            ),
             GestureDetector(
               onTap: () async {
                 final XFile? imageFile = await cameraController!.takePicture();
                 if (imageFile != null) {
+                  _saveImageToTimeCard(
+                      imageFile.path); // Pass image path to TimeCard
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -104,9 +102,18 @@ class _CameraPageState extends State<CameraPage> {
               },
               child: RotatedBox(
                 quarterTurns: 0, // Rotasi 90 derajat (mode potret)
-                child: AspectRatio(
-                  aspectRatio: 4 / 5,
-                  child: CameraPreview(cameraController!),
+                child: ClipRect(
+                  child: OverflowBox(
+                    alignment: Alignment.center,
+                    child: FittedBox(
+                      fit: BoxFit.cover, // Sesuaikan dengan kebutuhan Anda
+                      child: SizedBox(
+                        width: screenSize.width,
+                        height: screenSize.height,
+                        child: CameraPreview(cameraController!),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -138,63 +145,63 @@ class _CameraPageState extends State<CameraPage> {
                       width:
                           430, // Sesuaikan lebar gambar sesuai kebutuhan Anda
                       height:
-                          490, // Sesuaikan tinggi gambar sesuai kebutuhan Anda
+                          900, // Sesuaikan tinggi gambar sesuai kebutuhan Anda
                       fit: BoxFit
                           .cover, // Sesuaikan dengan kebutuhan tampilan gambar
                     ),
                   ),
                 ],
               ),
-            ), //belom tau masih ambigu
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      right: 10,
-                      top: 510,
-                      left: 20), // Tambahkan jarak kanan dan atas
-                  child: Text(
-                    'Attendance Info',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      color: darkblueColor,
+            ),
+            Positioned(
+              bottom: 40,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: GestureDetector(
+                  onTap: () async {
+                    final XFile? imageFile =
+                        await cameraController!.takePicture();
+                    if (imageFile != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FullScreenImageView(
+                            imagePath: imageFile.path,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: SweepGradient(
+                        startAngle: 0.0,
+                        endAngle: 2 * 3.1415,
+                        colors: [
+                          Color(0xFF1BEFC7),
+                          Color(0xFFF993E5),
+                          Color(0xFFFFF1CA),
+                          Color(0xFF62F4F4),
+                        ],
+                      ),
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.camera,
+                      color: Colors.white,
+                      size: 30,
                     ),
                   ),
                 ),
-                SizedBox(height: 2),
-                Container(
-                  height: 120, // Tinggi gambar
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal, // Geser ke samping
-                    itemCount: imagePaths.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      String imagePath = imagePaths[index];
-                      return Padding(
-                        padding:
-                            const EdgeInsets.all(18.0), // Jarak antara gambar
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 80, // Lebar gambar
-                              height: 80, // Tinggi gambar
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(imagePath), // Path gambar
-                                  fit: BoxFit
-                                      .cover, // Sesuaikan dengan kebutuhan Anda
-                                ),
-                              ),
-                            ), // Tambahkan judul di bawah gambar
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            )
+              ),
+            ),
           ],
         ),
       );

@@ -31,7 +31,9 @@ class _BodyLoginState extends State<BodyLogin> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MenuNavigasi(),
+          builder: (context) => MenuNavigasi(
+            imagePath: '',
+          ),
         ),
       );
     }
@@ -162,7 +164,9 @@ class _BodyLoginState extends State<BodyLogin> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => MenuNavigasi(),
+                                builder: (context) => MenuNavigasi(
+                                  imagePath: '',
+                                ),
                               ),
                             );
                           } else {

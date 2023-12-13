@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:hcm1011/presentasion/pages/my_attandance.dart';
 
 import 'dart:io'; // Import dart:io
 
@@ -84,22 +85,7 @@ class _CameraPageState extends State<CameraPage> {
       return Scaffold(
         body: Stack(
           children: [
-            GestureDetector(
-              onTap: () async {
-                final XFile? imageFile = await cameraController!.takePicture();
-                if (imageFile != null) {
-                  _saveImageToTimeCard(
-                      imageFile.path); // Pass image path to TimeCard
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FullScreenImageView(
-                        imagePath: imageFile.path,
-                      ),
-                    ),
-                  );
-                }
-              },
+            Container(
               child: RotatedBox(
                 quarterTurns: 0, // Rotasi 90 derajat (mode potret)
                 child: ClipRect(
@@ -158,19 +144,23 @@ class _CameraPageState extends State<CameraPage> {
               left: 0,
               right: 0,
               child: Center(
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () async {
                     final XFile? imageFile =
                         await cameraController!.takePicture();
+                    print('erorr bang $imageFile');
                     if (imageFile != null) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FullScreenImageView(
-                            imagePath: imageFile.path,
+                      try {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                MyAttandance(imagePath: imageFile.path),
                           ),
-                        ),
-                      );
+                        );
+                      } catch (e) {
+                        print('Error during navigation: $e');
+                      }
                     }
                   },
                   child: Container(
@@ -196,6 +186,128 @@ class _CameraPageState extends State<CameraPage> {
                     child: Icon(
                       Icons.camera,
                       color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 50,
+              left: 290,
+              right: 0,
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('How to Take Selfie'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'Make sure we can see clear features.',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'Do natural expression and do not cover your face.',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(height: 20),
+                              Image.asset(
+                                'assets/images/tutor_.png', // Ganti dengan path gambar Anda
+                                width: 280,
+                                height: 80,
+                              ),
+                              SizedBox(height: 20),
+                              Text(
+                                'It should be only you. Not too far or too close.',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(height: 20),
+                              Image.asset(
+                                'assets/images/tutor_1.png', // Ganti dengan path gambar Anda
+                                width: 280,
+                                height: 80,
+                              ),
+                              SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SizedBox(
+                                    width: 220,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 15, horizontal: 35),
+                                        child: Text('OK, Got it!'),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Color(0xFF202449),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        elevation: 0,
+                                        minimumSize: Size(320,
+                                            50), // Sesuaikan tinggi sesuai kebutuhan
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          // actions: [
+                          //   ButtonBar(
+                          //     alignment: MainAxisAlignment.center,
+                          //     mainAxisSize: MainAxisSize
+                          //         .min, // Menyesuaikan lebar sesuai konten
+                          //     children: [
+                          //       ElevatedButton(
+                          //         onPressed: () {
+                          //           Navigator.of(context).pop();
+                          //         },
+                          //         child: Padding(
+                          //           padding: EdgeInsets.symmetric(
+                          //               horizontal:
+                          //                   20), // Sesuaikan jarak horizontal
+                          //           child: Text('OK, Got it!'),
+                          //         ),
+                          //         style: ElevatedButton.styleFrom(
+                          //           primary:
+                          //               Color(0xFF202449), // Ganti warna tombol
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ],
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.help_outline, // Mengubah ikon menjadi tanda tanya
+                      color: Colors.black, // Mengubah warna ikon menjadi hitam
                       size: 30,
                     ),
                   ),

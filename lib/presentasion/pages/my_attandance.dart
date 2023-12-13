@@ -4,6 +4,9 @@ import 'package:hcm1011/presentasion/widgets/date/date_myattandance.dart';
 import 'package:hcm1011/presentasion/widgets/today/time_card.dart';
 
 class MyAttandance extends StatefulWidget {
+  final String imagePath;
+
+  MyAttandance({required this.imagePath});
   // const MyAttandance({Key key}) : super(key: key);
 
   @override
@@ -45,7 +48,9 @@ class _MyAttandance extends State<MyAttandance> {
             Expanded(
               child: TabBarView(
                 children: [
-                  TimeCard(),
+                  TimeCard(
+                    imagePath: '',
+                  ),
                   DateMyAttandance(),
                   // Tambahkan widget lain untuk konten Tab kedua di sini
                 ],

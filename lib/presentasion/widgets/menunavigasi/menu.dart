@@ -10,7 +10,10 @@ import 'package:hcm1011/presentasion/pages/trainings.dart';
 import 'package:hcm1011/presentasion/pages/kpi.dart';
 
 class MenuNavigasi extends StatefulWidget {
-  const MenuNavigasi({Key? key}) : super(key: key);
+  final String imagePath;
+
+  MenuNavigasi({required this.imagePath});
+  // const MenuNavigasi({Key? key}) : super(key: key);
 
   @override
   _NavigasiState createState() => _NavigasiState();
@@ -21,8 +24,12 @@ class _NavigasiState extends State<MenuNavigasi> {
 
   final List<Widget> _screens = [
     Dashboard(), // Buat HomePage() dan halaman lainnya sesuai kebutuhan.
-    MyAttandance(),
-    MyAttandance(),
+    MyAttandance(
+      imagePath: '',
+    ),
+    MyAttandance(
+      imagePath: '',
+    ),
     PayRoll(),
     MyProfile()
   ];
@@ -264,6 +271,8 @@ class _NavigasiState extends State<MenuNavigasi> {
 
 void main() {
   runApp(MaterialApp(
-    home: MenuNavigasi(),
+    home: MenuNavigasi(
+      imagePath: '',
+    ),
   ));
 }

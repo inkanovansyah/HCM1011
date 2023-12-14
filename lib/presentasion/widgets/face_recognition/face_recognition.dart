@@ -2,7 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/pages/my_attandance.dart';
 
-import 'dart:io'; // Import dart:io
+import 'dart:async';
 
 enum EnumCameraDescription {
   front,
@@ -80,43 +80,38 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
     if (cameraController?.value.isInitialized == true) {
       return Scaffold(
         body: Stack(
           children: [
-            Container(
-              child: RotatedBox(
-                quarterTurns: 0, // Rotasi 90 derajat (mode potret)
-                child: ClipRect(
-                  child: OverflowBox(
-                    alignment: Alignment.center,
-                    child: FittedBox(
-                      fit: BoxFit.cover, // Sesuaikan dengan kebutuhan Anda
-                      child: SizedBox(
-                        width: screenSize.width,
-                        height: screenSize.height,
-                        child: CameraPreview(cameraController!),
-                      ),
-                    ),
+            Center(
+              child: OverflowBox(
+                alignment: Alignment.center,
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width *
+                        cameraController!.value.aspectRatio,
+                    child: CameraPreview(cameraController!),
                   ),
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  direction = direction == 0
-                      ? 1
-                      : 0; // Toggle antara kamera depan dan belakang
-                  final newCameraDescription = direction == 0
-                      ? EnumCameraDescription.front
-                      : EnumCameraDescription.back;
-                  startCamera(
-                      newCameraDescription); // Memulai kamera yang baru dipilih
-                });
-              },
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     setState(() {
+            //       direction = direction == 0
+            //           ? 1
+            //           : 0; // Toggle antara kamera depan dan belakang
+            //       final newCameraDescription = direction == 0
+            //           ? EnumCameraDescription.front
+            //           : EnumCameraDescription.back;
+            //       startCamera(
+            //           newCameraDescription); // Memulai kamera yang baru dipilih
+            //     });
+            //   },
+            // ),
             Positioned(
               top: 0,
               left: 0,
@@ -148,10 +143,11 @@ class _CameraPageState extends State<CameraPage> {
                   onTap: () async {
                     final XFile? imageFile =
                         await cameraController!.takePicture();
-                    print('erorr bang $imageFile');
+                    print('erorr bang ${imageFile?.path}');
                     if (imageFile != null) {
                       try {
-                        Navigator.push(
+                        // Langsung pindah ke halaman berikutnya tanpa menunggu gesture
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
@@ -320,27 +316,5 @@ class _CameraPageState extends State<CameraPage> {
     } else {
       return const SizedBox(); // Tampilkan kontainer kosong jika kamera belum diinisialisasi
     }
-  }
-}
-
-class FullScreenImageView extends StatelessWidget {
-  final String imagePath;
-
-  FullScreenImageView({required this.imagePath});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: Image.file(
-            File(imagePath), // Memuat dan menampilkan gambar yang diambil
-            fit: BoxFit.fill, // Memastikan gambar menutupi seluruh layar
-          ),
-        ),
-      ),
-    );
   }
 }

@@ -3,17 +3,20 @@ import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/date/date_myattandance.dart';
 import 'package:hcm1011/presentasion/widgets/today/time_card.dart';
 
-class MyAttandance extends StatefulWidget {
+// class MyAttandance extends StatefulWidget {
+//   final String imagePath;
+
+//   MyAttandance({required this.imagePath});
+//   // const MyAttandance({Key key}) : super(key: key);
+
+//   @override
+//   State<MyAttandance> createState() => _MyAttandance();
+// }
+
+class MyAttandance extends StatelessWidget {
   final String imagePath;
 
   MyAttandance({required this.imagePath});
-  // const MyAttandance({Key key}) : super(key: key);
-
-  @override
-  State<MyAttandance> createState() => _MyAttandance();
-}
-
-class _MyAttandance extends State<MyAttandance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +51,8 @@ class _MyAttandance extends State<MyAttandance> {
             Expanded(
               child: TabBarView(
                 children: [
-                  TimeCard(
-                    imagePath: '',
+                  CardTimeState(
+                    imagePath: imagePath,
                   ),
                   DateMyAttandance(),
                   // Tambahkan widget lain untuk konten Tab kedua di sini

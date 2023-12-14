@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'dart:async';
+
 // import 'package:flutter_map/flutter_map.dart';
 // import 'package:latlong2/latlong.dart';
 // import 'package:geolocator/geolocator.dart';
@@ -8,13 +10,13 @@ import 'package:intl/intl.dart';
 // import 'package:url_launcher/url_launcher.dart';
 import 'package:hcm1011/presentasion/widgets/face_recognition/face_recognition.dart';
 
-class TimeCard extends StatefulWidget {
-  final String imagePath;
+// class TimeCard extends StatefulWidget {
+//   final String imagePath;
 
-  TimeCard({required this.imagePath});
-  @override
-  State<TimeCard> createState() => _CardTimeState();
-}
+//   TimeCard({required this.imagePath});
+//   @override
+//   State<TimeCard> createState() => _CardTimeState();
+// }
 
 Stream<String> getTimeStream() {
   return Stream.periodic(Duration(seconds: 1), (int _) {
@@ -30,8 +32,11 @@ Stream<String> getDayStream() {
   });
 }
 
-class _CardTimeState extends State<TimeCard> {
-  String? imagePath; // Menyimpan path gambar yang diambil
+class CardTimeState extends StatelessWidget {
+  final String imagePath;
+
+  CardTimeState({required this.imagePath});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -214,11 +219,11 @@ class _CardTimeState extends State<TimeCard> {
                               //         ),
                               // ),
                               SizedBox(height: 10),
-                              imagePath != null
+                              imagePath != null && imagePath.isNotEmpty
                                   ? Center(
                                       child: Container(
-                                        width: double.infinity,
-                                        height: double.infinity,
+                                        width: 320,
+                                        height: 300,
                                         child: Image.file(
                                           File(imagePath!),
                                           fit: BoxFit.fill,

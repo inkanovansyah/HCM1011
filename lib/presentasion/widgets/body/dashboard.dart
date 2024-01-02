@@ -111,7 +111,7 @@ class _BodyDashboardState extends State<BodyDashboard> {
                         errorBuilder: (context, error, stackTrace) {
                           // Menambahkan errorBuilder untuk menampilkan gambar default jika terjadi kesalahan
                           return Image.asset(
-                            'assets/images/default.png',
+                            'assets/images/Profile_test.png',
                             fit: BoxFit.cover,
                           );
                         },

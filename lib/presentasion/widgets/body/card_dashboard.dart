@@ -91,7 +91,7 @@ class _cardSchedule extends State<CardSchedule> {
                               child: Image.asset(
                                 media != null
                                     ? '$media'
-                                    : 'assets/images/default.png',
+                                    : 'assets/images/Profile_test.png',
                               ),
                             ),
                             Column(

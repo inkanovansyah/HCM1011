@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:async';
+import 'package:hcm1011/presentasion/widgets/today/latlang.dart';
+import 'package:flutter/material.dart';
+import 'package:hcm1011/data/service/geo.dart';
 
-// import 'package:flutter_map/flutter_map.dart';
-// import 'package:latlong2/latlong.dart';
-// import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 
 // import 'package:url_launcher/url_launcher.dart';
@@ -87,7 +86,6 @@ class CardTimeState extends StatelessWidget {
               //   ),
               // ),
               SizedBox(
-                height: 520,
                 child: Padding(
                   padding: EdgeInsets.only(
                       top: 0.0, left: 20.0, right: 20.0, bottom: 20.0),
@@ -104,47 +102,6 @@ class CardTimeState extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     color: Color(0xff202449),
-                        //     borderRadius: BorderRadius.only(
-                        //       topLeft: Radius.circular(20.0),
-                        //       topRight: Radius.circular(20.0),
-                        //     ),
-                        //   ),
-                        //   height: 37,
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     children: [
-                        //       Text(
-                        //         '09:43',
-                        //         style: TextStyle(
-                        //           fontWeight: FontWeight.bold,
-                        //           color: Colors.white,
-                        //           fontSize: 18,
-                        //         ),
-                        //       ),
-                        //       SizedBox(
-                        //           width: 5), // Memberikan jarak antara teks
-                        //       Text(
-                        //         '29 Oktober 2022',
-                        //         style: TextStyle(
-                        //           color: Colors.white,
-                        //           fontSize: 16,
-                        //         ),
-                        //       ),
-                        //       SizedBox(width: 5),
-                        //       Text(
-                        //         'Thusdey',
-                        //         style: TextStyle(
-                        //           color: Colors.orange,
-                        //           fontSize: 16,
-                        //         ),
-                        //       ),
-                        //       // Add more Text widgets as needed
-                        //     ],
-                        //   ),
-                        // ),
                         Padding(
                           padding: const EdgeInsets.all(0.0),
                           child: Column(
@@ -223,7 +180,7 @@ class CardTimeState extends StatelessWidget {
                                   ? Center(
                                       child: Container(
                                         width: 320,
-                                        height: 300,
+                                        height: 400,
                                         child: Image.file(
                                           File(imagePath!),
                                           fit: BoxFit.fill,
@@ -250,7 +207,7 @@ class CardTimeState extends StatelessWidget {
                                                 255, 126, 148, 220),
                                             width: 3,
                                           ),
-                                          color: Color(0xFFD0D9F3),
+                                          color: Color(0xFFEEF2FD),
                                         ),
                                         child: Center(
                                           child: Column(
@@ -278,7 +235,9 @@ class CardTimeState extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                              SizedBox(height: 20),
 
+                              LatLeng(),
                               SizedBox(height: 20),
                               StreamBuilder<String>(
                                 stream: getTimeStream(),
@@ -334,7 +293,7 @@ class CardTimeState extends StatelessWidget {
                                     width: 320,
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        // Lakukan sesuatu
+                                        _uploadImage(context);
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
@@ -378,6 +337,9 @@ class CardTimeState extends StatelessWidget {
                                   // ),
                                 ],
                               ),
+                              SizedBox(
+                                height: 10,
+                              ),
                             ],
                           ),
                         ),
@@ -391,5 +353,56 @@ class CardTimeState extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _uploadImage(BuildContext context) async {
+    if (imagePath != null && imagePath.isNotEmpty) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text('Sedang mengirim data...'),
+              ],
+            ),
+          );
+        },
+      );
+
+      Atandance attendance = Atandance();
+      try {
+        String uploadResult = await attendance.uploadImage(File(imagePath));
+        print('${uploadResult}');
+
+        Navigator.pop(context); // Tutup dialog ketika pengunggahan selesai
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Image uploaded successfully'),
+          ),
+        );
+
+        // Jika ingin navigasi ke layar baru setelah pengungahan berhasil
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => NewScreen(), // Ganti dengan layar baru yang diinginkan
+        //   ),
+        // );
+      } catch (e) {
+        print('Error uploading image: $e');
+
+        Navigator.pop(context); // Tutup dialog jika terjadi kesalahan
+
+        // Tindakan jika terjadi kesalahan saat pengunggahan gambar
+      }
+    } else {
+      // Logika ketika tidak ada foto yang dipilih
+    }
   }
 }

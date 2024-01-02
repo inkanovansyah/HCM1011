@@ -36,6 +36,8 @@ class _InfoCarouselState extends State<InfoCarousel> {
             ),
           );
         } else if (state is InfoLoaded) {
+          // Sort the state.infoList ascending based on ID
+          state.infoList.sort((a, b) => a.id.compareTo(b.id));
           return SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

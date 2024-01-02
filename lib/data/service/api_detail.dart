@@ -2,35 +2,11 @@ import 'dart:convert';
 
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
 import 'package:hcm1011/data/model/detailinfo.dart';
-
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   final prefs = await SharedPreferences.getInstance();
-//   String? token = prefs.getString('token');
-//   // String? email = prefs.getString('email');
-//   String? company_id = prefs.getString('company_id');
-
-//   // print('email : $email');
-//   print('fullname : $company_id');
-
-//   if (token != null && company_id != null) {
-//     print('data berhasil ambil');
-
-//     // Use the AppUrlData class to fetch data
-
-//     final resultdata = DetailInfo();
-//     final result = await resultdata.fetchDataDetail("5");
-//     print('fetch data: ${result}');
-//     return null;
-//   } else {
-//     print('Failed to fetch data.');
-//   }
-// }
 
 class DetailInfo {
   final String baseUrl = "https://api.1011.co.id";

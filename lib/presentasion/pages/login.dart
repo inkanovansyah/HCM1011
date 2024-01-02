@@ -25,8 +25,6 @@ class _LoginState extends State<Login> {
         children: [
           Image.asset(
             'assets/images/Login.png',
-            height: 124,
-            width: 300,
           ),
           BodyLogin(),
         ],

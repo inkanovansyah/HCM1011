@@ -50,7 +50,6 @@ dependencies:
   easy_date_timeline: ^0.1.1
   flutter_native_splash: ^2.3.4
   intl: ^0.18.1
-  banner_carousel: ^1.2.1
   calendar_date_picker2: ^0.5.3
   flutter_localization: ^0.1.14
   syncfusion_flutter_charts: ^23.2.4
@@ -61,6 +60,7 @@ dependencies:
   cached_network_image: ^3.3.0
   carousel_slider: ^4.2.1
   geolocator: ^10.1.0
+  geocoding: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -132,6 +132,7 @@ flutter:
     - assets/images/splash_4.png
     - assets/images/tutor_.png
     - assets/images/tutor_1.png
+    - assets/banner/bgComing.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

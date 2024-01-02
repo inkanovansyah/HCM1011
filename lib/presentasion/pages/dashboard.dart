@@ -58,7 +58,7 @@ class _dashboardState extends State<Dashboard> {
             ],
           ),
           SizedBox(
-            height: 20.0,
+            height: 10.0,
           ),
           Align(
             alignment: Alignment.center,
@@ -85,7 +85,7 @@ class _dashboardState extends State<Dashboard> {
             height: 20.0,
           ),
           Container(
-            height: 430.0,
+            height: 440.0,
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 if (index % 2 == 0) {
@@ -121,7 +121,7 @@ class _dashboardState extends State<Dashboard> {
       children: <Widget>[
         SizedBox(
           // you may want to use an aspect ratio here for tablet support
-          height: 428.0,
+          height: 438.0,
           child: PageView.builder(
             // store this controller in a State to save the carousel scroll position
             controller: PageController(viewportFraction: 0.8),

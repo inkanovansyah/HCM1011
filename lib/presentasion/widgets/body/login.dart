@@ -48,9 +48,6 @@ class _BodyLoginState extends State<BodyLogin> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 10,
-              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -152,7 +149,6 @@ class _BodyLoginState extends State<BodyLogin> {
 
                           bool loggedIn =
                               await network.loginApi(email, password);
-
                           setState(() {
                             // Set the loading flag to false once login process completes
                             isLoading = false;

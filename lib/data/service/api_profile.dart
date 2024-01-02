@@ -15,7 +15,7 @@ class Profile {
       var nik = prefs.getString('nik') ?? '';
       var dob = prefs.getString('dob') ?? '';
       var pob = prefs.getString('pob') ?? '';
-      var media = prefs.getString('pob') ?? '';
+      var image = prefs.getString('image') ?? '';
 
       return {
         'email': email,
@@ -24,7 +24,7 @@ class Profile {
         'nik': nik,
         'dob': dob,
         'pob': pob,
-        'media': media,
+        'image': image,
       };
     } on SocketException {
       throw FailureException('Tidak ada koneksi internet');

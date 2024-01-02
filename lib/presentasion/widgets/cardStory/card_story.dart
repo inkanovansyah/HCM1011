@@ -26,17 +26,23 @@ class _stateStory extends State<cardStory> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                widget.img,
-                fit: BoxFit.cover,
+              Container(
+                width: 310,
+                height: 438,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20), // Mengatur radius
+                  image: DecorationImage(
+                    image: AssetImage(widget.img),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ],
           ),
           Positioned(
-            // Position the nested Card
             bottom: 10,
-            left: 4,
-            right: 4,
+            left: 6,
+            right: 6,
             child: Card(
               elevation: 0,
               shape: RoundedRectangleBorder(
@@ -44,9 +50,42 @@ class _stateStory extends State<cardStory> {
               ),
               child: Container(
                 padding: EdgeInsets.all(10),
-                child: Text(
-                  'Comming Son',
-                  style: TextStyle(fontSize: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50, // Ukuran gambar bulat
+                      height: 50, // Ukuran gambar bulat
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle, // Membuat gambar bulat
+                        image: DecorationImage(
+                          image: AssetImage(widget.img),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10), // Spasi antara gambar dan teks
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Rudi Tabuty',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 5), // Spasi antara teks dan tanggal
+                        Text(
+                          '1 January, 2024', // Ganti dengan tanggal yang diinginkan
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey, // Warna teks tanggal
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),

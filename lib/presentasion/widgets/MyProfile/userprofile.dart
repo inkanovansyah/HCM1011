@@ -17,7 +17,7 @@ class _profileState extends State<profile> {
   String? nik;
   String? dob;
   String? pob;
-  String? media;
+  String? image;
   @override
   void initState() {
     super.initState();
@@ -36,7 +36,7 @@ class _profileState extends State<profile> {
         nik = data['nik'];
         dob = data['dob'];
         pob = data['pob'];
-        media = data['media'];
+        image = data['image'];
       });
     } on FailureException catch (e) {
       // Handle FailureException
@@ -74,8 +74,8 @@ class _profileState extends State<profile> {
                           borderRadius: BorderRadius.circular(10.0),
                           image: DecorationImage(
                             image: AssetImage(
-                              media != null
-                                  ? '$media'
+                              image != null
+                                  ? '$image'
                                   : 'assets/images/default.png',
                             ),
                           ),
@@ -117,7 +117,7 @@ class _profileState extends State<profile> {
                       children: [
                         Text(
                           'NIK',
-                          style: TextStyle(fontSize: 14.0),
+                          style: TextStyle(fontSize: 16.0),
                         ),
                         SizedBox(width: 79), // Jarak antara 'NIK' dan nilai
                         Text(

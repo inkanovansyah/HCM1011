@@ -189,7 +189,7 @@ class _SettingState extends State<SettingCard> {
               height: 20,
             ),
             // Loading modal with CircularProgressIndicator
-            if (_loggingOut) LoadingOverlay(),
+            if (_loggingOut) LoadingAlertDialog(),
           ],
         ),
       ),
@@ -197,18 +197,19 @@ class _SettingState extends State<SettingCard> {
   }
 }
 
-class LoadingOverlay extends StatelessWidget {
+class LoadingAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
+    return AlertDialog(
+      content: Container(
+        padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),
         width: 100,
         height: 100,
-        child: const Center(
+        child: Center(
           child: CircularProgressIndicator(
             color: Colors.black54,
           ),

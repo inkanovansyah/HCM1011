@@ -193,10 +193,10 @@ class _MyHomePageState extends State<MyHomePage> {
       disabledDayTextStyle: const TextStyle(
         color: Colors.grey,
       ),
-      selectableDayPredicate: (day) => !day
-          .difference(DateTime.now().subtract(const Duration(days: 3)))
-          .isNegative,
+      selectableDayPredicate: (day) =>
+          day.isBefore(DateTime.now()) && !day.isAtSameMomentAs(DateTime.now()),
     );
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

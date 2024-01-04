@@ -1,23 +1,24 @@
 import 'dart:convert';
 
-class Leave {
+class ModelLeave {
   int? status;
   dynamic error;
   String? messages;
   Data? data;
 
-  Leave({
+  ModelLeave({
     this.status,
     this.error,
     this.messages,
     this.data,
   });
 
-  factory Leave.fromRawJson(String str) => Leave.fromJson(json.decode(str));
+  factory ModelLeave.fromRawJson(String str) =>
+      ModelLeave.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Leave.fromJson(Map<String, dynamic> json) => Leave(
+  factory ModelLeave.fromJson(Map<String, dynamic> json) => ModelLeave(
         status: json["status"],
         error: json["error"],
         messages: json["messages"],

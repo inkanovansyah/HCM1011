@@ -44,9 +44,9 @@ class ListInfoBanner {
       final prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token');
       var company_id = prefs.getString('company_id');
-      var level_id = prefs.getString('level_id');
+      // var level_id = prefs.getString('level_id');
       final Uri url = Uri.parse(
-          '$baseUrl/office/$company_id/info/$level_id/2023-12-02/list-data-by-date');
+          '$baseUrl/office/$company_id/info/0/$formatted/list-data-by-date');
       print('$url');
       // Ganti ini dengan data yang ingin Anda kirimkan dalam permintaan POST
       final response = await http.post(
@@ -57,7 +57,7 @@ class ListInfoBanner {
         },
         body: jsonEncode({
           "start": 0,
-          "length": 3,
+          "length": 7,
         }),
       );
 

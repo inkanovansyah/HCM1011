@@ -64,14 +64,14 @@ class _stateStory extends State<cardStory> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10), // Spasi antara gambar dan teks
+                    SizedBox(width: 10.00), // Spasi antara gambar dan teks
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Rudi Tabuty',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 16.00,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

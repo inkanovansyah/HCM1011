@@ -158,39 +158,72 @@ class _infoState extends State<infoDetail> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    width:
-                                        30, // Tambahkan jarak horizontal antara title dan ikon titik tiga
-                                  ),
-                                  PopupMenuButton(
-                                    icon: Icon(
-                                      Icons
-                                          .more_vert, // Icon titik tiga (ellipsis)
-                                      color: Colors
-                                          .black, // Ganti warna sesuai keinginan Anda
+                                  // SizedBox(
+                                  //   width:
+                                  //       30, // Tambahkan jarak horizontal antara title dan ikon titik tiga
+                                  // ),
+                                  // PopupMenuButton(
+                                  //   icon: Icon(
+                                  //     Icons
+                                  //         .more_vert, // Icon titik tiga (ellipsis)
+                                  //     color: Colors
+                                  //         .black, // Ganti warna sesuai keinginan Anda
+                                  //   ),
+                                  //   itemBuilder: (BuildContext context) {
+                                  //     return [
+                                  //       PopupMenuItem(
+                                  //         child: Text('Join'),
+                                  //         value: 'item1',
+                                  //       ),
+                                  //       PopupMenuItem(
+                                  //         child: Text('G dulu'),
+                                  //         value: 'item2',
+                                  //       ),
+                                  //       // Tambahkan item dropdown lainnya sesuai kebutuhan
+                                  //     ];
+                                  //   },
+                                  //   onSelected: (value) {
+                                  //     // Handler ketika item dropdown dipilih
+                                  //     if (value == 'item1') {
+                                  //       _showSimpleDialog();
+                                  //       // Lakukan sesuatu untuk item 1
+                                  //     } else if (value == 'item2') {
+                                  //       // Lakukan sesuatu untuk item 2
+                                  //     }
+                                  //   },
+                                  // ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 10.0),
+                                    child: Container(
+                                      height: 240,
+                                      width: 340,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            20.0), // Ubah nilai sesuai kebutuhan
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            20.0), // Sama dengan nilai di atas
+                                        child: Image.network(
+                                          state.detailList.content,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Image.asset(
+                                              'assets/images/default.png',
+                                              fit: BoxFit.cover,
+                                            );
+                                          },
+                                        ),
+                                      ),
                                     ),
-                                    itemBuilder: (BuildContext context) {
-                                      return [
-                                        PopupMenuItem(
-                                          child: Text('Join'),
-                                          value: 'item1',
-                                        ),
-                                        PopupMenuItem(
-                                          child: Text('G dulu'),
-                                          value: 'item2',
-                                        ),
-                                        // Tambahkan item dropdown lainnya sesuai kebutuhan
-                                      ];
-                                    },
-                                    onSelected: (value) {
-                                      // Handler ketika item dropdown dipilih
-                                      if (value == 'item1') {
-                                        _showSimpleDialog();
-                                        // Lakukan sesuatu untuk item 1
-                                      } else if (value == 'item2') {
-                                        // Lakukan sesuatu untuk item 2
-                                      }
-                                    },
                                   ),
                                 ],
                               ),
@@ -203,39 +236,10 @@ class _infoState extends State<infoDetail> {
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 10.0),
                                       child: Text(
-                                        state.detailList.summary,
+                                        state.detailList.content,
                                         style: openSensMediumDark.copyWith(
                                           fontSize: 13,
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left:
-                                            10.0), // Tambahkan padding kiri sebesar 10 piksel
-                                    child: Container(
-                                      height: 240,
-                                      width: 340,
-                                      child: Image.network(
-                                        state.detailList.content,
-                                        fit: BoxFit
-                                            .cover, // Sesuaikan dengan kebutuhan Anda
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          // Menambahkan errorBuilder untuk menampilkan gambar default jika terjadi kesalahan
-                                          return Image.asset(
-                                            'assets/images/default.png',
-                                            fit: BoxFit.cover,
-                                          );
-                                        },
                                       ),
                                     ),
                                   ),

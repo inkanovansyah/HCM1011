@@ -19,7 +19,6 @@ class DetailInfo {
 
       final Uri url =
           Uri.parse('$baseUrl/office/$company_id/info/$info_id/detail');
-      print('$url');
       // Ganti ini dengan data yang ingin Anda kirimkan dalam permintaan POST
       final response = await http.post(
         url,

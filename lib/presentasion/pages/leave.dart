@@ -56,32 +56,7 @@ class _leaveState extends State<Leave> {
                         SizedBox(
                           height: 10,
                         ),
-                        CardRequest(
-                          label_1: 'leave Request',
-                          label_2: 'Sept, 12 - Sept, 12 2023',
-                          topRightLabel: 'Approved',
-                          status: 'Approved',
-                        ),
-                        SizedBox(
-                          height:
-                              10, // Sesuaikan dengan tinggi yang Anda inginkan
-                        ),
-                        CardRequest(
-                          label_1: 'leave Request',
-                          label_2: 'Sept, 12 - Sept, 12 2023',
-                          topRightLabel: 'Declined',
-                          status: 'Declined',
-                        ),
-                        SizedBox(
-                          height:
-                              10, // Sesuaikan dengan tinggi yang Anda inginkan
-                        ),
-                        CardRequest(
-                          label_1: 'leave Request',
-                          label_2: 'Sept, 12 - Sept, 12 2023',
-                          topRightLabel: 'Declined',
-                          status: 'Declined',
-                        ),
+                        CardRequest(),
                         SizedBox(
                           height:
                               10, // Sesuaikan dengan tinggi yang Anda inginkan
@@ -117,34 +92,42 @@ class _leaveState extends State<Leave> {
                           children: <Widget>[
                             TextFormField(
                               decoration: InputDecoration(
-                                labelText: 'Name',
+                                labelText: 'Leave type',
                                 border: OutlineInputBorder(),
                               ),
                             ),
                             SizedBox(height: 20),
                             TextFormField(
                               decoration: InputDecoration(
-                                labelText: 'Email',
+                                labelText: 'Substitution',
                                 border: OutlineInputBorder(),
                               ),
                             ),
                             SizedBox(height: 20),
-                            ElevatedButton(
-                              onPressed: () {
-                                // Logic to handle form submission
-                              },
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 16,
-                                  horizontal: 20,
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // Logic to handle form submission
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 16,
+                                    horizontal: 20,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  primary: darkdarkBlueColor,
+                                  minimumSize: Size(double.infinity, 60),
                                 ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                                child: Text(
+                                  'Submit',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
                                 ),
-                                primary: Color(0xffD0D9F3),
                               ),
-                              child: Text('Submit'),
-                            ),
+                            )
                           ],
                         ),
                       );

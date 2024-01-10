@@ -78,7 +78,7 @@ class _SettingState extends State<SettingCard> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Loading(),
+                          builder: (context) => WebViewExample(),
                         ),
                       );
                     },

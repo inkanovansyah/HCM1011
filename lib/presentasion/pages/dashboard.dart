@@ -43,14 +43,14 @@ class _dashboardState extends State<Dashboard> {
               ),
               CardInfo(
                 label_1: 'Attendance Strike',
-                label_2: '30',
+                label_2: '-',
                 img: 'assets/images/Asset_2.png',
                 color: 'blue',
                 colorText: 'white',
               ),
               CardInfo(
                 label_1: 'Leave Balance',
-                label_2: '2',
+                label_2: '-',
                 img: 'assets/images/Asset_1.png',
                 color: 'white',
                 colorText: 'blue',

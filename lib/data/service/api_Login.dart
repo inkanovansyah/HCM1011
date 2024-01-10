@@ -43,6 +43,7 @@ class NetworkLogin {
           'position_name':
               truncateString(detail['detail']['position_name'] as String?, 12),
           'email': detail['detail']['email'] as String?,
+          'employee_id': detail['detail']['employee_id'] as String?,
           'dob': detail['detail']['dob'] as String?,
           'pob': detail['detail']['pob'] as String?,
           'fullname':

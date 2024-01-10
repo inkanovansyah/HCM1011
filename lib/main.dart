@@ -6,6 +6,8 @@ import 'package:hcm1011/presentasion/bloc/bloc_list/list_bloc.dart';
 import 'package:hcm1011/presentasion/cubit/home_cubit.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_list_info/list_info_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_Detail/detail_info_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_leave/leave_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_kpi/kpi_bloc.dart';
 
 import 'package:hcm1011/presentasion/pages/splashscreen.dart';
 import 'package:hcm1011/presentasion/pages/info_detail.dart';
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.getIt<ListInfoBloc>()),
         BlocProvider(create: (_) => di.getIt<HomeIndexCubit>()),
         BlocProvider(create: (_) => di.getIt<DetailInfoBloc>()),
+        BlocProvider(create: (_) => di.getIt<LeaveBloc>()),
+        BlocProvider(create: (_) => di.getIt<KpiBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

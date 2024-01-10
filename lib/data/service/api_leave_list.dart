@@ -8,6 +8,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
 import 'package:hcm1011/data/model/leave.dart';
 
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   final prefs = await SharedPreferences.getInstance();
+//   String? token = prefs.getString('token');
+//   // String? email = prefs.getString('email');
+//   String? fullname = prefs.getString('fullname');
+
+//   // print('email : $email');
+//   print('fullname : $fullname');
+
+//   if (token != null && fullname != null) {
+//     print('data berhasil ambil');
+
+//     // Use the AppUrlData class to fetch data
+
+//     final resultdata = ListLeave();
+//     final result = await resultdata.fatchDataLeave();
+//     print('fetch data: ${result}');
+//     return null;
+//   } else {
+//     print('Failed to fetch data.');
+//   }
+// }
+
 class ListLeave {
   final String baseUri = "https://api.1011.co.id";
 
@@ -15,9 +39,9 @@ class ListLeave {
     try {
       final prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token');
-      var employee_id = prefs.getString('employee_id');
+      var company_id = prefs.getString('company_id');
       final Uri url = Uri.parse(
-          '$baseUri/activities/request/$employee_id/employee/leave-request');
+          '$baseUri/activities/request/$company_id/employee/leave-request');
 
       final response = await http.post(
         url,
@@ -26,28 +50,21 @@ class ListLeave {
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
-          {
-            "start": 0,
-            "length": 20,
-            "search": {
-              "employee_leaves.employee_id": "10",
-              "(YEAR(employee_leaves.date_start))": "2023"
-            }
+          "start": 0,
+          "length": 20,
+          "search": {
+            "employee_leaves.employee_id": "10",
+            "(YEAR(employee_leaves.date_start))": "2023"
           }
         }),
       );
 
       if (response.statusCode == 200) {
-        final decodedResponse = json.decode(response.body);
-        final modelListInfo = ModelLeave.fromJson(decodedResponse);
-
+        // final decodedResponse = json.decode(response.body);
+        // final modelListInfo = ModelLeave.fromJson(decodedResponse);
         // final modelListInfoString = json.encode(modelListInfo);
-
         // print('ModelListInfo as String: ${modelListInfoString}');
-
-        return modelListInfo;
-
-        // return ModelListInfo.fromJson(decodedResponse);
+        return ModelLeave.fromJson(json.decode(response.body));
       } else {
         print('HTTP Error: ${response.statusCode}');
         throw FailureException('Response are not success');
@@ -55,8 +72,7 @@ class ListLeave {
     } on SocketException {
       throw FailureException('no internet Connection');
     } catch (e) {
-      print('Error: $e');
-      throw FailureException('faild to load list date by date');
+      throw FailureException('faild to load list ');
     }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:hcm1011/presentasion/widgets/today/latlang.dart';
 import 'package:flutter/material.dart';
 import 'package:hcm1011/data/service/geo.dart';
+import 'dart:convert';
 
 import 'package:intl/intl.dart';
 
@@ -377,14 +378,59 @@ class CardTimeState extends StatelessWidget {
       Atandance attendance = Atandance();
       try {
         String uploadResult = await attendance.uploadImage(File(imagePath));
-        print('${uploadResult}');
+
+        print('data = ${uploadResult}');
+
+        Map<String, dynamic> resultMap = json.decode(uploadResult);
+        String stringValue = resultMap['data']['attendance']['face-recognition']
+            ['msg']; // Nilai yang didapat dari response
 
         Navigator.pop(context); // Tutup dialog ketika pengunggahan selesai
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Image uploaded successfully'),
-          ),
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              content: Container(
+                width: MediaQuery.of(context).size.width *
+                    0.8, // Atur lebar sesuai kebutuhan
+                height: MediaQuery.of(context).size.height *
+                    0.3, // Atur tinggi sesuai kebutuhan
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'wajah uploaded dan $stringValue',
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 20), // Atur jarak sesuai kebutuhan
+                    SizedBox(height: 20), // Atur jarak sesuai kebutuhan
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue, // Warna latar belakang
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10), // Atur padding
+                        ),
+                        child: Text(
+                          'Tutup',
+                          style: TextStyle(fontSize: 16), // Atur ukuran teks
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         );
 
         // Jika ingin navigasi ke layar baru setelah pengungahan berhasil

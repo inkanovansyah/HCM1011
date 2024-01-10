@@ -177,6 +177,10 @@ class _BodyLoginState extends State<BodyLogin> {
                           }
                         },
                   style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 20,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),

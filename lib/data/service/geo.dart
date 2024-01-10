@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 // import 'package:hcm1011/data/model/crd_face.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 

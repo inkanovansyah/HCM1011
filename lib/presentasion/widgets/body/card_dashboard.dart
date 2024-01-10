@@ -165,27 +165,4 @@ class _cardSchedule extends State<CardSchedule> {
       },
     );
   }
-
-  // Widget _buildCard(BuildContext context, ModelList model) {
-  //   return ListView.builder(
-  //     itemCount: model.data?.length,
-  //     itemBuilder: (context, index) {
-  //       return Container(
-  //         margin: EdgeInsets.all(8.0),
-  //         child: Card(
-  //           child: Container(
-  //             margin: EdgeInsets.all(8.0),
-  //             child: Column(
-  //               children: <Widget>[
-  //                 Text("Country: ${model.data![index].id}"),
-  //                 Text("Total Confirmed: ${model.data![index].author}"),
-  //                 Text("Total Deaths: ${model.data![index].title}"),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 }

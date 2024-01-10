@@ -1,29 +1,23 @@
 import 'dart:convert';
+
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
-import 'package:hcm1011/data/model/infolist.dart';
-import 'package:intl/intl.dart';
+import 'package:hcm1011/data/model/kpi_detail.dart';
 
-final DateTime now = DateTime.now();
-final DateFormat formatter = DateFormat('yyyy-MM-dd');
-String formatted = formatter.format(now);
+class KpiDetail {
+  final String baseUri = "https://api.1011.co.id";
 
-class ListInfo {
-  final String baseUrl = "https://api.1011.co.id";
-
-  Future<ModelList> fetchListInfo() async {
+  Future<ModelDetailKpi> fatchDetailKpi() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token');
       var company_id = prefs.getString('company_id');
-      var level_id = prefs.getString('level_id');
-      final Uri url = Uri.parse(
-          '$baseUrl/office/$company_id/info/$level_id/$formatted/list-data-by-date');
-      print('$url');
-      // Ganti ini dengan data yang ingin Anda kirimkan dalam permintaan POST
+      var nik = prefs.getString('nik');
+      final Uri url = Uri.parse('$baseUri/kpi/$company_id/employee/$nik/list');
+
       final response = await http.post(
         url,
         headers: {
@@ -32,21 +26,15 @@ class ListInfo {
         },
         body: jsonEncode({
           "start": 0,
-          "length": 2,
+          "length": 7,
         }),
       );
-
       if (response.statusCode == 200) {
-        final decodedResponse = json.decode(response.body);
-        final modelListInfo = ModelList.fromJson(decodedResponse);
-
+        // final decodedResponse = json.decode(response.body);
+        // final modelListInfo = ModelDetailKpi.fromJson(decodedResponse);
         // final modelListInfoString = json.encode(modelListInfo);
-
         // print('ModelListInfo as String: ${modelListInfoString}');
-
-        return modelListInfo;
-
-        // return ModelListInfo.fromJson(decodedResponse);
+        return ModelDetailKpi.fromJson(json.decode(response.body));
       } else {
         print('HTTP Error: ${response.statusCode}');
         throw FailureException('Response are not success');

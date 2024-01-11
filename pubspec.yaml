@@ -133,6 +133,7 @@ flutter:
     - assets/images/splash_4.png
     - assets/images/tutor_.png
     - assets/images/tutor_1.png
+    - assets/images/modal.png
     - assets/banner/bgComing.png
     - assets/status/Permision.png
   #   - images/a_dot_ham.jpeg

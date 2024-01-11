@@ -6,7 +6,7 @@ import 'package:hcm1011/data/service/geo.dart';
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
-
+import 'package:hcm1011/presentasion/themes/global_themes.dart';
 // import 'package:url_launcher/url_launcher.dart';
 import 'package:hcm1011/presentasion/widgets/face_recognition/face_recognition.dart';
 
@@ -397,17 +397,21 @@ class CardTimeState extends StatelessWidget {
               content: Container(
                 width: MediaQuery.of(context).size.width *
                     0.8, // Atur lebar sesuai kebutuhan
-                height: MediaQuery.of(context).size.height *
-                    0.3, // Atur tinggi sesuai kebutuhan
+                height: 300.00, // Atur tinggi sesuai kebutuhan
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Image.asset(
+                      'assets/images/modal.png', // Replace with the actual path to your image asset
+                      width: 150, // Adjust the width as needed
+                      height: 150, // Adjust the height as needed
+                    ),
+                    SizedBox(height: 20),
                     Text(
                       'wajah uploaded dan $stringValue',
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 20), // Atur jarak sesuai kebutuhan
-                    SizedBox(height: 20), // Atur jarak sesuai kebutuhan
+                    SizedBox(height: 15), // Atur jarak sesuai kebutuhan
                     Container(
                       margin: EdgeInsets.only(bottom: 10),
                       width: double.infinity,
@@ -416,7 +420,7 @@ class CardTimeState extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.blue, // Warna latar belakang
+                          primary: darkdarkBlueColor, // Warna latar belakang
                           padding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10), // Atur padding
                         ),

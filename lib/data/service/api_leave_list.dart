@@ -40,6 +40,9 @@ class ListLeave {
       final prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token');
       var company_id = prefs.getString('company_id');
+      var employee_id = prefs.getString('employee_id');
+      int currentYear = DateTime.now().year;
+
       final Uri url = Uri.parse(
           '$baseUri/activities/request/$company_id/employee/leave-request');
 
@@ -53,8 +56,8 @@ class ListLeave {
           "start": 0,
           "length": 20,
           "search": {
-            "employee_leaves.employee_id": "10",
-            "(YEAR(employee_leaves.date_start))": "2023"
+            "employee_leaves.employee_id": '$employee_id',
+            "(YEAR(employee_leaves.date_start))": "$currentYear"
           }
         }),
       );

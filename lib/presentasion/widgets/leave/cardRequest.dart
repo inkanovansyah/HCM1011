@@ -34,121 +34,153 @@ class _CardRequest extends State<CardRequest> {
             ),
           );
         } else if (state is LeaveLoaded) {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: state.leaveList?.list
-                ?.length, // Tentukan jumlah item yang ingin ditampilkan
-            itemBuilder: (context, index) {
-              final leaveData = state.leaveList!.list![index];
-              // final id = state.leaveList?.list?[index].id;
-              final leave_name = leaveData['leave_name'] ?? 'No Name';
-              final leave_status = leaveData['leave_status'] ?? 'No Name';
-              final date_start = leaveData['date_start'] ?? 'No Start Date';
-              final date_end = leaveData['date_end'] ?? 'No End Date';
-              // Variables for icons and label colors based on leave_status
-              // String statusLabel = '';
-              String statusIcon = '';
-              Color labelColor = Colors.transparent;
-              Color colorLabel = Colors.transparent;
-
-              // Assigning label and icon based on leave_status
-              if (leave_status == 'APPLY') {
-                statusIcon = 'assets/status/Permision.png';
-                labelColor = Color(0xffFFF4DE);
-                colorLabel = Color(0xffFFCC32);
-              } else if (leave_status == 'APPROVE') {
-                statusIcon = 'assets/status/Permision.png';
-                labelColor = Color(0xffE1FFF4);
-                colorLabel = Color(0xff66CEC1);
-              } else if (leave_status == 'DECLINE') {
-                statusIcon = 'assets/status/Permision.png';
-                labelColor = Color(0xffFFDCE0);
-                colorLabel = Color(0xffFF5064);
-              }
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Card(
-                  elevation: 2.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+          if (state.leaveList?.list?.isEmpty ?? true) {
+            // Data list is empty
+            return Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 40,
                   ),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      height: 90,
-                      width: 360,
-                      decoration: BoxDecoration(
-                        color: whiteColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 30,
-                            right: 10,
-                            child: Container(
+                  Image.asset(
+                    'assets/images/no_leave.png', // Add a path to your no data image
+                    width: 100,
+                    height: 100,
+                  ),
+                  SizedBox(height: 30),
+                  Text(
+                    'No leave requests found.',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.leaveList?.list
+                  ?.length, // Tentukan jumlah item yang ingin ditampilkan
+              itemBuilder: (context, index) {
+                final leaveData = state.leaveList!.list![index];
+                // final id = state.leaveList?.list?[index].id;
+                final leave_name = leaveData['leave_name'] ?? 'No Name';
+                final leave_status = leaveData['leave_status'] ?? 'No Name';
+                final date_start = leaveData['date_start'] ?? 'No Start Date';
+                final date_end = leaveData['date_end'] ?? 'No End Date';
+                // Variables for icons and label colors based on leave_status
+                // String statusLabel = '';
+                String statusIcon = '';
+                Color labelColor = Colors.transparent;
+                Color colorLabel = Colors.transparent;
+
+                // Assigning label and icon based on leave_status
+                if (leave_status == 'APPLY') {
+                  statusIcon = 'assets/status/Permision.png';
+                  labelColor = Color(0xffFFF4DE);
+                  colorLabel = Color(0xffFFCC32);
+                } else if (leave_status == 'APPROVE') {
+                  statusIcon = 'assets/status/Permision.png';
+                  labelColor = Color(0xffE1FFF4);
+                  colorLabel = Color(0xff66CEC1);
+                } else if (leave_status == 'DECLINE') {
+                  statusIcon = 'assets/status/Permision.png';
+                  labelColor = Color(0xffFFDCE0);
+                  colorLabel = Color(0xffFF5064);
+                }
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Card(
+                    elevation: 2.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        height: 90,
+                        width: 360,
+                        decoration: BoxDecoration(
+                          color: whiteColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 30,
+                              right: 10,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 8),
+                                decoration: BoxDecoration(
+                                  color: labelColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  '$leave_status',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: colorLabel,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 8),
-                              decoration: BoxDecoration(
-                                color: labelColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                '$leave_status',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: colorLabel,
-                                ),
+                                  vertical: 20, horizontal: 14),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    statusIcon, // Ganti dengan path gambar yang sesuai
+                                    width: 50,
+                                    height: 50,
+                                    // Atur ukuran gambar sesuai kebutuhan
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '$leave_name',
+                                        style: openSensBoldDark.copyWith(
+                                          fontSize: 16,
+                                          color: darkColor,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '$date_start - $date_end',
+                                        style: openSensMediumDark.copyWith(
+                                          fontSize: 13,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: 10),
+                                ],
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 20, horizontal: 14),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  statusIcon, // Ganti dengan path gambar yang sesuai
-                                  width: 50,
-                                  height: 50,
-                                  // Atur ukuran gambar sesuai kebutuhan
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '$leave_name',
-                                      style: openSensBoldDark.copyWith(
-                                        fontSize: 16,
-                                        color: darkColor,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                    SizedBox(height: 4),
-                                    Text(
-                                      '$date_start - $date_end',
-                                      style: openSensMediumDark.copyWith(
-                                        fontSize: 13,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(width: 10),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              );
-            },
-          );
+                );
+              },
+            );
+          }
         } else if (state is LeaveError) {
           return Center(
             child: Text(state.messages),
@@ -162,7 +194,7 @@ class _CardRequest extends State<CardRequest> {
               children: [
                 SizedBox(height: 10),
                 Text(
-                  'data kosong...',
+                  'tidak terduga...',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,

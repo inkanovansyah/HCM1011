@@ -6,13 +6,13 @@ import 'package:hcm1011/data/model/failure_exception.dart';
 import 'package:hcm1011/data/model/crd_face.dart';
 
 class DetailInfo {
-  final String baseUrl = "https://172.16.0.21";
+  final String baseUrl = "https://storage.1011.co.id";
 
   Future<SandPicture> fetchDataDetail(File userfile) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       var nama = prefs.getString('fullname');
-      final Uri url = Uri.parse('$baseUrl/hcm-imageserver/public/api');
+      final Uri url = Uri.parse('$baseUrl/api/store');
       print('$url');
 
       var request = http.MultipartRequest('POST', url)

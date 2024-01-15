@@ -136,6 +136,7 @@ flutter:
     - assets/images/modal.png
     - assets/banner/bgComing.png
     - assets/status/Permision.png
+    - assets/images/no_leave.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -22,8 +22,8 @@ class Atandance {
       );
       double latitude = position.latitude;
       double longitude = position.longitude;
-      var request = http.MultipartRequest(
-          'POST', Uri.parse('https://fileshare.1011.co.id/upload-image.php'));
+      var request = http.MultipartRequest('POST',
+          Uri.parse('https://face-recognition.1011.co.id/upload-image.php'));
       final prefs = await SharedPreferences.getInstance();
       var company_id = prefs.getString('fullname');
 

@@ -313,29 +313,6 @@ class CardTimeState extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-
-                                  // ElevatedButton(
-                                  //   onPressed: () {
-                                  //     // Do something else
-                                  //   },
-                                  //   child: Padding(
-                                  //     padding: EdgeInsets.symmetric(
-                                  //         vertical: 15, horizontal: 35),
-                                  //     child: Text(
-                                  //       'Clock Out',
-                                  //       style: TextStyle(
-                                  //         color: Colors.black,
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  //   style: ElevatedButton.styleFrom(
-                                  //     primary: Color(0xFFF5F5F5),
-                                  //     shape: RoundedRectangleBorder(
-                                  //       borderRadius: BorderRadius.circular(10),
-                                  //     ),
-                                  //     elevation: 0, //
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                               SizedBox(

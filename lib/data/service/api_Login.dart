@@ -55,7 +55,6 @@ class NetworkLogin {
           'nik': detail['detail']['nik'] as String?,
           'image': detail['detail']['image'] as String?,
         };
-
         final prefs = await SharedPreferences.getInstance();
         dataToStore.forEach((key, value) {
           if (value != null) {
@@ -63,7 +62,6 @@ class NetworkLogin {
             prefs.setString(key, value);
           }
         });
-
         return true;
       } else {
         return false;
@@ -85,7 +83,6 @@ class Logout {
     try {
       // Simulasi waktu logout selama 6 detik
       await Future.delayed(Duration(seconds: 6));
-
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
     } catch (e) {

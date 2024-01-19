@@ -3,6 +3,7 @@ import 'package:hcm1011/data/service/api_service.dart';
 import 'package:hcm1011/data/service/api_kpi_detail.dart';
 import 'package:hcm1011/data/service/api_list.dart';
 import 'package:hcm1011/data/service/api_detail.dart';
+import 'package:hcm1011/data/service/api_payroll.dart';
 import 'package:hcm1011/data/service/api_leave_list.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_list/list_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_Detail/detail_info_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:hcm1011/presentasion/bloc/bloc_list_info/list_info_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_leave/leave_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_kpi/kpi_bloc.dart';
 import 'package:hcm1011/presentasion/cubit/home_cubit.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_payroll/payroll_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -20,7 +22,9 @@ Future<void> setup() async {
   getIt.registerFactory<KpiDetail>(
     () => KpiDetail(),
   );
-
+  getIt.registerFactory<DetailPayroll>(
+    () => DetailPayroll(),
+  );
   getIt.registerFactory<ListInfo>(
     () => ListInfo(),
   );
@@ -46,6 +50,11 @@ Future<void> setup() async {
   getIt.registerFactory<ListInfoBloc>(
     () => ListInfoBloc(
       apiinfo: getIt(),
+    ),
+  );
+  getIt.registerFactory<PayrollBloc>(
+    () => PayrollBloc(
+      detailPayroll: getIt(),
     ),
   );
   getIt.registerFactory<DetailInfoBloc>(

@@ -47,9 +47,20 @@ class _LoginButtonState extends State<AddButton> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Text(
-              'Add Story',
-              style: TextStyle(color: Colors.white, fontSize: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons
+                      .add_circle_outline_rounded, // Replace with the desired icon
+                  color: Colors.white,
+                ),
+                SizedBox(width: 4), // 2-pixel gap
+                Text(
+                  'Add Story',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ],
             ),
             textColor: Colors.white,
           ),

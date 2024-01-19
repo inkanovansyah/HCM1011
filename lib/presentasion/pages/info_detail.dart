@@ -200,10 +200,10 @@ class _infoState extends State<infoDetail> {
                               Row(
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(left: 10.0),
+                                    padding: EdgeInsets.only(
+                                        left: 10.0, right: 10.0),
                                     child: Container(
                                       height: 240,
-                                      width: 340,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
                                             20.0), // Ubah nilai sesuai kebutuhan

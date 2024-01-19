@@ -57,7 +57,7 @@ class _profileState extends State<MyProfile> {
                     child: ClipRRect(
                       child: Container(
                         height: MediaQuery.of(context).size.height *
-                            0.27, // 15% of screen height
+                            0.24, // 15% of screen height
                         width: MediaQuery.of(context).size.width,
                         color:
                             darkdarkBlueColor, // Background color (darkdarkBlueColor)
@@ -65,7 +65,7 @@ class _profileState extends State<MyProfile> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   ChartKpi('2023', 15000, 5000),
                 ],

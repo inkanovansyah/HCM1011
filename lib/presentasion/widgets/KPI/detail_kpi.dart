@@ -46,7 +46,8 @@ class _nameState extends State<KpiDetail> {
           ),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.00,
-            left: 20,
+            left: 10,
+            right: 10,
             child: Card(
               elevation: 5,
               shape: RoundedRectangleBorder(

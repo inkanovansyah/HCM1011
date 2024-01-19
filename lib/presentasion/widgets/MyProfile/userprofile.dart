@@ -76,8 +76,10 @@ class _profileState extends State<profile> {
                             image: AssetImage(
                               image != null
                                   ? '$image'
-                                  : 'assets/images/default.png',
+                                  : 'assets/images/Profile_test.png',
                             ),
+                            fit: BoxFit
+                                .cover, // Adjust the BoxFit according to your needs
                           ),
                         ),
                       ),
@@ -88,7 +90,7 @@ class _profileState extends State<profile> {
                           child: Image.asset(
                             'assets/images/Logo_profile.png', // Ganti dengan path gambar kustom Anda
                             width:
-                                50.0, // Sesuaikan ukuran gambar dengan kebutuhan
+                                60.0, // Sesuaikan ukuran gambar dengan kebutuhan
                             height: 20.0,
                           ),
                         ),

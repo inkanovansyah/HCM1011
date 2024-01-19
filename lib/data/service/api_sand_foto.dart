@@ -10,16 +10,17 @@ class DetailInfo {
 
   Future<SandPicture> fetchDataDetail(File userfile) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      var nama = prefs.getString('fullname');
+      // final prefs = await SharedPreferences.getInstance();
+      // var nama = prefs.getString('fullname');
       final Uri url = Uri.parse('$baseUrl/api/store');
       // print('$url');
 
       var request = http.MultipartRequest('POST', url)
-        ..fields['domain'] = 'FOTO-HCM'
-        ..fields['folder'] = 'atandance-1011'
-        ..fields['sizes'] = '{"original":{"width":"300","height":"300"}}'
-        ..fields['name'] = '$nama'
+        ..fields['_method'] = 'PUT'
+        ..fields['folder'] = 'Story-1011'
+        ..fields['sizes'] = '{"large":{"width":"1080","height":"1080"}'
+        ..fields['key'] = '1011.co.id'
+        ..fields['domain'] = '1011.co.id'
         ..files.add(http.MultipartFile(
           'userfile',
           userfile.openRead(),

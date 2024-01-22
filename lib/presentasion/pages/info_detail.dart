@@ -112,7 +112,7 @@ class _infoState extends State<infoDetail> {
                                         errorBuilder:
                                             (context, error, stackTrace) {
                                           return Image.asset(
-                                            'assets/images/default.png',
+                                            'assets/images/Profile_test.png',
                                             fit: BoxFit.cover,
                                           );
                                         },

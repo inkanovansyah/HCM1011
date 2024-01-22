@@ -3,35 +3,36 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
-import 'package:hcm1011/data/model/crd_face.dart';
+import 'package:hcm1011/data/model/upload_foto.dart';
 
 class DetailInfo {
   final String baseUrl = "https://storage.1011.co.id";
 
-  Future<SandPicture> fetchDataDetail(File userfile) async {
+  Future<ModelUploadFoto> fetchDataDetail(File userfile) async {
     try {
-      // final prefs = await SharedPreferences.getInstance();
-      // var nama = prefs.getString('fullname');
+      final prefs = await SharedPreferences.getInstance();
+      var nama = prefs.getString('fullname');
       final Uri url = Uri.parse('$baseUrl/api/store');
       // print('$url');
 
       var request = http.MultipartRequest('POST', url)
         ..fields['_method'] = 'PUT'
-        ..fields['folder'] = 'Story-1011'
-        ..fields['sizes'] = '{"large":{"width":"1080","height":"1080"}'
-        ..fields['key'] = '1011.co.id'
+        ..fields['key'] = '123456'
         ..fields['domain'] = '1011.co.id'
+        ..fields['folder'] = '$nama-Story-1011'
+        ..fields['sizes'] = '{"large":{"width":"1080","height":"1080"}'
+        ..fields['title'] = '1011.co.id'
         ..files.add(http.MultipartFile(
           'userfile',
           userfile.openRead(),
           await userfile.length(),
-          filename: 'file.jpg',
+          filename: '$nama.jpg',
         ));
 
       var response = await http.Response.fromStream(await request.send());
 
       if (response.statusCode == 200) {
-        return SandPicture.fromJson(json.decode(response.body));
+        return ModelUploadFoto.fromJson(json.decode(response.body));
       } else {
         print('HTTP Error: ${response.statusCode}');
         throw FailureException('Response is not successful');

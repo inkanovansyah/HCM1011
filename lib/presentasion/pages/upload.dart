@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'dart:io';
+
 import 'dart:async';
 import 'package:camera/camera.dart';
+import 'package:hcm1011/data/model/upload_foto.dart';
+import 'package:hcm1011/data/service/api_sand_foto.dart';
 import 'package:hcm1011/presentasion/pages/dashboard.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 
@@ -26,6 +30,33 @@ class _nameState extends State<screen> {
   void initState() {
     super.initState();
     startCamera(EnumCameraDescription.front); // Memulai dengan kamera depan
+  }
+
+  Future<void> _saveImageToTimeCard(String imagePath) async {
+    try {
+      // Create a file object from the image path
+      File imageFile = File(imagePath);
+
+      // Create an instance of DetailInfo
+      DetailInfo apiService = DetailInfo();
+
+      // Send the image to the API
+      ModelUploadFoto result = await apiService.fetchDataDetail(imageFile);
+      print('API Response: $result');
+      // Handle the API response as needed
+      // For example, check result.status or result.data
+
+      // Navigate to the next page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Dashboard(),
+        ),
+      );
+    } catch (e) {
+      print('Error during API call or navigation: $e');
+      // Handle errors, display a message, or log them as needed
+    }
   }
 
   Future<void> startCamera(EnumCameraDescription cameraDescription) async {
@@ -67,10 +98,6 @@ class _nameState extends State<screen> {
     } catch (e) {
       print(e);
     }
-  }
-
-  void _saveImageToTimeCard(String imagePath) {
-    Navigator.pop(context, imagePath); // Return image path to previous screen
   }
 
   @override
@@ -117,21 +144,6 @@ class _nameState extends State<screen> {
                 ),
               ),
             ),
-            // GestureDetector(
-            //   onTap: () {
-            //     setState(() {
-            //       direction = direction == 0
-            //           ? 1
-            //           : 0; // Toggle antara kamera depan dan belakang
-            //       final newCameraDescription = direction == 0
-            //           ? EnumCameraDescription.front
-            //           : EnumCameraDescription.back;
-            //       startCamera(
-            //           newCameraDescription); // Memulai kamera yang baru dipilih
-            //     });
-            //   },
-            // ),
-
             Positioned(
               bottom: 15,
               left: 0,
@@ -141,9 +153,14 @@ class _nameState extends State<screen> {
                   onTap: () async {
                     final XFile? imageFile =
                         await cameraController!.takePicture();
-                    print('erorr bang ${imageFile?.path}');
+                    print('Error: ${imageFile?.path}');
                     if (imageFile != null) {
                       try {
+                        // Membuat instance DetailInfo
+
+                        // Mengirim foto ke API
+                        _saveImageToTimeCard(imageFile.path);
+
                         // Langsung pindah ke halaman berikutnya tanpa menunggu gesture
                         Navigator.pushReplacement(
                           context,
@@ -152,7 +169,7 @@ class _nameState extends State<screen> {
                           ),
                         );
                       } catch (e) {
-                        print('Error during navigation: $e');
+                        print('Error during API call or navigation: $e');
                       }
                     }
                   },

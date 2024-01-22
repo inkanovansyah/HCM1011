@@ -58,7 +58,7 @@ class _dashboardState extends State<Dashboard> {
             ],
           ),
           SizedBox(
-            height: 10.0,
+            height: 5.0,
           ),
           Align(
             alignment: Alignment.center,

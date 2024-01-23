@@ -3,9 +3,6 @@ import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/MyProfile/userprofile.dart';
 import 'package:hcm1011/presentasion/widgets/MyProfile/datauser.dart';
 import 'package:hcm1011/presentasion/pages/setting.dart';
-import 'package:hcm1011/data/service/api_profile.dart';
-
-import 'package:hcm1011/data/model/failure_exception.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});

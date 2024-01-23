@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'dart:async';
+import 'dart:convert';
+
 import 'package:camera/camera.dart';
-import 'package:hcm1011/data/model/upload_foto.dart';
+import 'package:hcm1011/presentasion/widgets/menunavigasi/menu.dart';
 import 'package:hcm1011/data/service/api_sand_foto.dart';
 import 'package:hcm1011/presentasion/pages/dashboard.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
@@ -32,17 +34,15 @@ class _nameState extends State<screen> {
     startCamera(EnumCameraDescription.front); // Memulai dengan kamera depan
   }
 
-  Future<void> _saveImageToTimeCard(String imagePath) async {
+  Future<void> _saveImageToStory(String imagePath) async {
     try {
       // Create a file object from the image path
       File imageFile = File(imagePath);
-
-      // Create an instance of DetailInfo
       DetailInfo apiService = DetailInfo();
-
-      // Send the image to the API
-      ModelUploadFoto result = await apiService.fetchDataDetail(imageFile);
+      String result = await apiService.fetchDataDetail(imageFile);
+      Map<String, dynamic> resultMap = json.decode(result);
       print('API Response: $result');
+
       // Handle the API response as needed
       // For example, check result.status or result.data
 
@@ -50,7 +50,7 @@ class _nameState extends State<screen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Dashboard(),
+          builder: (context) => MenuNavigasi(imagePath: imageFile.path),
         ),
       );
     } catch (e) {
@@ -153,13 +153,13 @@ class _nameState extends State<screen> {
                   onTap: () async {
                     final XFile? imageFile =
                         await cameraController!.takePicture();
-                    print('Error: ${imageFile?.path}');
+                    // print('Error: ${imageFile?.path}');
                     if (imageFile != null) {
                       try {
                         // Membuat instance DetailInfo
 
                         // Mengirim foto ke API
-                        _saveImageToTimeCard(imageFile.path);
+                        _saveImageToStory(imageFile.path);
 
                         // Langsung pindah ke halaman berikutnya tanpa menunggu gesture
                         Navigator.pushReplacement(

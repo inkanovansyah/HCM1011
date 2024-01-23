@@ -1,38 +1,42 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
-import 'package:hcm1011/data/model/upload_foto.dart';
 
 class DetailInfo {
   final String baseUrl = "https://storage.1011.co.id";
 
-  Future<ModelUploadFoto> fetchDataDetail(File userfile) async {
+  Future<String> fetchDataDetail(File userfile) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       var nama = prefs.getString('fullname');
-      final Uri url = Uri.parse('$baseUrl/api/store');
-      // print('$url');
+      // final Uri url = Uri.parse('$baseUrl/api/store');
+      var request =
+          http.MultipartRequest('POST', Uri.parse('$baseUrl/api/store'));
 
-      var request = http.MultipartRequest('POST', url)
-        ..fields['_method'] = 'PUT'
-        ..fields['key'] = '123456'
-        ..fields['domain'] = '1011.co.id'
-        ..fields['folder'] = '$nama-Story-1011'
-        ..fields['sizes'] = '{"large":{"width":"1080","height":"1080"}'
-        ..fields['title'] = '1011.co.id'
-        ..files.add(http.MultipartFile(
-          'userfile',
-          userfile.openRead(),
-          await userfile.length(),
-          filename: '$nama.jpg',
-        ));
-
-      var response = await http.Response.fromStream(await request.send());
+      request.fields.addAll({
+        '_method': 'PUT',
+        'key': '123456',
+        'domain': '1011.co.id',
+        'folder': '$nama-story-1011',
+        'size': '{"large":{"width":"1080","height":"1080"}}',
+        'title': '1011.co.id',
+      });
+      var file = http.MultipartFile(
+        'image',
+        userfile
+            .readAsBytes()
+            .asStream(), // Ambil data gambar sebagai byte stream
+        userfile.lengthSync(), // Berikan length dari file
+        filename: '$nama.jpg', // Gunakan ID perusahaan sebagai nama file
+      );
+      request.files.add(file);
+      print('$request');
+      http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        return ModelUploadFoto.fromJson(json.decode(response.body));
+        final responseData = await response.stream.bytesToString();
+        return responseData;
       } else {
         print('HTTP Error: ${response.statusCode}');
         throw FailureException('Response is not successful');
@@ -41,7 +45,7 @@ class DetailInfo {
       throw FailureException('No internet connection');
     } catch (e) {
       print('Error: $e');
-      throw FailureException('Failed to load list date by date');
+      throw FailureException('Failed to load list date');
     }
   }
 }

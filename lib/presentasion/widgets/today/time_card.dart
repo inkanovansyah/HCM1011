@@ -183,7 +183,7 @@ class CardTimeState extends StatelessWidget {
                                         width: 320,
                                         height: 400,
                                         child: Image.file(
-                                          File(imagePath!),
+                                          File(imagePath),
                                           fit: BoxFit.fill,
                                         ),
                                       ),

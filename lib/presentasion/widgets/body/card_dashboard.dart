@@ -43,8 +43,8 @@ class _cardSchedule extends State<CardSchedule> {
             itemCount: state.infoList?.length,
             itemBuilder: (context, index) {
               state.infoList
-                  ?.sort((a, b) => (b?.id ?? '').compareTo(a?.id ?? ''));
-              final id = state.infoList?[index]?.id ?? '';
+                  ?.sort((a, b) => (b.id ?? '').compareTo(a.id ?? ''));
+              final id = state.infoList?[index].id ?? '';
               final author = state.infoList?[index].author;
               final title = state.infoList?[index].title;
               final media = state.infoList?[index].media;

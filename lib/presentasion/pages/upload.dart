@@ -41,7 +41,7 @@ class _nameState extends State<screen> {
       DetailInfo apiService = DetailInfo();
       String result = await apiService.fetchDataDetail(imageFile);
       Map<String, dynamic> resultMap = json.decode(result);
-      print('API Response: $result');
+      print('API Response: ${result}');
 
       // Handle the API response as needed
       // For example, check result.status or result.data
@@ -153,7 +153,7 @@ class _nameState extends State<screen> {
                   onTap: () async {
                     final XFile? imageFile =
                         await cameraController!.takePicture();
-                    // print('Error: ${imageFile?.path}');
+                    print('Error: ${imageFile?.path}');
                     if (imageFile != null) {
                       try {
                         // Membuat instance DetailInfo

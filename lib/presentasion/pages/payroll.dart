@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_payroll/payroll_bloc.dart';
+import 'package:intl/intl.dart';
 
 class PayRoll extends StatefulWidget {
   const PayRoll({super.key});
@@ -90,7 +91,7 @@ class _payrollState extends State<PayRoll> {
                 ),
                 child: Container(
                   width: 350,
-                  height: 570,
+                  height: 660,
                   padding: EdgeInsets.all(10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -188,7 +189,7 @@ class _payrollState extends State<PayRoll> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(10),
                         child: BlocBuilder<PayrollBloc, PayrollState>(
                           builder: (context, state) {
                             if (state is PayrollLoading) {
@@ -202,15 +203,14 @@ class _payrollState extends State<PayRoll> {
                               );
                             } else if (state is PayrollInfoLoaded) {
                               final detailPayroll = state.dataPayroll;
-
                               return Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(4),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment
                                       .start, // Atur posisi ke kiri
                                   children: [
                                     Text(
-                                      'Earning Details',
+                                      'PENGHASILAN KOTOR',
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
@@ -224,15 +224,22 @@ class _payrollState extends State<PayRoll> {
                                         Row(
                                           children: [
                                             Text(
-                                              'Salary',
+                                              'Gaji Pokok',
                                               style: TextStyle(fontSize: 16.0),
                                             ),
                                             SizedBox(
-                                              width: 140,
+                                              width: 116,
                                             ), // Jarak antara 'NIK' dan nilai
                                             Text(
-                                              detailPayroll?.totalTerimaGaji ??
-                                                  'N/A',
+                                              NumberFormat.currency(
+                                                      locale: 'id',
+                                                      symbol: 'Rp')
+                                                  .format(
+                                                double.tryParse(detailPayroll
+                                                            ?.gajiPokok ??
+                                                        '0.0') ??
+                                                    0.0,
+                                              ),
                                               style: TextStyle(
                                                   fontSize: 17.0,
                                                   fontWeight: FontWeight.bold),
@@ -245,19 +252,82 @@ class _payrollState extends State<PayRoll> {
                                         Row(
                                           children: [
                                             Text(
-                                              'Positional Allowance',
+                                              'Gaji BPJS',
                                               style: TextStyle(fontSize: 16.0),
                                             ),
                                             SizedBox(
-                                              width: 35,
-                                            ), // Jarak antara 'NIK' dan nilai
+                                              width: 123,
+                                            ),
                                             Text(
-                                              detailPayroll?.tunjanganJabatan ??
-                                                  'N/A',
+                                              NumberFormat.currency(
+                                                      locale: 'id',
+                                                      symbol: 'Rp')
+                                                  .format(
+                                                double.tryParse(detailPayroll
+                                                            ?.totalTerimaGaji ??
+                                                        '0.0') ??
+                                                    0.0,
+                                              ),
                                               style: TextStyle(
                                                   fontSize: 17.0,
                                                   fontWeight: FontWeight.bold),
+                                            ), // Jarak antara 'NIK' dan nilai
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Tunjangan Jabatan',
+                                              style: TextStyle(fontSize: 16.0),
                                             ),
+                                            SizedBox(
+                                              width: 55,
+                                            ),
+                                            Text(
+                                              NumberFormat.currency(
+                                                      locale: 'id',
+                                                      symbol: 'Rp')
+                                                  .format(
+                                                double.tryParse(detailPayroll
+                                                            ?.tunjanganJabatan ??
+                                                        '0.0') ??
+                                                    0.0,
+                                              ),
+                                              style: TextStyle(
+                                                  fontSize: 17.0,
+                                                  fontWeight: FontWeight.bold),
+                                            ), // Jarak antara 'NIK' dan nilai
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Jumlah Penghasilan Kotor',
+                                              style: TextStyle(fontSize: 16.0),
+                                            ),
+                                            SizedBox(
+                                              width: 4,
+                                            ),
+                                            Text(
+                                              NumberFormat.currency(
+                                                      locale: 'id',
+                                                      symbol: 'Rp')
+                                                  .format(
+                                                double.tryParse(detailPayroll
+                                                            ?.totalTerimaGaji ??
+                                                        '0.0') ??
+                                                    0.0,
+                                              ),
+                                              style: TextStyle(
+                                                  fontSize: 17.0,
+                                                  fontWeight: FontWeight.bold),
+                                            ), // Jarak// Jarak antara 'NIK' dan nilai
                                           ],
                                         ),
                                         SizedBox(
@@ -266,15 +336,22 @@ class _payrollState extends State<PayRoll> {
                                         Row(
                                           children: [
                                             Text(
-                                              'Meal Allowance',
+                                              'Uang Makan',
                                               style: TextStyle(fontSize: 16.0),
                                             ),
                                             SizedBox(
-                                              width: 71,
+                                              width: 102,
                                             ), // Jarak antara 'NIK' dan nilai
                                             Text(
-                                              detailPayroll?.totalUangMakan ??
-                                                  'N/A',
+                                              NumberFormat.currency(
+                                                      locale: 'id',
+                                                      symbol: 'Rp')
+                                                  .format(
+                                                double.tryParse(detailPayroll
+                                                            ?.totalUangMakan ??
+                                                        '0.0') ??
+                                                    0.0,
+                                              ),
                                               style: TextStyle(
                                                   fontSize: 17.0,
                                                   fontWeight: FontWeight.bold),
@@ -287,16 +364,22 @@ class _payrollState extends State<PayRoll> {
                                         Row(
                                           children: [
                                             Text(
-                                              'Transportation',
+                                              'Uang Transport',
                                               style: TextStyle(fontSize: 16.0),
                                             ),
                                             SizedBox(
-                                              width: 79,
+                                              width: 82,
                                             ), // Jarak antara 'NIK' dan nilai
                                             Text(
-                                              detailPayroll
-                                                      ?.totalUangTransport ??
-                                                  'N/A',
+                                              NumberFormat.currency(
+                                                      locale: 'id',
+                                                      symbol: 'Rp')
+                                                  .format(
+                                                double.tryParse(detailPayroll
+                                                            ?.totalUangTransport ??
+                                                        '0.0') ??
+                                                    0.0,
+                                              ),
                                               style: TextStyle(
                                                   fontSize: 17.0,
                                                   fontWeight: FontWeight.bold),
@@ -306,19 +389,33 @@ class _payrollState extends State<PayRoll> {
                                         SizedBox(
                                           height: 20,
                                         ),
+                                        Text(
+                                          'POTONGAN',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(height: 10),
                                         Row(
                                           children: [
                                             Text(
-                                              'Unpaid Leave',
+                                              'Cuti Tidak Dibayar',
                                               style: TextStyle(fontSize: 16.0),
                                             ),
                                             SizedBox(
-                                              width: 86,
+                                              width: 61,
                                             ), // Jarak antara 'NIK' dan nilai
                                             Text(
-                                              detailPayroll
-                                                      ?.potonganUnpaidLeave ??
-                                                  'N/A',
+                                              NumberFormat.currency(
+                                                      locale: 'id',
+                                                      symbol: 'Rp')
+                                                  .format(
+                                                double.tryParse(detailPayroll
+                                                            ?.potonganUnpaidLeave ??
+                                                        '0.0') ??
+                                                    0.0,
+                                              ),
                                               style: TextStyle(
                                                 fontSize: 17.0,
                                                 fontWeight: FontWeight.bold,
@@ -337,11 +434,48 @@ class _payrollState extends State<PayRoll> {
                                               style: TextStyle(fontSize: 16.0),
                                             ),
                                             SizedBox(
-                                              width: 23,
+                                              width: 29,
                                             ), // Jarak antara 'NIK' dan nilai
                                             Text(
-                                              detailPayroll?.potonganBpjsTk ??
-                                                  'N/A',
+                                              NumberFormat.currency(
+                                                      locale: 'id',
+                                                      symbol: 'Rp')
+                                                  .format(
+                                                double.tryParse(detailPayroll
+                                                            ?.potonganBpjsTk ??
+                                                        '0.0') ??
+                                                    0.0,
+                                              ),
+                                              style: TextStyle(
+                                                fontSize: 17.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'BPJS Kesehatan',
+                                              style: TextStyle(fontSize: 16.0),
+                                            ),
+                                            SizedBox(
+                                              width: 73,
+                                            ), // Jarak antara 'NIK' dan nilai
+                                            Text(
+                                              NumberFormat.currency(
+                                                      locale: 'id',
+                                                      symbol: 'Rp')
+                                                  .format(
+                                                double.tryParse(detailPayroll
+                                                            ?.potonganBpjsTk ??
+                                                        '0.0') ??
+                                                    0.0,
+                                              ),
                                               style: TextStyle(
                                                 fontSize: 17.0,
                                                 fontWeight: FontWeight.bold,

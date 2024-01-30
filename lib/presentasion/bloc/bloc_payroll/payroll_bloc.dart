@@ -12,13 +12,15 @@ class PayrollBloc extends Bloc<PayrollEvent, PayrollState> {
   final DetailPayroll detailPayroll;
 
   PayrollBloc({required this.detailPayroll}) : super(PayrollInitial()) {
-    on<PayrollEvent>(
+    on<FetchPayrollDetail>(
       (event, emit) async {
         try {
           emit(
             PayrollLoading(),
           );
-          final result = await detailPayroll.fatchDetailPayroll();
+
+          final info_month = event.month;
+          final result = await detailPayroll.fatchDetailPayroll(info_month);
           if (result.status == 200) {
             emit(
               PayrollInfoLoaded(result.data, result.status),

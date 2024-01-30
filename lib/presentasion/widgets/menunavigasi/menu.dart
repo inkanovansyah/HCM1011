@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/pages/dashboard.dart';
+import 'package:intl/intl.dart';
 
 import 'package:hcm1011/presentasion/pages/payroll.dart';
 import 'package:hcm1011/presentasion/pages/profile.dart';
@@ -21,18 +22,28 @@ class MenuNavigasi extends StatefulWidget {
 
 class _NavigasiState extends State<MenuNavigasi> {
   int _currentIndex = 0;
+  String currentMonth = DateFormat('M').format(DateTime.now());
+  // String currentMonth = '11';
+  late payrollDetailArgument arg;
+  @override
+  void initState() {
+    super.initState();
+    // Inisialisasi arg di sini
+    print(currentMonth);
+    arg = payrollDetailArgument(month: currentMonth);
+  }
 
-  final List<Widget> _screens = [
-    Dashboard(), // Buat HomePage() dan halaman lainnya sesuai kebutuhan.
-    MyAttandance(
-      imagePath: '',
-    ),
-    MyAttandance(
-      imagePath: '',
-    ),
-    PayRoll(),
-    MyProfile()
-  ];
+  // final List<Widget> _screens = [
+  //   Dashboard(), // Buat HomePage() dan halaman lainnya sesuai kebutuhan.
+  //   MyAttandance(
+  //     imagePath: '',
+  //   ),
+  //   MyAttandance(
+  //     imagePath: '',
+  //   ),
+  //   PayRoll(argument: arg),
+  //   MyProfile()
+  // ];
 
   void _navigateToPage(int index) {
     setState(() {
@@ -55,6 +66,13 @@ class _NavigasiState extends State<MenuNavigasi> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _screens = [
+      Dashboard(),
+      MyAttandance(imagePath: ''),
+      MyAttandance(imagePath: ''),
+      PayRoll(argument: arg),
+      MyProfile()
+    ];
     return Scaffold(
       resizeToAvoidBottomInset: false, //
       body: _screens[_currentIndex],

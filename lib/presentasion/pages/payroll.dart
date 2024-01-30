@@ -5,15 +5,24 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_payroll/payroll_bloc.dart';
 import 'package:intl/intl.dart';
 
+class payrollDetailArgument {
+  final String month;
+
+  payrollDetailArgument({required this.month});
+}
+
 class PayRoll extends StatefulWidget {
-  const PayRoll({super.key});
+  final payrollDetailArgument argument;
+  const PayRoll({
+    Key? key,
+    required this.argument,
+  }) : super(key: key);
 
   @override
   State<PayRoll> createState() => _payrollState();
 }
 
 class _payrollState extends State<PayRoll> {
-  int _selectedYear = DateTime.now().year;
   int _selectedMonth = DateTime.now().month;
   late List<_ChartData> data;
   late TooltipBehavior _tooltip;
@@ -34,11 +43,14 @@ class _payrollState extends State<PayRoll> {
   ];
   @override
   void initState() {
-    _tooltip = TooltipBehavior(enable: true);
-    Future.microtask(
-      () => context.read<PayrollBloc>().add(const GetList()),
-    );
     super.initState();
+    _tooltip = TooltipBehavior(enable: true);
+    Future.microtask(() {
+      // Menggunakan nilai dari widget.argument
+      context.read<PayrollBloc>().add(
+            FetchPayrollDetail(month: widget.argument.month),
+          );
+    });
   }
 
   @override
@@ -101,20 +113,6 @@ class _payrollState extends State<PayRoll> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            DropdownButton<int>(
-                              value: _selectedYear,
-                              onChanged: (int? newValue) {
-                                setState(() {
-                                  _selectedYear = newValue!;
-                                });
-                              },
-                              items: List.generate(10, (index) {
-                                return DropdownMenuItem<int>(
-                                  value: DateTime.now().year - index,
-                                  child: Text('${DateTime.now().year - index}'),
-                                );
-                              }),
-                            ),
                             SizedBox(width: 10),
                             DropdownButton<int>(
                               value: _selectedMonth,

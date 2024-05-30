@@ -33,8 +33,6 @@ class KpiDetail {
 
       // print(url);
       if (response.statusCode == 200) {
-        // final decodedResponse = json.decode(response.body);
-        // final modelListInfo = ModelDetailKpi.fromJson(decodedResponse);
         // final modelListInfoString = json.encode(modelListInfo);
         // print('ModelListInfo as String: ${modelListInfoString}');
         return ModelDetailKpi.fromJson(json.decode(response.body));

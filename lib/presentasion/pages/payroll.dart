@@ -23,7 +23,8 @@ class PayRoll extends StatefulWidget {
 }
 
 class _payrollState extends State<PayRoll> {
-  int _selectedMonth = DateTime.now().month;
+  List<String> _monthsToShow = [];
+  late int _selectedMonthIndex;
   late List<_ChartData> data;
   late TooltipBehavior _tooltip;
 
@@ -44,6 +45,7 @@ class _payrollState extends State<PayRoll> {
   @override
   void initState() {
     super.initState();
+    _initializeMonthList();
     _tooltip = TooltipBehavior(enable: true);
     Future.microtask(() {
       // Menggunakan nilai dari widget.argument
@@ -51,6 +53,16 @@ class _payrollState extends State<PayRoll> {
             FetchPayrollDetail(month: widget.argument.month),
           );
     });
+  }
+
+  void _initializeMonthList() {
+    final now = DateTime.now();
+    final formatter = DateFormat('MMMM');
+    for (int i = 0; i < 6; i++) {
+      final month = DateTime(now.year, now.month - i, now.day);
+      _monthsToShow.insert(0, formatter.format(month));
+    }
+    _selectedMonthIndex = _monthsToShow.length - 1; // Set to current month
   }
 
   @override
@@ -114,21 +126,22 @@ class _payrollState extends State<PayRoll> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(width: 10),
-                            DropdownButton<int>(
-                              value: _selectedMonth,
-                              onChanged: (int? newValue) {
+                            DropdownButton<String>(
+                              value: _monthsToShow[_selectedMonthIndex],
+                              onChanged: (String? newValue) {
                                 setState(() {
-                                  _selectedMonth = newValue!;
+                                  _selectedMonthIndex =
+                                      _monthsToShow.indexOf(newValue!);
                                 });
                               },
-                              items: _months.map(
-                                (String month) {
-                                  return DropdownMenuItem<int>(
-                                    value: _months.indexOf(month) + 1,
-                                    child: Text(month),
-                                  );
-                                },
-                              ).toList(),
+                              items: _monthsToShow
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
                             ),
                           ],
                         ),

@@ -12,13 +12,13 @@ class InfoInitial extends ListState {}
 class InfoLoading extends ListState {}
 
 class InfoLoaded extends ListState {
-  final List<Datum> infoList;
-  final int status;
+  final List<Datum>? infoList;
+  final int? status;
 
   const InfoLoaded(this.infoList, this.status);
 
   @override
-  List<Object> get props => [infoList, status];
+  List<Object> get props => [infoList ?? '', status ?? ''];
 }
 
 class InfoNoData extends ListState {

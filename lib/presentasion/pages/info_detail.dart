@@ -101,8 +101,8 @@ class _infoState extends State<infoDetail> {
                                     width: 10,
                                   ),
                                   Container(
-                                    height: 50,
-                                    width: 50,
+                                    height: 60,
+                                    width: 60,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(
                                           10), // Sesuaikan dengan radius yang diinginkan
@@ -126,13 +126,13 @@ class _infoState extends State<infoDetail> {
                                       Padding(
                                         padding: EdgeInsets.only(left: 10.0),
                                         child: Text(
-                                          state.detailList.title.length > 20
+                                          state.detailList.title.length > 25
                                               ? state.detailList.title
                                                       .substring(0, 20) +
                                                   '..'
                                               : state.detailList.title,
                                           style: openSensBoldDark.copyWith(
-                                            fontSize: 16,
+                                            fontSize: 18,
                                             color: darkColor,
                                           ),
                                           textAlign: TextAlign.left,

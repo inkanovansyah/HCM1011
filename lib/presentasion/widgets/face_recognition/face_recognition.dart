@@ -200,17 +200,30 @@ class _CameraPageState extends State<CameraPage> {
                       barrierDismissible: true,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('How to Take Selfie'),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
+                                'How to Take Selfie',
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight
+                                      .bold, // This makes the text bold
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
                                 'Make sure we can see clear features.',
                                 style: TextStyle(fontSize: 16),
                               ),
-                              SizedBox(height: 10),
                               Text(
-                                'Do natural expression and do not cover your face.',
+                                'Do natural expression and do not cover.',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                'your face.',
                                 style: TextStyle(fontSize: 16),
                               ),
                               SizedBox(height: 20),
@@ -221,7 +234,11 @@ class _CameraPageState extends State<CameraPage> {
                               ),
                               SizedBox(height: 20),
                               Text(
-                                'It should be only you. Not too far or too close.',
+                                'It should be only you. Not too far or too.',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                'close.',
                                 style: TextStyle(fontSize: 16),
                               ),
                               SizedBox(height: 20),

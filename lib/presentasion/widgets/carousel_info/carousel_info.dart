@@ -37,15 +37,24 @@ class _InfoCarouselState extends State<InfoCarousel> {
           );
         } else if (state is InfoLoaded) {
           // Sort the state.infoList ascending based on ID
-          state.infoList.sort((a, b) => a.id.compareTo(b.id));
+          if (state.infoList != null) {
+            // Sort the state.infoList ascending based on ID, handling potential null values
+            state.infoList!.sort((a, b) {
+              // Check for nulls in a.id and b.id
+              if (a.id == null && b.id == null) return 0;
+              if (a.id == null) return 1;
+              if (b.id == null) return -1;
+              return a.id!.compareTo(b.id!);
+            });
+          }
           return SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 CarouselSlider(
-                  items: state.infoList.map(
+                  items: state.infoList?.map(
                     (info) {
-                      final id = info.id;
+                      final id = info.id!;
                       final media = info.media;
                       final title = info.title;
                       // final author = info.summary;
@@ -126,7 +135,7 @@ class _InfoCarouselState extends State<InfoCarousel> {
                       -30.0), // Sesuaikan ofset sesuai kebutuhan (-30.0 untuk naik)
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: state.infoList.asMap().entries.map((entry) {
+                    children: state.infoList!.asMap().entries.map((entry) {
                       int index = entry.key;
                       return index == _currentIndex
                           ? Transform.scale(

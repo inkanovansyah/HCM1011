@@ -71,17 +71,32 @@ class _profileState extends State<profile> {
                         width: 100.0,
                         height: 100.0,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          image: DecorationImage(
-                            image: AssetImage(
-                              image != null
-                                  ? '$image'
-                                  : 'assets/images/Profile_test.png',
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black87.withOpacity(0.120),
+                              spreadRadius: 5,
+                              blurRadius: 10,
+                              offset: const Offset(0, 0),
                             ),
-                            fit: BoxFit
-                                .cover, // Adjust the BoxFit according to your needs
-                          ),
+                          ],
                         ),
+                        child: image != null && image!.isNotEmpty
+                            ? Image.network(
+                                image!,
+                                fit: BoxFit
+                                    .cover, // Adjust according to your needs
+                                errorBuilder: (context, error, stackTrace) {
+                                  // Fallback for network image load failure
+                                  return Image.asset(
+                                    'assets/images/Profile_test.png',
+                                    fit: BoxFit.cover,
+                                  );
+                                },
+                              )
+                            : Image.asset(
+                                'assets/images/Profile_test.png',
+                                fit: BoxFit.cover,
+                              ),
                       ),
                       Positioned(
                         bottom: 7,
@@ -90,15 +105,15 @@ class _profileState extends State<profile> {
                           child: Image.asset(
                             'assets/images/Logo_profile.png', // Ganti dengan path gambar kustom Anda
                             width:
-                                60.0, // Sesuaikan ukuran gambar dengan kebutuhan
-                            height: 20.0,
+                                70.0, // Sesuaikan ukuran gambar dengan kebutuhan
+                            height: 30.0,
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(width: 14.0),
+                SizedBox(width: 20.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -156,11 +171,11 @@ class _profileState extends State<profile> {
                           style: TextStyle(fontSize: 14.0),
                         ),
                         SizedBox(width: 43), // Jarak antara 'NIK' dan nilai
-                        Text(
-                          '${dob ?? 'Data tidak tersedia'}',
-                          style: TextStyle(
-                              fontSize: 12.0, fontWeight: FontWeight.bold),
-                        ),
+                        // Text(
+                        //   '${dob ?? 'Data tidak tersedia'}',
+                        //   style: TextStyle(
+                        //       fontSize: 12.0, fontWeight: FontWeight.bold),
+                        // ),
                       ],
                     ),
                     SizedBox(

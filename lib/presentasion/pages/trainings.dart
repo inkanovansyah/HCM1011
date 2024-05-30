@@ -49,24 +49,9 @@ class _PageUpdate extends State<PagesUpdate> {
             Expanded(
               child: TabBarView(
                 children: [
-                  trainings(
-                    title: 'High Grade & Persitence',
-                    review:
-                        'Planned discussion among  people to exchange ideas',
-                    date: '12 nov 2023',
-                    imgprofile: 'assets/images/Profile_fo.png',
-                    imgcover: 'assets/banner/info.png',
-                  ),
+                  Trainings(),
                   // Tam
-
-                  trainings(
-                    title: 'High Grade & Persitence',
-                    review:
-                        'Planned discussion among  people to exchange ideas',
-                    date: '12 nov 2023',
-                    imgprofile: 'assets/images/Profile_fo.png',
-                    imgcover: 'assets/banner/info.png',
-                  ),
+                  Trainings(),
                   // Tambahkan widget lain untuk konten Tab kedua di sini
                 ],
               ),

@@ -37,105 +37,128 @@ class _cardSchedule extends State<CardSchedule> {
           );
         } else if (state is ListInfoLoaded) {
           // return _buildCard(context, state.modelList);
-
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: state.infoList?.length,
-            itemBuilder: (context, index) {
-              state.infoList
-                  ?.sort((a, b) => (b.id ?? '').compareTo(a.id ?? ''));
-              final id = state.infoList?[index].id ?? '';
-              final author = state.infoList?[index].author;
-              final title = state.infoList?[index].title;
-              final media = state.infoList?[index].media;
-
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Card(
-                  elevation: 1.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+          if (state.infoList == null || state.infoList!.isEmpty) {
+            // Display an image or a message indicating no data
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                      'assets/status/no_info.png'), // Replace with your image asset
+                  SizedBox(
+                    height: 6,
                   ),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        infoDetail.route,
-                        arguments: DetailPageArgument(info_id: id),
-                      );
+                  Text(
+                    'No data available',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.infoList?.length,
+              itemBuilder: (context, index) {
+                state.infoList
+                    ?.sort((a, b) => (b.id ?? '').compareTo(a.id ?? ''));
+                final id = state.infoList?[index].id ?? '';
+                final author = state.infoList?[index].author;
+                final title = state.infoList?[index].title;
+                final media = state.infoList?[index].media;
 
-                      print('Card Clicked! ${id}');
-                      // Anda dapat menavigasi ke layar baru atau melakukan tindakan lainnya.
-                    },
-                    child: Container(
-                      height: 90,
-                      width: 159,
-                      decoration: BoxDecoration(
-                        color: whiteColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: Color(0xFF1BEFC7), // Warna garis tepi (strok)
-                          width: 1.0, // Lebar garis tepi (strok)
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Card(
+                    elevation: 1.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          infoDetail.route,
+                          arguments: DetailPageArgument(info_id: id),
+                        );
+
+                        print('Card Clicked! ${id}');
+                        // Anda dapat menavigasi ke layar baru atau melakukan tindakan lainnya.
+                      },
+                      child: Container(
+                        height: 90,
+                        width: 159,
+                        decoration: BoxDecoration(
+                          color: whiteColor,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color:
+                                Color(0xFF1BEFC7), // Warna garis tepi (strok)
+                            width: 1.0, // Lebar garis tepi (strok)
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            child: Image.asset(
-                              media != null
-                                  ? '$media'
-                                  : 'assets/images/Profile_test.png',
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
                             ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 20,
+                            Container(
+                              height: 50,
+                              width: 50,
+                              child: Image.asset(
+                                media != null
+                                    ? '$media'
+                                    : 'assets/images/Profile_test.png',
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  '${title}',
-                                  style: openSensBoldDark.copyWith(
-                                    fontSize: 16,
-                                    color: darkColor,
-                                  ),
-                                  textAlign: TextAlign.left,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 20,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  '${author}',
-                                  style: openSensMediumDark.copyWith(
-                                    fontSize: 13,
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    '${title}',
+                                    style: openSensBoldDark.copyWith(
+                                      fontSize: 16,
+                                      color: darkColor,
+                                    ),
+                                    textAlign: TextAlign.left,
                                   ),
-                                  textAlign: TextAlign.left,
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                        ],
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    '${author}',
+                                    style: openSensMediumDark.copyWith(
+                                      fontSize: 13,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              );
-            },
-          );
+                );
+              },
+            );
+          }
         } else if (state is ListInfoError) {
           return Center(
             child: Text(state.message),

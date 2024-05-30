@@ -22,8 +22,8 @@ class MenuNavigasi extends StatefulWidget {
 
 class _NavigasiState extends State<MenuNavigasi> {
   int _currentIndex = 0;
-  String currentMonth = DateFormat('M').format(DateTime.now());
-  // String currentMonth = '11';
+  // String currentMonth = DateFormat('M').format(DateTime.now());
+  String currentMonth = '12';
   late payrollDetailArgument arg;
   @override
   void initState() {

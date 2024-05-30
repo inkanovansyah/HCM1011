@@ -1,41 +1,37 @@
 import 'dart:convert';
+
 import 'dart:io';
-import 'package:intl/intl.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
-import 'package:hcm1011/data/model/payroll.dart';
+import 'package:hcm1011/data/model/trining.dart';
 
-class DetailPayroll {
-  final String baseUrl = "https://api.1011.co.id";
+class MyTrining {
+  final String baseUri = "https://api.1011.co.id";
 
-  Future<ModelDetailpayroll> fatchDetailPayroll(String month) async {
+  Future<ModelTrining> fatchListTrining() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token');
       var company_id = prefs.getString('company_id');
       var employee_id = prefs.getString('employee_id');
-      String currentYear = DateFormat('y').format(DateTime.now());
-
       final Uri url =
-          Uri.parse('$baseUrl/payroll/$company_id/salary-this-month');
-
+          Uri.parse('$baseUri/employee/$company_id/my-training/list');
       final response = await http.post(
         url,
         headers: {
           'Authorization': 'Bearer $token', // Tambahkan token ke header
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(
-            {"employee_id": employee_id, "year": "2023", "month": month}),
+        body: jsonEncode({"start": 0, "length": 20, "employee_id": 10}),
       );
-
       if (response.statusCode == 200) {
-        final decodedResponse = json.decode(response.body);
-        final modelListInfo = ModelDetailpayroll.fromJson(decodedResponse);
-
-        return modelListInfo;
+        // final decodedResponse = json.decode(response.body);
+        // final modelListInfo = ModelTrining.fromJson(decodedResponse);
+        // final modelListInfoString = json.encode(modelListInfo);
+        // print('ModelListInfo as String: ${modelListInfoString}');
+        return ModelTrining.fromJson(json.decode(response.body));
       } else {
         print('HTTP Error: ${response.statusCode}');
         throw FailureException('Response are not success');
@@ -44,7 +40,7 @@ class DetailPayroll {
       throw FailureException('no internet Connection');
     } catch (e) {
       print('Error: $e');
-      throw FailureException('Gaji belum di cetak');
+      throw FailureException('faild to load list date by date');
     }
   }
 }

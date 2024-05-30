@@ -46,8 +46,8 @@ class ListInfoBanner {
       var company_id = prefs.getString('company_id');
       // var level_id = prefs.getString('level_id');
       final Uri url = Uri.parse(
-          '$baseUrl/office/$company_id/info/0/$formatted/list-data-by-date');
-
+          '$baseUrl/office/$company_id/info/0/2024-02-12/list-data-by-date');
+      // print(url);
       // Ganti ini dengan data yang ingin Anda kirimkan dalam permintaan POST
       final response = await http.post(
         url,
@@ -60,6 +60,7 @@ class ListInfoBanner {
           "length": 7,
         }),
       );
+      // print(response.body);
 
       if (response.statusCode == 200) {
         // final decodedResponse = json.decode(response.body);

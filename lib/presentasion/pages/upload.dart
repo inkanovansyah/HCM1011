@@ -10,6 +10,7 @@ import 'package:hcm1011/presentasion/widgets/menunavigasi/menu.dart';
 import 'package:hcm1011/data/service/api_sand_foto.dart';
 import 'package:hcm1011/presentasion/pages/dashboard.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
+import 'package:hcm1011/data/service/api_story.dart';
 
 enum EnumCameraDescription {
   front,
@@ -34,18 +35,23 @@ class _nameState extends State<screen> {
     startCamera(EnumCameraDescription.front); // Memulai dengan kamera depan
   }
 
-  Future<void> _saveImageToStory(String imagePath) async {
+  Future<void> _saveImageToStory(
+    String imagePath,
+    // String source,
+  ) async {
     try {
       // Create a file object from the image path
       File imageFile = File(imagePath);
       DetailInfo apiService = DetailInfo();
       String result = await apiService.fetchDataDetail(imageFile);
       Map<String, dynamic> resultMap = json.decode(result);
-      print('API Response: ${result}');
+      // print('API Response: ${result}');
 
-      // Handle the API response as needed
-      // For example, check result.status or result.data
+      String imageUrl = resultMap['data']['image']['large']['source_url'];
 
+      InsertStory apiStory = InsertStory();
+      String res = await apiStory.fetchStoryApi(imageUrl);
+      print('API Response: ${res}');
       // Navigate to the next page
       Navigator.pushReplacement(
         context,

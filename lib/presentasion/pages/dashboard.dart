@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hcm1011/data/model/info.dart';
+import 'dart:math';
 import 'package:hcm1011/presentasion/widgets/body/card_dashboard.dart';
 import 'package:hcm1011/presentasion/widgets/body/dashboard.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
@@ -7,7 +9,9 @@ import 'package:hcm1011/presentasion/widgets/body/cardInfgo.dart';
 import 'package:hcm1011/presentasion/widgets/body/button_login.dart';
 
 import 'package:hcm1011/presentasion/widgets/carousel_info/carousel_info.dart';
-import 'package:hcm1011/presentasion/widgets/cardStory/card_story.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_story/bloc_list_story_bloc.dart';
+import 'package:hcm1011/data/model/liststory.dart';
 
 class Dashboard extends StatefulWidget {
   static String route = "/dashboard";
@@ -21,6 +25,13 @@ class Dashboard extends StatefulWidget {
 }
 
 class _dashboardState extends State<Dashboard> {
+  void initState() {
+    Future.microtask(
+      () => context.read<BlocListStoryBloc>().add(const Fetchlist()),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,13 +97,7 @@ class _dashboardState extends State<Dashboard> {
           ),
           Container(
             height: 440.0,
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                if (index % 2 == 0) {
-                  return _buildCarousel(context, index);
-                }
-              },
-            ),
+            child: _buildCarousel(context), // Langsung memanggil _buildCarousel
           ),
           SizedBox(
             height: 20.0,
@@ -115,32 +120,92 @@ class _dashboardState extends State<Dashboard> {
     );
   }
 
-  Widget _buildCarousel(BuildContext context, int carouselIndex) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        SizedBox(
-          // you may want to use an aspect ratio here for tablet support
-          height: 438.0,
-          child: PageView.builder(
-            // store this controller in a State to save the carousel scroll position
-            controller: PageController(viewportFraction: 0.8),
-            itemBuilder: (BuildContext context, int itemIndex) {
-              return _buildCarouselItem(context, carouselIndex, itemIndex);
-            },
-          ),
-        )
-      ],
+  Widget _buildCarousel(BuildContext context) {
+    return BlocBuilder<BlocListStoryBloc, BlocListStoryState>(
+      builder: (context, state) {
+        if (state is BlocListStoryLoading) {
+          return SizedBox(
+            height: 100, // Sesuaikan dengan kebutuhan
+            child: Center(child: CircularProgressIndicator()),
+          );
+        } else if (state is BlocListStoryLoaded) {
+          return SizedBox(
+            height: 438.0,
+            child: PageView.builder(
+              controller: PageController(viewportFraction: 0.8),
+              itemCount: state.storyList?.length ?? 0,
+              itemBuilder: (context, index) {
+                return _buildCarouselItem(context, state.storyList![index]);
+              },
+            ),
+          );
+        } else if (state is BlocListStoryError) {
+          return Center(child: Text(state.message));
+        } else {
+          return SizedBox(
+            height: 100,
+            child: Center(child: Text('Data kosong...')),
+          );
+        }
+      },
     );
   }
 
-  Widget _buildCarouselItem(
-      BuildContext context, int carouselIndex, int itemIndex) {
+  Widget _buildCarouselItem(BuildContext context, Datums datums) {
+    // Asumsi Story adalah kelas model Anda dengan properti yang relevan
+    final id = datums.storyId;
+    final name = datums.nameFile;
+    final date = datums.createAt;
+    final media = datums.source;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 0.0),
-      child: Container(
-        child: cardStory(
-          img: 'assets/test/Storytest.png',
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: Container(
+          color: Colors.grey,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Transform.rotate(
+                  angle: -pi / 2, // Rotasi 90 derajat ke kiri
+                  child: Image.network(
+                    '$media', // Ganti dengan URL gambar Anda
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 10,
+                left: 10,
+                right: 10,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.all(4),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$name $id',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '$date',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

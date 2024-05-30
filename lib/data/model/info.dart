@@ -1,16 +1,16 @@
 import 'dart:convert';
 
 class ModelListInfo {
-  int status;
+  int? status;
   dynamic error;
-  String message;
-  List<Datum> data;
+  String? messages;
+  List<Datum>? data;
 
   ModelListInfo({
-    required this.status,
-    required this.error,
-    required this.message,
-    required this.data,
+    this.status,
+    this.error,
+    this.messages,
+    this.data,
   });
 
   factory ModelListInfo.fromRawJson(String str) =>
@@ -21,47 +21,51 @@ class ModelListInfo {
   factory ModelListInfo.fromJson(Map<String, dynamic> json) => ModelListInfo(
         status: json["status"],
         error: json["error"],
-        message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        messages: json["messages"],
+        data: json["data"] == null
+            ? []
+            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "error": error,
-        "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "messages": messages,
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 
 class Datum {
-  String id;
-  String author;
-  String title;
-  String alias;
-  String content;
-  String summary;
+  String? id;
+  String? author;
+  String? title;
+  String? alias;
+  String? content;
+  String? summary;
   dynamic categories;
   dynamic linkUrl;
   dynamic media;
-  String hits;
-  String isActive;
-  DateTime createdAt;
-  DateTime updateAt;
+  String? hits;
+  String? isActive;
+  DateTime? createdAt;
+  DateTime? updateAt;
 
   Datum({
-    required this.id,
-    required this.author,
-    required this.title,
-    required this.alias,
-    required this.content,
-    required this.summary,
-    required this.categories,
-    required this.linkUrl,
-    required this.media,
-    required this.hits,
-    required this.isActive,
-    required this.createdAt,
-    required this.updateAt,
+    this.id,
+    this.author,
+    this.title,
+    this.alias,
+    this.content,
+    this.summary,
+    this.categories,
+    this.linkUrl,
+    this.media,
+    this.hits,
+    this.isActive,
+    this.createdAt,
+    this.updateAt,
   });
 
   factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
@@ -80,8 +84,12 @@ class Datum {
         media: json["media"],
         hits: json["hits"],
         isActive: json["is_active"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updateAt: DateTime.parse(json["update_at"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updateAt: json["update_at"] == null
+            ? null
+            : DateTime.parse(json["update_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -96,7 +104,7 @@ class Datum {
         "media": media,
         "hits": hits,
         "is_active": isActive,
-        "created_at": createdAt.toIso8601String(),
-        "update_at": updateAt.toIso8601String(),
+        "created_at": createdAt?.toIso8601String(),
+        "update_at": updateAt?.toIso8601String(),
       };
 }

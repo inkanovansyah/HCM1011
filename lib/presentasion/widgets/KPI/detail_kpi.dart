@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_kpi/kpi_bloc.dart';
+import 'package:hcm1011/presentasion/pages/kpi-list.dart';
 
 class KpiDetail extends StatefulWidget {
   const KpiDetail({super.key});
@@ -55,7 +56,7 @@ class _nameState extends State<KpiDetail> {
               ),
               child: Container(
                 width: 350,
-                height: 320,
+                height: 620,
                 padding: EdgeInsets.all(20),
                 child: BlocBuilder<KpiBloc, KpiState>(
                   builder: (context, state) {
@@ -74,7 +75,7 @@ class _nameState extends State<KpiDetail> {
                         itemCount: state.dataKpi?.data?.length ?? 0,
                         itemBuilder: (context, index) {
                           final kpiDatum = state.dataKpi!.data![index];
-
+                          // print(response.body);
                           if (kpiDatum.isActive == '1') {
                             final name = kpiDatum.name ?? 'No_Name';
 
@@ -98,7 +99,7 @@ class _nameState extends State<KpiDetail> {
                                 break;
                               case '25':
                                 progressColor = Colors.lightGreen;
-                                progresdata = 'KPI sudah 100%';
+                                progresdata = 'KPI WAITING APPROVAL';
                                 break;
                               case '50':
                                 progressColor = Colors.green;
@@ -143,7 +144,7 @@ class _nameState extends State<KpiDetail> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 120,
+                                        height: 30,
                                       ), // Jarak antara judul dan deskripsi
                                       Text(
                                         '$progressValue %', // Ganti dengan deskripsi sesuai kebutuhan
@@ -182,6 +183,81 @@ class _nameState extends State<KpiDetail> {
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
+                                      ),
+                                      SizedBox(
+                                          height:
+                                              20), // Jarak antara teks dan tombol
+                                      Center(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => ListKpi(),
+                                              ),
+                                            ); // Tambahkan fungsi yang ingin dijalankan ketika tombol ditekan
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 20.0),
+                                            child: Text('View KPI'),
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            primary: Color(0xFF202449),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            elevation: 0,
+                                            minimumSize: Size(320,
+                                                50), // Sesuaikan tinggi sesuai kebutuhan
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height:
+                                              20), // Jarak antara teks dan tombol
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Instruction',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            'Form Penilaian Kinerja ini terdiri dari 1 bagian:',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          SizedBox(height: 5),
+                                          Text(
+                                            'Bagian A: Individual Key Performance Indicators (KPI) penyelesaian dari penilaian kinerja.',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            'Evaluasi yang dilakukan oleh Atasan harus objektif dan berdasarkan kinerja aktual serta perilaku kerja yang diamati. Mendiskusikan hasil evaluasi harus dilakukan untuk mengetahui umpan balik atas pencapaian kinerja dengan Karyawan.',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            'Karyawan dan Atasan akan menandatangani dan memberikan komentar pada halaman 2 untuk menyatakan',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),

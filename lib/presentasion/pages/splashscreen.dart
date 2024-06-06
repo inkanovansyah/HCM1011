@@ -24,20 +24,20 @@ class _SplashScreenState extends State<SplashScreen> {
     ),
     OnboardingPage(
         image: 'assets/images/splash_1.png',
-        text: 'Siapa Kita? Hero',
-        label2: 'hero_2'),
+        text: 'HIGH GRIDE',
+        label2: 'Individu dan hasil pekerjaan yang berkualitas'),
     OnboardingPage(
         image: 'assets/images/splash_2.png',
-        text: 'Siapa Kita? Hero',
-        label2: 'hero_3'),
+        text: 'ETHIC SENSE',
+        label2: 'Individu yang memiliki etika dan moral'),
     OnboardingPage(
         image: 'assets/images/splash_3.png',
-        text: 'Siapa Kita? Hero',
-        label2: 'hero_4'),
+        text: 'RELIBLE',
+        label2: 'Individu dan Produk yang dapat diandalkan'),
     OnboardingPage(
         image: 'assets/images/splash_4.png',
-        text: 'Siapa Kita? Hero',
-        label2: 'hero_5'),
+        text: 'OVERCOME',
+        label2: 'Individu dan Perusahaan yang mau melampui pencapaiannya'),
   ];
 
   @override

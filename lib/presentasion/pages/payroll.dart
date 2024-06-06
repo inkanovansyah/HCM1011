@@ -120,32 +120,32 @@ class _payrollState extends State<PayRoll> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 10), // Jarak antara judul dan deskripsi
-                      Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(width: 10),
-                            DropdownButton<String>(
-                              value: _monthsToShow[_selectedMonthIndex],
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  _selectedMonthIndex =
-                                      _monthsToShow.indexOf(newValue!);
-                                });
-                              },
-                              items: _monthsToShow
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // SizedBox(height: 10), // Jarak antara judul dan deskripsi
+                      // Center(
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: <Widget>[
+                      //       SizedBox(width: 10),
+                      //       DropdownButton<String>(
+                      //         value: _monthsToShow[_selectedMonthIndex],
+                      //         onChanged: (String? newValue) {
+                      //           setState(() {
+                      //             _selectedMonthIndex =
+                      //                 _monthsToShow.indexOf(newValue!);
+                      //           });
+                      //         },
+                      //         items: _monthsToShow
+                      //             .map<DropdownMenuItem<String>>(
+                      //                 (String value) {
+                      //           return DropdownMenuItem<String>(
+                      //             value: value,
+                      //             child: Text(value),
+                      //           );
+                      //         }).toList(),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       Container(
                         height: 200,
                         width: 200,

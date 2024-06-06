@@ -12,7 +12,7 @@ class KpiInitial extends KpiState {}
 class KpiLoading extends KpiState {}
 
 class KpiLoaded extends KpiState {
-  final Data? dataKpi;
+  final ModelDetailKpiData? dataKpi;
   final int? status;
 
   const KpiLoaded(this.dataKpi, this.status);

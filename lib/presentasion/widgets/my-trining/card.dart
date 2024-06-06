@@ -45,9 +45,18 @@ class _nameCardTrining extends State<CardTrining> {
               final certificateValue = state.data?.data?[index].hasCertificate;
               final String certificateStatus =
                   certificateValue == 1 ? "No Certificate" : "Certificate";
-              final start_date = state.data?.data?[index].startDate;
-              final end_date = state.data?.data?[index].endDate;
+              final startDate = state.data?.data?[index].startDate;
+              final endDate = state.data?.data?[index].endDate;
               final vendor_name = state.data?.data?[index].vendorName;
+
+              // DateFormat dateFormat =
+              //     DateFormat('yyyy-MM-dd'); // Sesuaikan format jika diperlukan
+              // String formattedStartDate = startDate != null
+              //     ? dateFormat.format(DateTime.parse(startDate))
+              //     : 'N/A';
+              // String formattedEndDate = endDate != null
+              //     ? dateFormat.format(DateTime.parse(endDate))
+              //     : 'N/A';
 
               return Container(
                 color: Color(0xffEEF2FD),
@@ -117,7 +126,7 @@ class _nameCardTrining extends State<CardTrining> {
                                           height: 4,
                                         ),
                                         Text(
-                                          '${start_date} - ${end_date}',
+                                          '${startDate} - ${endDate}',
                                           style: openSensMediumDark.copyWith(
                                             fontSize: 13,
                                           ),

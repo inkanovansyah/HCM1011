@@ -4,8 +4,8 @@ class ModelDetailKpi {
   int? status;
   dynamic error;
   String? messages;
-  Data? data;
-  String? log;
+  ModelDetailKpiData? data;
+  Log? log;
 
   ModelDetailKpi({
     this.status,
@@ -14,6 +14,21 @@ class ModelDetailKpi {
     this.data,
     this.log,
   });
+
+  ModelDetailKpi copyWith({
+    int? status,
+    dynamic error,
+    String? messages,
+    ModelDetailKpiData? data,
+    Log? log,
+  }) =>
+      ModelDetailKpi(
+        status: status ?? this.status,
+        error: error ?? this.error,
+        messages: messages ?? this.messages,
+        data: data ?? this.data,
+        log: log ?? this.log,
+      );
 
   factory ModelDetailKpi.fromRawJson(String str) =>
       ModelDetailKpi.fromJson(json.decode(str));
@@ -24,8 +39,10 @@ class ModelDetailKpi {
         status: json["status"],
         error: json["error"],
         messages: json["messages"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
-        log: json["log"],
+        data: json["data"] == null
+            ? null
+            : ModelDetailKpiData.fromJson(json["data"]),
+        log: json["log"] == null ? null : Log.fromJson(json["log"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,22 +50,31 @@ class ModelDetailKpi {
         "error": error,
         "messages": messages,
         "data": data?.toJson(),
-        "log": log,
+        "log": log?.toJson(),
       };
 }
 
-class Data {
+class ModelDetailKpiData {
   List<Datum>? data;
 
-  Data({
+  ModelDetailKpiData({
     this.data,
   });
 
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+  ModelDetailKpiData copyWith({
+    List<Datum>? data,
+  }) =>
+      ModelDetailKpiData(
+        data: data ?? this.data,
+      );
+
+  factory ModelDetailKpiData.fromRawJson(String str) =>
+      ModelDetailKpiData.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory ModelDetailKpiData.fromJson(Map<String, dynamic> json) =>
+      ModelDetailKpiData(
         data: json["data"] == null
             ? []
             : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
@@ -85,6 +111,31 @@ class Datum {
     this.isDelete,
     this.progress,
   });
+
+  Datum copyWith({
+    String? id,
+    String? sectionId,
+    String? companyId,
+    String? levelId,
+    String? name,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? isActive,
+    String? isDelete,
+    List<Progress>? progress,
+  }) =>
+      Datum(
+        id: id ?? this.id,
+        sectionId: sectionId ?? this.sectionId,
+        companyId: companyId ?? this.companyId,
+        levelId: levelId ?? this.levelId,
+        name: name ?? this.name,
+        startDate: startDate ?? this.startDate,
+        endDate: endDate ?? this.endDate,
+        isActive: isActive ?? this.isActive,
+        isDelete: isDelete ?? this.isDelete,
+        progress: progress ?? this.progress,
+      );
 
   factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
 
@@ -128,21 +179,38 @@ class Datum {
 }
 
 class Progress {
-  String? status;
-  int? progress;
-  String? bgColor;
-  String? statusDesc;
   String? employee;
   String? position;
+  int? progress;
+  String? status;
+  String? statusDesc;
+  String? bgColor;
 
   Progress({
-    this.status,
-    this.progress,
-    this.bgColor,
-    this.statusDesc,
     this.employee,
     this.position,
+    this.progress,
+    this.status,
+    this.statusDesc,
+    this.bgColor,
   });
+
+  Progress copyWith({
+    String? employee,
+    String? position,
+    int? progress,
+    String? status,
+    String? statusDesc,
+    String? bgColor,
+  }) =>
+      Progress(
+        employee: employee ?? this.employee,
+        position: position ?? this.position,
+        progress: progress ?? this.progress,
+        status: status ?? this.status,
+        statusDesc: statusDesc ?? this.statusDesc,
+        bgColor: bgColor ?? this.bgColor,
+      );
 
   factory Progress.fromRawJson(String str) =>
       Progress.fromJson(json.decode(str));
@@ -150,20 +218,200 @@ class Progress {
   String toRawJson() => json.encode(toJson());
 
   factory Progress.fromJson(Map<String, dynamic> json) => Progress(
-        status: json["status"],
-        progress: json["progress"],
-        bgColor: json["bg_color"],
-        statusDesc: json["status_desc"],
         employee: json["employee"],
         position: json["position"],
+        progress: json["progress"],
+        status: json["status"],
+        statusDesc: json["status_desc"],
+        bgColor: json["bg_color"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "employee": employee,
+        "position": position,
+        "progress": progress,
+        "status": status,
+        "status_desc": statusDesc,
+        "bg_color": bgColor,
+      };
+}
+
+class Log {
+  int? status;
+  String? msg;
+  LogData? data;
+
+  Log({
+    this.status,
+    this.msg,
+    this.data,
+  });
+
+  Log copyWith({
+    int? status,
+    String? msg,
+    LogData? data,
+  }) =>
+      Log(
+        status: status ?? this.status,
+        msg: msg ?? this.msg,
+        data: data ?? this.data,
+      );
+
+  factory Log.fromRawJson(String str) => Log.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Log.fromJson(Map<String, dynamic> json) => Log(
+        status: json["status"],
+        msg: json["msg"],
+        data: json["data"] == null ? null : LogData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
-        "progress": progress,
-        "bg_color": bgColor,
-        "status_desc": statusDesc,
-        "employee": employee,
-        "position": position,
+        "msg": msg,
+        "data": data?.toJson(),
+      };
+}
+
+class LogData {
+  String? employeeId;
+  String? nik;
+  String? fullname;
+  String? hp;
+  String? gender;
+  String? pob;
+  String? maritalStatus;
+  String? deptId;
+  String? departmentName;
+  String? gradeId;
+  String? companyId;
+  String? companyName;
+  String? deptName;
+  String? positionId;
+  String? positionName;
+  String? levelId;
+  String? levelName;
+  dynamic gradeName;
+  String? avatar;
+  String? email;
+
+  LogData({
+    this.employeeId,
+    this.nik,
+    this.fullname,
+    this.hp,
+    this.gender,
+    this.pob,
+    this.maritalStatus,
+    this.deptId,
+    this.departmentName,
+    this.gradeId,
+    this.companyId,
+    this.companyName,
+    this.deptName,
+    this.positionId,
+    this.positionName,
+    this.levelId,
+    this.levelName,
+    this.gradeName,
+    this.avatar,
+    this.email,
+  });
+
+  LogData copyWith({
+    String? employeeId,
+    String? nik,
+    String? fullname,
+    String? hp,
+    String? gender,
+    String? pob,
+    String? maritalStatus,
+    String? deptId,
+    String? departmentName,
+    String? gradeId,
+    String? companyId,
+    String? companyName,
+    String? deptName,
+    String? positionId,
+    String? positionName,
+    String? levelId,
+    String? levelName,
+    dynamic gradeName,
+    String? avatar,
+    String? email,
+  }) =>
+      LogData(
+        employeeId: employeeId ?? this.employeeId,
+        nik: nik ?? this.nik,
+        fullname: fullname ?? this.fullname,
+        hp: hp ?? this.hp,
+        gender: gender ?? this.gender,
+        pob: pob ?? this.pob,
+        maritalStatus: maritalStatus ?? this.maritalStatus,
+        deptId: deptId ?? this.deptId,
+        departmentName: departmentName ?? this.departmentName,
+        gradeId: gradeId ?? this.gradeId,
+        companyId: companyId ?? this.companyId,
+        companyName: companyName ?? this.companyName,
+        deptName: deptName ?? this.deptName,
+        positionId: positionId ?? this.positionId,
+        positionName: positionName ?? this.positionName,
+        levelId: levelId ?? this.levelId,
+        levelName: levelName ?? this.levelName,
+        gradeName: gradeName ?? this.gradeName,
+        avatar: avatar ?? this.avatar,
+        email: email ?? this.email,
+      );
+
+  factory LogData.fromRawJson(String str) => LogData.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory LogData.fromJson(Map<String, dynamic> json) => LogData(
+        employeeId: json["employee_id"],
+        nik: json["nik"],
+        fullname: json["fullname"],
+        hp: json["hp"],
+        gender: json["gender"],
+        pob: json["pob"],
+        maritalStatus: json["marital_status"],
+        deptId: json["dept_id"],
+        departmentName: json["department_name"],
+        gradeId: json["grade_id"],
+        companyId: json["company_id"],
+        companyName: json["company_name"],
+        deptName: json["dept_name"],
+        positionId: json["position_id"],
+        positionName: json["position_name"],
+        levelId: json["level_id"],
+        levelName: json["level_name"],
+        gradeName: json["grade_name"],
+        avatar: json["avatar"],
+        email: json["email"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "employee_id": employeeId,
+        "nik": nik,
+        "fullname": fullname,
+        "hp": hp,
+        "gender": gender,
+        "pob": pob,
+        "marital_status": maritalStatus,
+        "dept_id": deptId,
+        "department_name": departmentName,
+        "grade_id": gradeId,
+        "company_id": companyId,
+        "company_name": companyName,
+        "dept_name": deptName,
+        "position_id": positionId,
+        "position_name": positionName,
+        "level_id": levelId,
+        "level_name": levelName,
+        "grade_name": gradeName,
+        "avatar": avatar,
+        "email": email,
       };
 }

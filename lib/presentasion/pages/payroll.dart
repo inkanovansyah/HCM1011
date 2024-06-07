@@ -47,12 +47,14 @@ class _payrollState extends State<PayRoll> {
     super.initState();
     _initializeMonthList();
     _tooltip = TooltipBehavior(enable: true);
-    Future.microtask(() {
-      // Menggunakan nilai dari widget.argument
-      context.read<PayrollBloc>().add(
-            FetchPayrollDetail(month: widget.argument.month),
-          );
-    });
+    Future.microtask(
+      () {
+        // Menggunakan nilai dari widget.argument
+        context.read<PayrollBloc>().add(
+              FetchPayrollDetail(month: widget.argument.month),
+            );
+      },
+    );
   }
 
   void _initializeMonthList() {

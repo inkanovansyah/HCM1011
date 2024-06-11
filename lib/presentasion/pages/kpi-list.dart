@@ -19,7 +19,7 @@ class _ListKpi extends State<ListKpi> {
         centerTitle: true,
         elevation: 0.0,
         title: Text(
-          'KPI List',
+          'Goal Setting List',
           style: TextStyle(
             fontSize: 24,
             color: Colors.white,

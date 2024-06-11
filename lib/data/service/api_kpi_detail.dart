@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
@@ -51,7 +51,7 @@ class KpiDetail {
         },
         body: jsonEncode({
           "start": 0,
-          "length": 7,
+          "length": 2,
         }),
       );
       // print(response.body);
@@ -62,7 +62,14 @@ class KpiDetail {
         // final modelListInfo = ModelDetailKpi.fromJson(decodedResponse);
         // final modelListInfoString = json.encode(modelListInfo);
         // print('ModelListInfo as String: ${modelListInfoString}');
-        return ModelDetailKpi.fromJson(json.decode(response.body));
+
+        // Parse the response
+        final result = ModelDetailKpi.fromJson(json.decode(response.body));
+
+        // Save response to SharedPreferences
+        await prefs.setString('kpiDetail', response.body);
+
+        return result;
       } else {
         print('HTTP Error: ${response.statusCode}');
         throw FailureException('Response are not success');

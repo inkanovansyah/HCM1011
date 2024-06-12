@@ -11,6 +11,7 @@ import 'package:hcm1011/presentasion/bloc/bloc_kpi/kpi_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_payroll/payroll_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_my_trining/my_training_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_story/bloc_list_story_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
 
 import 'package:hcm1011/presentasion/pages/splashscreen.dart';
 import 'package:hcm1011/presentasion/pages/info_detail.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.getIt<PayrollBloc>()),
         BlocProvider(create: (_) => di.getIt<MyTrainingBloc>()),
         BlocProvider(create: (_) => di.getIt<BlocListStoryBloc>()),
+        BlocProvider(create: (_) => di.getIt<GoalSettingBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

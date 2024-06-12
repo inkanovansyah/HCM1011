@@ -6,6 +6,7 @@ import 'package:hcm1011/data/service/api_detail.dart';
 import 'package:hcm1011/data/service/api_payroll.dart';
 import 'package:hcm1011/data/service/api_leave_list.dart';
 import 'package:hcm1011/data/service/api_list_story.dart';
+import 'package:hcm1011/data/service/api_goal_seting.dart';
 import 'package:hcm1011/data/service/my-trening.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_list/list_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_Detail/detail_info_bloc.dart';
@@ -16,12 +17,16 @@ import 'package:hcm1011/presentasion/cubit/home_cubit.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_payroll/payroll_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_my_trining/my_training_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_story/bloc_list_story_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setup() async {
   getIt.registerFactory<MyTrining>(
     () => MyTrining(),
+  );
+  getIt.registerFactory<GoalSettingList>(
+    () => GoalSettingList(),
   );
   getIt.registerFactory<ListStory>(
     () => ListStory(),
@@ -85,6 +90,11 @@ Future<void> setup() async {
   getIt.registerFactory<MyTrainingBloc>(
     () => MyTrainingBloc(
       apiMyTrining: getIt(),
+    ),
+  );
+  getIt.registerFactory<GoalSettingBloc>(
+    () => GoalSettingBloc(
+      apiGoalSetting: getIt(),
     ),
   );
 }

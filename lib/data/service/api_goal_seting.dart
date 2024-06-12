@@ -14,23 +14,25 @@ class GoalSettingList {
       var company_id = prefs.getString('company_id');
       var employee_id = prefs.getString('employee_id');
       var nik = prefs.getString('nik');
-      var code = prefs.getString('id');
-      var section_id = prefs.getString('section_id');
+      var token = prefs.getString('token');
+      // var code = prefs.getString('id');
+      // var section_id = prefs.getString('section_id');
 
       final Uri url = Uri.parse(
-          '$baseUrl/kpi/$company_id/employee/$nik/section/$code/answer/$section_id');
-
+          '$baseUrl/kpi/$company_id/employee/$nik/section/KPI2024-MEI-ST/answer/177');
       final response = await http.post(
         url,
         headers: {
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
           "employee_id": employee_id,
           "start": 0,
-          "length": 100,
+          "length": 50,
         }),
       );
+      // print(response.body);
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
         final modelListInfo = ModelGoalSetting.fromJson(decodedResponse);

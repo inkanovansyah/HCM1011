@@ -63,12 +63,6 @@ class ListInfoBanner {
       // print(response.body);
 
       if (response.statusCode == 200) {
-        // final decodedResponse = json.decode(response.body);
-        // final modelListInfo = ModelListInfo.fromJson(decodedResponse);
-
-        // final modelListInfoString = json.encode(modelListInfo);
-
-        // print('ModelListInfo as String Banner: ${modelListInfoString}');
         return ModelListInfo.fromJson(json.decode(response.body));
       } else {
         print('HTTP Error: ${response.statusCode}');

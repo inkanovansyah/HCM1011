@@ -172,7 +172,7 @@ class _cardSchedule extends State<CardSchedule> {
               children: [
                 SizedBox(height: 10),
                 Text(
-                  'data kosong...',
+                  'Terjadi kesalahan uuy ...',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,

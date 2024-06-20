@@ -48,6 +48,51 @@ class _ListKpi extends State<ListKpi> {
       ),
       backgroundColor: Color(0xffEEF2FD),
       body: CardKpi(),
+      floatingActionButton: Container(
+        height:
+            60, // Lebih tinggi dari tombol untuk memberikan ruang untuk latar belakang
+        decoration: BoxDecoration(
+          color: Colors.white, // Warna latar belakang putih
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26, // Warna bayangan
+              blurRadius: 5, // Radius blur bayangan
+              offset: Offset(0, 2), // Posisi bayangan
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: 16.0), // Jarak kiri dan kanan
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Tulisan apaan belom tau',
+                style: TextStyle(
+                  color: darkdarkBlueColor,
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  // Aksi untuk tombol kedua
+                },
+                label: Text(
+                  'Kirim Keataasaan',
+                  style: TextStyle(color: darkdarkBlueColor),
+                ), // Teks untuk tombol kedua
+                icon: Icon(Icons.send,
+                    color: darkdarkBlueColor), // Ikon untuk tombol kedua
+                style: TextButton.styleFrom(
+                  backgroundColor: Color.fromARGB(
+                      255, 255, 236, 67), // Warna latar belakang tombol kedua
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

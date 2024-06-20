@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:convert'; // Needed for jsonDecode
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
@@ -61,9 +62,17 @@ class _CardKPI extends State<CardKPI> {
               itemBuilder: (context, index) {
                 final weightage = state.listGoal?[index].weightage;
                 final question_value = state.listGoal?[index].questionValue;
-                final jobsDesc = weightage != null
-                    ? weightage['jobs_desc']
-                    : 'No description';
+                final submit = state.listGoal?[index].selfValue;
+                final appraisal = state.listGoal?[index].selfValue;
+                final is_delete = state.listGoal?[index].isDelete;
+                final questionValueMap =
+                    question_value != null ? jsonDecode(question_value) : {};
+                final jobsDesc = questionValueMap['jobs_desc'] ??
+                    'No description'; // Default to 'No description' if jobs_desc is not found
+                final SatuanTarget =
+                    questionValueMap['satuan_target'] ?? 'No description';
+                final Target = questionValueMap['target'] ?? 'No description';
+                // Default to 'No description' if jobs_desc is not found
                 return Container(
                   color: Color(0xffEEF2FD),
                   child: Padding(
@@ -93,7 +102,7 @@ class _CardKPI extends State<CardKPI> {
                               children: [
                                 SizedBox(height: 10),
                                 Text(
-                                  '$question_value',
+                                  '$jobsDesc',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 24,
@@ -110,7 +119,7 @@ class _CardKPI extends State<CardKPI> {
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  'DESIGN TEMPLATE',
+                                  '$SatuanTarget',
                                   style: TextStyle(
                                     fontSize: 16,
                                   ),
@@ -127,7 +136,7 @@ class _CardKPI extends State<CardKPI> {
                                                 .black), // Use available icon
                                         SizedBox(width: 5),
                                         Text(
-                                          '1 Target',
+                                          '$Target Target',
                                           style: TextStyle(
                                             fontSize: 16,
                                           ),

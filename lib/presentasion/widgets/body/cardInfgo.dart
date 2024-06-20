@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async'; // Pastikan ini ditambahkan
 
 class CardInfo extends StatefulWidget {
   final String label_1;
@@ -20,6 +21,8 @@ class CardInfo extends StatefulWidget {
 }
 
 class _nameInfo extends State<CardInfo> {
+  double progress = 1.0;
+
   @override
   Widget build(BuildContext context) {
     Color cardColor = widget.color == 'blue' ? Color(0xFF202449) : Colors.white;
@@ -55,6 +58,19 @@ class _nameInfo extends State<CardInfo> {
                     child: Image.asset(
                       widget.img,
                       fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 30,
+                    left: 0,
+                    right: 0,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: LinearProgressIndicator(
+                        value: progress,
+                        backgroundColor: Colors.grey[200],
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                      ),
                     ),
                   ),
                   Align(

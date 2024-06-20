@@ -4,24 +4,24 @@ import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:hcm1011/data/model/failure_exception.dart';
-import 'package:hcm1011/data/model/model_goal_setting.dart';
+import 'package:hcm1011/data/model/sand_goal_setting.dart';
 
-class GoalSettingList {
+class CreateGs {
   final String baseUrl = "https://api.1011.co.id";
-  Future<ModelGoalSetting> factchGoal() async {
+  Future<SandGoalSetting> fachdataGs(
+    String jobs_desc,
+    String target,
+    String satuan_target,
+    String section,
+    String code_section,
+  ) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      var company_id = prefs.getString('company_id');
-      var employee_id = prefs.getString('employee_id');
-
-      var nik = prefs.getString('nik');
       var token = prefs.getString('token');
-      // var code = prefs.getString('id');
-      // var section_id = prefs.getString('section_id');
-
+      var nik = prefs.getString('nik');
+      var employee_id = prefs.getString('employee_id');
       final Uri url = Uri.parse(
-          '$baseUrl/kpi/$company_id/employee/$nik/section/KPI2024-JUN-ST/answer/181');
-
+          '$baseUrl/kpi/$employee_id/employee/$nik/$code_section//save');
       final response = await http.post(
         url,
         headers: {
@@ -29,15 +29,23 @@ class GoalSettingList {
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
-          "employee_id": employee_id,
-          "start": 0,
-          "length": 50,
+          "section_id": section,
+          "id": "0",
+          "jobs_desc": jobs_desc,
+          "target": target,
+          "satuan_target": satuan_target,
+          "actual": 0,
+          "satuan_actual": satuan_target,
+          "weightage": "5",
+          "direct": 0,
+          "self_rating": 0,
+          "goal_self_submit": 0,
+          "goal_approval_submit": 0
         }),
       );
-      // print(response.body);
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
-        final modelListInfo = ModelGoalSetting.fromJson(decodedResponse);
+        final modelListInfo = SandGoalSetting.fromJson(decodedResponse);
 
         return modelListInfo;
         // return ModelListInfo.fromJson(decodedResponse);

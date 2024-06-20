@@ -23,6 +23,7 @@ class DetailInfoLoaded extends DetailInfoState {
 
 class DetailInfoNoData extends DetailInfoState {
   final String message;
+
   const DetailInfoNoData(this.message);
   @override
   List<Object> get props => [message];

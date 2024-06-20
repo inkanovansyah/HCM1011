@@ -53,8 +53,8 @@ class _dashboardState extends State<Dashboard> {
                 width: 9,
               ),
               CardInfo(
-                label_1: 'Attendance Strike',
-                label_2: '-',
+                label_1: 'Form KPI JUNI 2024',
+                label_2: '20%',
                 img: 'assets/images/Asset_2.png',
                 color: 'blue',
                 colorText: 'white',

@@ -78,9 +78,7 @@ class _nameState extends State<KpiDetail> {
                           // print(response.body);
                           if (kpiDatum.isActive == '1') {
                             final name = kpiDatum.name ?? 'No_Name';
-
                             final id = kpiDatum.id;
-
                             final progressValue = kpiDatum
                                         .progress?.isNotEmpty ==
                                     true

@@ -14,11 +14,8 @@ class _CardKpi extends State<CardKpi> {
   Widget build(BuildContext context) {
     return Container(
       color: Color(0xffEEF2FD),
-      child: ListView(
-        children: [
-          CardKPI(),
-        ],
-      ),
+      padding: EdgeInsets.only(bottom: 40),
+      child: CardKPI(),
     );
   }
 }

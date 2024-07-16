@@ -4,7 +4,7 @@ abstract class CreadDataState extends Equatable {
   const CreadDataState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class CreadDataInitial extends CreadDataState {}
@@ -18,7 +18,7 @@ class CreadDataLoaded extends CreadDataState {
   CreadDataLoaded(this.detailList, this.status);
 
   @override
-  List<Object?> get props => [detailList, status];
+  List<Object?> get props => [detailList ?? [], status];
 }
 
 class CreadDataNoData extends CreadDataState {

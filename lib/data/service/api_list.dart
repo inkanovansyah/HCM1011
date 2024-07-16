@@ -30,10 +30,12 @@ class ListInfo {
           'Authorization': 'Bearer $token', // Tambahkan token ke header
           'Content-Type': 'application/json',
         },
-        body: jsonEncode({
-          "start": 0,
-          "length": 5,
-        }),
+        body: jsonEncode(
+          {
+            "start": 0,
+            "length": 5,
+          },
+        ),
       );
 
       if (response.statusCode == 200) {

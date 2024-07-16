@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:hcm1011/presentasion/bloc/bloc_satuan/bloc_satuan_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_list/list_bloc.dart';
 import 'package:hcm1011/presentasion/cubit/home_cubit.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_list_info/list_info_bloc.dart';
@@ -12,7 +13,7 @@ import 'package:hcm1011/presentasion/bloc/bloc_payroll/payroll_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_my_trining/my_training_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_story/bloc_list_story_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
-
+import 'package:hcm1011/presentasion/bloc/bloc_creade_GS/cread_data_bloc.dart';
 import 'package:hcm1011/presentasion/pages/splashscreen.dart';
 import 'package:hcm1011/presentasion/pages/info_detail.dart';
 import 'package:hcm1011/presentasion/pages/login.dart';
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.getIt<MyTrainingBloc>()),
         BlocProvider(create: (_) => di.getIt<BlocListStoryBloc>()),
         BlocProvider(create: (_) => di.getIt<GoalSettingBloc>()),
+        BlocProvider(create: (_) => di.getIt<CreadDataBloc>()),
+        BlocProvider(create: (_) => di.getIt<BlocSatuanBloc>())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

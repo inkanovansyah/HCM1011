@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/KPI/list-kpi.dart';
 import 'package:hcm1011/presentasion/pages/form_goal_setting.dart';
+
+import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
 
 class ListKpi extends StatefulWidget {
   const ListKpi({super.key});
@@ -11,6 +15,8 @@ class ListKpi extends StatefulWidget {
 }
 
 class _ListKpi extends State<ListKpi> {
+  bool isButtonEnabled = false; // Change this based on your logic
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,32 +70,91 @@ class _ListKpi extends State<ListKpi> {
         child: Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: 16.0), // Jarak kiri dan kanan
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Tulisan apaan belom tau',
-                style: TextStyle(
-                  color: darkdarkBlueColor,
+          child: BlocBuilder<GoalSettingBloc, GoalSettingState>(
+              builder: (context, state) {
+            if (state is GoalSettingLoading) {
+              return Container(
+                color: Color.fromARGB(255, 245, 251,
+                    255), // Tambahkan latar belakang putih di sini
+                height: 100, // Tambahkan ketinggian di sini
+                child: Center(
+                  child: CircularProgressIndicator(),
                 ),
-              ),
-              TextButton.icon(
-                onPressed: () {
-                  // Aksi untuk tombol kedua
-                },
-                label: Text(
-                  'Kirim Keataasaan',
-                  style: TextStyle(color: darkdarkBlueColor),
-                ), // Teks untuk tombol kedua
-                icon: Icon(Icons.send,
-                    color: darkdarkBlueColor), // Ikon untuk tombol kedua
-                style: TextButton.styleFrom(
-                  backgroundColor: Color.fromARGB(
-                      255, 255, 236, 67), // Warna latar belakang tombol kedua
-                ),
-              ),
-            ],
-          ),
+              );
+            } else if (state is GoalSettingLoaded) {
+              if (state.listGoal == null || state.listGoal != null) {
+                return Center();
+              } else {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 180,
+                      height: 40,
+                      child: TextButton.icon(
+                        onPressed: isButtonEnabled
+                            ? () {
+                                // Aksi untuk tombol pertama
+                              }
+                            : null,
+                        label: Text(
+                          'Buat KPI',
+                          style: TextStyle(
+                            color: isButtonEnabled
+                                ? Colors.white
+                                : Color(0xFF202449),
+                          ),
+                        ),
+                        icon: Icon(
+                          Icons.send,
+                          color: isButtonEnabled
+                              ? Colors.white
+                              : Color(0xFF202449),
+                        ),
+                        style: TextButton.styleFrom(
+                          backgroundColor: isButtonEnabled
+                              ? Color(0xFF202449)
+                              : Color(0xFFF6F6F6),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 180,
+                      height: 40,
+                      child: TextButton.icon(
+                        onPressed: isButtonEnabled
+                            ? () {
+                                // Aksi untuk tombol kedua
+                              }
+                            : null,
+                        label: Text(
+                          'Kirim Keataasaan',
+                          style: TextStyle(
+                            color: isButtonEnabled
+                                ? Colors.white
+                                : Color(0xFF202449),
+                          ),
+                        ),
+                        icon: Icon(
+                          Icons.send,
+                          color: isButtonEnabled
+                              ? Colors.white
+                              : Color(0xFF202449),
+                        ),
+                        style: TextButton.styleFrom(
+                          backgroundColor: isButtonEnabled
+                              ? Color(0xFF202449)
+                              : Color(0xFFF6F6F6),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
+            } else {
+              return Container();
+            }
+          }),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

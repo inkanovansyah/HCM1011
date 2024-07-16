@@ -13,36 +13,30 @@ class CreadDataBloc extends Bloc<CreadDataEvent, CreadDataState> {
   CreadDataBloc({
     required this.apiCreateGS,
   }) : super(CreadDataInitial()) {
-    on<CreadDataEvent>((event, emit) async {
+    on<SubmitDataEvent>((event, emit) async {
       try {
-        emit(
-          CreadDataLoading(),
-        );
-        final jobs_desc = event.jobs_desc;
+        emit(CreadDataLoading());
+
+        final jobDesc = event.jobDesc;
         final target = event.target;
-        final satuan_target = event.satuan_target;
-        final section = event.section;
-        final code_section = event.code_section;
+        final satuanTarget = event.satuanTarget;
+        final bobot = event.bobot;
+        final sesionId = event.sesionId;
 
         final result = await apiCreateGS.fachdataGs(
-          jobs_desc,
+          jobDesc,
           target,
-          satuan_target,
-          section,
-          code_section,
+          satuanTarget,
+          bobot,
+          sesionId,
         );
         if (result.data != null && result.status == 200) {
-          emit(CreadDataLoaded(result.data!,
-              result.status ?? 0)); // Gunakan non-null assertion operator
+          emit(CreadDataLoaded(result.data!, result.status ?? 0));
         } else {
-          emit(
-            CreadDataNoData(result.status.toString()),
-          );
+          emit(CreadDataNoData(result.status.toString()));
         }
       } on FailureException catch (e) {
-        emit(
-          CreadDataError(e.message),
-        );
+        emit(CreadDataError(e.message));
       }
     });
   }

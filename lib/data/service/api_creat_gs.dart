@@ -9,40 +9,43 @@ import 'package:hcm1011/data/model/sand_goal_setting.dart';
 class CreateGs {
   final String baseUrl = "https://api.1011.co.id";
   Future<SandGoalSetting> fachdataGs(
-    String jobs_desc,
+    String jobDesc,
+    String bobot,
     String target,
-    String satuan_target,
-    String section,
-    String code_section,
+    String satuanTarget,
+    String sesionId,
   ) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token');
       var nik = prefs.getString('nik');
-      var employee_id = prefs.getString('employee_id');
+      var company_id = prefs.getString('company_id');
       final Uri url = Uri.parse(
-          '$baseUrl/kpi/$employee_id/employee/$nik/$code_section//save');
+          '$baseUrl/kpi/$company_id/employee/$nik/section/$sesionId/save');
+      print(url);
       final response = await http.post(
         url,
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
-        body: jsonEncode({
-          "section_id": section,
-          "id": "0",
-          "jobs_desc": jobs_desc,
-          "target": target,
-          "satuan_target": satuan_target,
-          "actual": 0,
-          "satuan_actual": satuan_target,
-          "weightage": "5",
-          "direct": 0,
-          "self_rating": 0,
-          "goal_self_submit": 0,
-          "goal_approval_submit": 0
-        }),
+        body: jsonEncode(
+          {
+            "section_id": sesionId, //ambil dari kpi sesion
+            "jobs_desc": jobDesc, //title detail dari form
+            "target": target, //target
+            "satuan_target": satuanTarget,
+            "actual": 0,
+            "satuan_actual": satuanTarget,
+            "weightage": bobot, //bobot
+            "direct": 0,
+            "self_rating": 0,
+            "goal_self_submit": 0,
+            "goal_approval_submit": 0
+          },
+        ),
       );
+      print(response.body);
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
         final modelListInfo = SandGoalSetting.fromJson(decodedResponse);
@@ -56,7 +59,7 @@ class CreateGs {
     } on SocketException {
       throw FailureException('no internet Connection');
     } catch (e) {
-      print('Error: $e');
+      print('Error nih: $e');
       throw FailureException('faild to load');
     }
   }

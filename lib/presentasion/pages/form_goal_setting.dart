@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/KPI/form_goal_setting.dart';
+// import 'package:hcm1011/presentasion/bloc/bloc_kpi/kpi_bloc.dart';
 
 class FormGoalSetting extends StatefulWidget {
   const FormGoalSetting({super.key});
@@ -10,6 +13,15 @@ class FormGoalSetting extends StatefulWidget {
 }
 
 class _FormGoalSetting extends State<FormGoalSetting> {
+  // @override
+  // void initState() {
+  //   Future.microtask(
+  //     () => context.read<KpiBloc>().add(const GetListKpi()),
+  //   );
+
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +44,12 @@ class _FormGoalSetting extends State<FormGoalSetting> {
         ),
       ),
       backgroundColor: Color.fromARGB(255, 223, 232, 255),
-      body: FormGoal(),
+      body: ListView(
+        padding: EdgeInsets.all(16.0),
+        children: [
+          FormGoal(),
+        ],
+      ),
     );
   }
 }

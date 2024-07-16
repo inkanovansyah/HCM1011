@@ -20,12 +20,14 @@ class DetailInfo {
         ..fields['folder'] = 'atandance-1011'
         ..fields['sizes'] = '{"original":{"width":"300","height":"300"}}'
         ..fields['name'] = '$nama'
-        ..files.add(http.MultipartFile(
-          'userfile',
-          userfile.openRead(),
-          await userfile.length(),
-          filename: 'file.jpg',
-        ));
+        ..files.add(
+          http.MultipartFile(
+            'userfile',
+            userfile.openRead(),
+            await userfile.length(),
+            filename: 'file.jpg',
+          ),
+        );
 
       var response = await http.Response.fromStream(await request.send());
 

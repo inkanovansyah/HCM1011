@@ -69,9 +69,9 @@ class _CardKPI extends State<CardKPI> {
                     question_value != null ? jsonDecode(question_value) : {};
                 final jobsDesc = questionValueMap['jobs_desc'] ??
                     'No description'; // Default to 'No description' if jobs_desc is not found
-                final SatuanTarget =
+                final target = questionValueMap['target'] ?? 'No description';
+                final value =
                     questionValueMap['satuan_target'] ?? 'No description';
-                final Target = questionValueMap['target'] ?? 'No description';
                 // Default to 'No description' if jobs_desc is not found
                 return Container(
                   color: Color(0xffEEF2FD),
@@ -119,7 +119,7 @@ class _CardKPI extends State<CardKPI> {
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  '$SatuanTarget',
+                                  '$value',
                                   style: TextStyle(
                                     fontSize: 16,
                                   ),
@@ -136,7 +136,7 @@ class _CardKPI extends State<CardKPI> {
                                                 .black), // Use available icon
                                         SizedBox(width: 5),
                                         Text(
-                                          '$Target Target',
+                                          '$target  Target',
                                           style: TextStyle(
                                             fontSize: 16,
                                           ),

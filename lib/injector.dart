@@ -7,6 +7,8 @@ import 'package:hcm1011/data/service/api_payroll.dart';
 import 'package:hcm1011/data/service/api_leave_list.dart';
 import 'package:hcm1011/data/service/api_list_story.dart';
 import 'package:hcm1011/data/service/api_goal_seting.dart';
+import 'package:hcm1011/data/service/api_creat_gs.dart';
+import 'package:hcm1011/data/service/api_satuan_kpi.dart';
 import 'package:hcm1011/data/service/my-trening.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_list/list_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_Detail/detail_info_bloc.dart';
@@ -18,6 +20,9 @@ import 'package:hcm1011/presentasion/bloc/bloc_payroll/payroll_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_my_trining/my_training_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_story/bloc_list_story_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_creade_GS/cread_data_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_satuan/bloc_satuan_bloc.dart';
+import 'package:http/http.dart';
 
 final getIt = GetIt.instance;
 
@@ -51,6 +56,20 @@ Future<void> setup() async {
   );
   getIt.registerFactory<HomeIndexCubit>(
     () => HomeIndexCubit(),
+  );
+  getIt.registerFactory<CreateGs>(
+    () => CreateGs(),
+  );
+  getIt.registerFactory<ListSatuanList>(
+    () => ListSatuanList(),
+  );
+  getIt.registerFactory<BlocSatuanBloc>(() => BlocSatuanBloc(
+        apiSatuanKpi: getIt(),
+      ));
+  getIt.registerFactory<CreadDataBloc>(
+    () => CreadDataBloc(
+      apiCreateGS: getIt(),
+    ),
   );
   getIt.registerFactory<ListBloc>(
     () => ListBloc(

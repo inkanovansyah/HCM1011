@@ -50,8 +50,7 @@ class KpiDetail {
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
-          "start": 0,
-          "length": 2,
+          "is_active": 1,
         }),
       );
       // print(response.body);

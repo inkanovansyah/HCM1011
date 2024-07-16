@@ -1,22 +1,27 @@
 part of 'cread_data_bloc.dart';
 
-abstract class DetailInfoEvent extends Equatable {
-  const DetailInfoEvent();
+abstract class CreadDataEvent extends Equatable {
+  const CreadDataEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class CreadDataEvent extends Equatable {
-  final String jobs_desc;
+class SubmitDataEvent extends CreadDataEvent {
+  final String jobDesc;
   final String target;
-  final String satuan_target;
-  final String section;
-  final String code_section;
-  const CreadDataEvent(this.code_section, this.jobs_desc, this.target,
-      this.satuan_target, this.section);
+  final String bobot;
+  final String satuanTarget;
+  final String sesionId;
+
+  const SubmitDataEvent({
+    required this.jobDesc,
+    required this.target,
+    required this.bobot,
+    required this.satuanTarget,
+    required this.sesionId,
+  });
 
   @override
-  List<Object> get props =>
-      [code_section, jobs_desc, target, satuan_target, section];
+  List<Object> get props => [jobDesc, bobot, target, satuanTarget, sesionId];
 }

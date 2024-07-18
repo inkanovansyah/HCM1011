@@ -132,10 +132,25 @@ class _FormGoalState extends State<FormGoal> {
                         ),
                       ),
                       SizedBox(width: 20),
-                      DropdownSatuan(
-                        onChanged: (value) {
-                          targetController.text = value ?? '';
-                        },
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Satuan',
+                              textAlign: TextAlign.left,
+                              style: openSensBoldDark.copyWith(
+                                fontSize: 14,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            DropdownSatuan(
+                              onChanged: (value) {
+                                targetController.text = value ?? '';
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

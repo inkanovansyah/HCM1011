@@ -62,17 +62,16 @@ class _CardKPI extends State<CardKPI> {
               itemBuilder: (context, index) {
                 final weightage = state.listGoal?[index].weightage;
                 final question_value = state.listGoal?[index].questionValue;
-                final submit = state.listGoal?[index].selfValue;
-                final appraisal = state.listGoal?[index].selfValue;
+
                 final is_delete = state.listGoal?[index].isDelete;
                 final questionValueMap =
                     question_value != null ? jsonDecode(question_value) : {};
-                final jobsDesc = questionValueMap['jobs_desc'] ??
-                    'No description'; // Default to 'No description' if jobs_desc is not found
+                final jobsDesc =
+                    questionValueMap['jobs_desc'] ?? 'No description';
                 final target = questionValueMap['target'] ?? 'No description';
                 final value =
                     questionValueMap['satuan_target'] ?? 'No description';
-                // Default to 'No description' if jobs_desc is not found
+
                 return Container(
                   color: Color(0xffEEF2FD),
                   child: Padding(
@@ -94,9 +93,7 @@ class _CardKPI extends State<CardKPI> {
                             ),
                           ),
                           child: Padding(
-                            // Padding ditambahkan di sini
-                            padding: const EdgeInsets.all(
-                                10.0), // Memberikan margin sebesar 2 piksel di semua sisi
+                            padding: const EdgeInsets.all(10.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -132,8 +129,7 @@ class _CardKPI extends State<CardKPI> {
                                     Row(
                                       children: <Widget>[
                                         Icon(Icons.my_location,
-                                            color: Colors
-                                                .black), // Use available icon
+                                            color: Colors.black),
                                         SizedBox(width: 5),
                                         Text(
                                           '$target  Target',
@@ -146,8 +142,7 @@ class _CardKPI extends State<CardKPI> {
                                     Row(
                                       children: <Widget>[
                                         Icon(Icons.pie_chart,
-                                            color: Colors
-                                                .black), // Use available icon
+                                            color: Colors.black),
                                         SizedBox(width: 5),
                                         Text(
                                           '$weightage % Bobot',
@@ -165,11 +160,12 @@ class _CardKPI extends State<CardKPI> {
                                   children: <Widget>[
                                     Expanded(
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          // Add your edit action here
+                                        },
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.green,
-                                          elevation:
-                                              0, // Menghilangkan bayangan
+                                          elevation: 0,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 24, vertical: 12),
                                           shape: RoundedRectangleBorder(
@@ -186,16 +182,19 @@ class _CardKPI extends State<CardKPI> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
-                                        width:
-                                            20), // Memberikan jarak 20 piksel antara tombol
+                                    SizedBox(width: 20),
                                     Expanded(
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          setState(() {
+                                            state.listGoal?[index].isDelete =
+                                                "1";
+                                          });
+                                          // You might also want to call a method to handle this change, e.g., updating the server or database.
+                                        },
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.red,
-                                          elevation:
-                                              0, // Menghilangkan bayangan
+                                          elevation: 0,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 24, vertical: 12),
                                           shape: RoundedRectangleBorder(

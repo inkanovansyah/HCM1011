@@ -37,125 +37,118 @@ class _ListKpi extends State<ListKpi> {
             Navigator.of(context).pop(); // Navigate back to the previous page
           },
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add,
-                color: Colors.white, size: 30), // Atur ukuran ikon
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        FormGoalSetting()), // Ganti "HalamanBaru" dengan nama halaman baru yang ingin Anda tuju
-              );
-            },
-          ),
-        ],
       ),
       backgroundColor: Color(0xffEEF2FD),
       body: CardKpi(),
-      floatingActionButton: Container(
-        height:
-            60, // Lebih tinggi dari tombol untuk memberikan ruang untuk latar belakang
-        decoration: BoxDecoration(
-          color: Colors.white, // Warna latar belakang putih
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26, // Warna bayangan
-              blurRadius: 5, // Radius blur bayangan
-              offset: Offset(0, 2), // Posisi bayangan
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 16.0), // Jarak kiri dan kanan
-          child: BlocBuilder<GoalSettingBloc, GoalSettingState>(
-              builder: (context, state) {
-            if (state is GoalSettingLoading) {
-              return Container(
-                color: Color.fromARGB(255, 245, 251,
-                    255), // Tambahkan latar belakang putih di sini
-                height: 100, // Tambahkan ketinggian di sini
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+      floatingActionButton: BlocBuilder<GoalSettingBloc, GoalSettingState>(
+        builder: (context, state) {
+          if (state is GoalSettingLoading) {
+            return Container(
+              color: Color.fromARGB(255, 245, 251, 255),
+              height: 100,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (state is GoalSettingLoaded) {
+            if (state.listGoal == null || state.listGoal == null) {
+              return Center(
+                child: Text('goal submit approval 0'),
               );
-            } else if (state is GoalSettingLoaded) {
-              if (state.listGoal == null || state.listGoal != null) {
-                return Center();
-              } else {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 180,
-                      height: 40,
-                      child: TextButton.icon(
-                        onPressed: isButtonEnabled
-                            ? () {
-                                // Aksi untuk tombol pertama
-                              }
-                            : null,
-                        label: Text(
-                          'Buat KPI',
-                          style: TextStyle(
-                            color: isButtonEnabled
-                                ? Colors.white
-                                : Color(0xFF202449),
-                          ),
-                        ),
-                        icon: Icon(
-                          Icons.send,
-                          color: isButtonEnabled
-                              ? Colors.white
-                              : Color(0xFF202449),
-                        ),
-                        style: TextButton.styleFrom(
-                          backgroundColor: isButtonEnabled
-                              ? Color(0xFF202449)
-                              : Color(0xFFF6F6F6),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 180,
-                      height: 40,
-                      child: TextButton.icon(
-                        onPressed: isButtonEnabled
-                            ? () {
-                                // Aksi untuk tombol kedua
-                              }
-                            : null,
-                        label: Text(
-                          'Kirim Keataasaan',
-                          style: TextStyle(
-                            color: isButtonEnabled
-                                ? Colors.white
-                                : Color(0xFF202449),
-                          ),
-                        ),
-                        icon: Icon(
-                          Icons.send,
-                          color: isButtonEnabled
-                              ? Colors.white
-                              : Color(0xFF202449),
-                        ),
-                        style: TextButton.styleFrom(
-                          backgroundColor: isButtonEnabled
-                              ? Color(0xFF202449)
-                              : Color(0xFFF6F6F6),
-                        ),
-                      ),
+            } else {
+              // Menghitung total weightage
+              final totalWeightage = state.listGoal!.fold<int>(0, (sum, goal) {
+                final weightageString = goal.weightage ?? '0';
+                final weightage = int.tryParse(weightageString) ?? 0;
+                return sum + weightage;
+              });
+
+              return Container(
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 5,
+                      offset: Offset(0, 2),
                     ),
                   ],
-                );
-              }
-            } else {
-              return Container();
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (totalWeightage < 100)
+                        Expanded(
+                          child: TextButton.icon(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FormGoalSetting()),
+                              );
+                            },
+                            label: Text(
+                              'Tambah Goal Setting',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            icon: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF202449),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              elevation: 0,
+                              minimumSize: Size(
+                                  320, 50), // Sesuaikan tinggi sesuai kebutuhan
+                            ),
+                          ),
+                        ),
+                      if (totalWeightage == 100)
+                        Expanded(
+                          child: TextButton.icon(
+                            onPressed: () {
+                              // Aksi untuk tombol Kirim Keatasan
+                            },
+                            label: Text(
+                              'Minta Persetujuan',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            icon: Icon(
+                              Icons.send,
+                              color: Colors.white,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF202449),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              elevation: 0,
+                              minimumSize: Size(
+                                  320, 50), // Sesuaikan tinggi sesuai kebutuhan
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              );
             }
-          }),
-        ),
+          } else {
+            return Center(
+              child: Text('belum ada action'),
+            );
+          }
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

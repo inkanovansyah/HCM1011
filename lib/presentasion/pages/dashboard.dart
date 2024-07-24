@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hcm1011/data/model/info.dart';
 import 'dart:math';
 import 'package:hcm1011/presentasion/widgets/body/card_dashboard.dart';
 import 'package:hcm1011/presentasion/widgets/body/dashboard.dart';
@@ -12,6 +11,7 @@ import 'package:hcm1011/presentasion/widgets/carousel_info/carousel_info.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_story/bloc_list_story_bloc.dart';
 import 'package:hcm1011/data/model/liststory.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends StatefulWidget {
   static String route = "/dashboard";
@@ -25,11 +25,24 @@ class Dashboard extends StatefulWidget {
 }
 
 class _dashboardState extends State<Dashboard> {
+  @override
   void initState() {
+    super.initState();
+    checkLoginStatus();
     Future.microtask(
       () => context.read<BlocListStoryBloc>().add(const Fetchlist()),
     );
     super.initState();
+  }
+
+  Future<void> checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token') ?? '';
+
+    if (token.isEmpty) {
+      // Navigate to login page if not logged in
+      Navigator.of(context).pushReplacementNamed('/login');
+    }
   }
 
   @override

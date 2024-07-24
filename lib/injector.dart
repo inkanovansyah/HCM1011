@@ -10,6 +10,12 @@ import 'package:hcm1011/data/service/api_goal_seting.dart';
 import 'package:hcm1011/data/service/api_creat_gs.dart';
 import 'package:hcm1011/data/service/api_satuan_kpi.dart';
 import 'package:hcm1011/data/service/my-trening.dart';
+import 'package:hcm1011/data/service/apI_dalate_gs_.dart';
+import 'package:hcm1011/data/service/api_submit.dart';
+import 'package:hcm1011/data/service/api_salf_submit_approval_gs.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_submit_aproroval_gs/submit_aproroval_gs_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_submit_gs/submit_gs_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_delete_gs/delete_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_list/list_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_Detail/detail_info_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_list_info/list_info_bloc.dart';
@@ -22,7 +28,6 @@ import 'package:hcm1011/presentasion/bloc/bloc_story/bloc_list_story_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_creade_GS/cread_data_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_satuan/bloc_satuan_bloc.dart';
-import 'package:http/http.dart';
 
 final getIt = GetIt.instance;
 
@@ -63,6 +68,29 @@ Future<void> setup() async {
   getIt.registerFactory<ListSatuanList>(
     () => ListSatuanList(),
   );
+  getIt.registerFactory<DeleteGs>(
+    () => DeleteGs(),
+  );
+  getIt.registerFactory<SubmitGs>(
+    () => SubmitGs(),
+  );
+  getIt.registerFactory<SalfSubmitApprovalGs>(
+    () => SalfSubmitApprovalGs(),
+  );
+  getIt.registerFactory<SubmitAprovalGsBloc>(
+    () => SubmitAprovalGsBloc(
+      apiSubmit: getIt(),
+    ),
+  );
+  getIt.registerFactory<SubmitGsBloc>(
+    () => SubmitGsBloc(
+      apiSubmit: getIt(),
+    ),
+  );
+  getIt.registerFactory<DeleteDataBloc>((() => DeleteDataBloc(
+        apiDeleteGS: getIt(),
+      )));
+
   getIt.registerFactory<BlocSatuanBloc>(() => BlocSatuanBloc(
         apiSatuanKpi: getIt(),
       ));

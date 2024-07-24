@@ -14,6 +14,9 @@ import 'package:hcm1011/presentasion/bloc/bloc_my_trining/my_training_bloc.dart'
 import 'package:hcm1011/presentasion/bloc/bloc_story/bloc_list_story_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_creade_GS/cread_data_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_delete_gs/delete_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_submit_gs/submit_gs_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_submit_aproroval_gs/submit_aproroval_gs_bloc.dart';
 import 'package:hcm1011/presentasion/pages/splashscreen.dart';
 import 'package:hcm1011/presentasion/pages/info_detail.dart';
 import 'package:hcm1011/presentasion/pages/login.dart';
@@ -45,7 +48,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.getIt<BlocListStoryBloc>()),
         BlocProvider(create: (_) => di.getIt<GoalSettingBloc>()),
         BlocProvider(create: (_) => di.getIt<CreadDataBloc>()),
-        BlocProvider(create: (_) => di.getIt<BlocSatuanBloc>())
+        BlocProvider(create: (_) => di.getIt<BlocSatuanBloc>()),
+        BlocProvider(create: (_) => di.getIt<CreadDataBloc>()),
+        BlocProvider(create: (_) => di.getIt<DeleteDataBloc>()),
+        BlocProvider(create: (_) => di.getIt<SubmitGsBloc>()),
+        BlocProvider(create: (_) => di.getIt<SubmitAprovalGsBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

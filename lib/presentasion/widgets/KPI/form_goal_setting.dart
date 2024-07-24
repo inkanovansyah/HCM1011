@@ -78,7 +78,7 @@ class _FormGoalState extends State<FormGoal> {
                   ),
                   SizedBox(height: 8),
                   TextFormField(
-                    controller: bobotController,
+                    controller: targetController,
                     decoration: InputDecoration(
                       labelText: 'Bobot',
                       fillColor: Colors.grey[200],
@@ -146,7 +146,7 @@ class _FormGoalState extends State<FormGoal> {
                             SizedBox(height: 8),
                             DropdownSatuan(
                               onChanged: (value) {
-                                targetController.text = value ?? '';
+                                bobotController.text = value ?? '';
                               },
                             ),
                           ],

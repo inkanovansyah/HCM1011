@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
-import 'package:intl/intl.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_my_trining/my_training_bloc.dart';
 
 class CardTrining extends StatefulWidget {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async'; // Pastikan ini ditambahkan
 
 class CardInfo extends StatefulWidget {
   final String label_1;

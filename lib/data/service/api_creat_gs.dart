@@ -45,7 +45,7 @@ class CreateGs {
           },
         ),
       );
-      print(response.body);
+      // print(response.body);
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
         final modelListInfo = SandGoalSetting.fromJson(decodedResponse);
@@ -59,7 +59,7 @@ class CreateGs {
     } on SocketException {
       throw FailureException('no internet Connection');
     } catch (e) {
-      print('Error nih: $e');
+      print('Error: $e');
       throw FailureException('faild to load');
     }
   }

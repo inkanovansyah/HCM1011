@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/widgets/my-trining/card.dart';
-import 'package:hcm1011/presentasion/bloc/bloc_my_trining/my_training_bloc.dart';
 
 class Trainings extends StatefulWidget {
   const Trainings({Key? key}) : super(key: key);

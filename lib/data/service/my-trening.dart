@@ -15,7 +15,7 @@ class MyTrining {
       final prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token');
       var company_id = prefs.getString('company_id');
-      var employee_id = prefs.getString('employee_id');
+
       final Uri url =
           Uri.parse('$baseUri/employee/$company_id/my-training/list');
       final response = await http.post(

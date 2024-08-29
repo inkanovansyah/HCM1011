@@ -12,7 +12,6 @@ class SubmitGsBloc extends Bloc<SubmitGsEvent, SubmitGsState> {
 
   SubmitGsBloc({required this.apiSubmit}) : super(SubmitGsInitial()) {
     on<SubmitGsEvent>((event, emit) async {
-      // TODO: implement event handler
       try {
         emit(SubmitGsLoading());
 

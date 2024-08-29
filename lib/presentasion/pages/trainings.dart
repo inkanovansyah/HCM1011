@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/body/InfoUpdate.dart';
+import 'package:hcm1011/presentasion/widgets/body/schadule.dart';
 
 class PagesUpdate extends StatefulWidget {
   const PagesUpdate({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class _PageUpdate extends State<PagesUpdate> {
             Expanded(
               child: TabBarView(
                 children: [
-                  Trainings(),
+                  schadule(),
                   // Tam
                   Trainings(),
                   // Tambahkan widget lain untuk konten Tab kedua di sini

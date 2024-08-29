@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:hcm1011/presentasion/pages/dashboard.dart';
 
-import 'package:hcm1011/presentasion/pages/payroll.dart';
+import 'package:hcm1011/presentasion/pages/notifikasi.dart';
 import 'package:hcm1011/presentasion/pages/profile.dart';
 import 'package:hcm1011/presentasion/pages/my_attandance.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_notification/notification_bloc.dart';
 
 import 'package:hcm1011/presentasion/pages/leave.dart';
 import 'package:hcm1011/presentasion/pages/trainings.dart';
 import 'package:hcm1011/presentasion/pages/kpi.dart';
+import 'package:hcm1011/presentasion/pages/booking.dart';
 
 class MenuNavigasi extends StatefulWidget {
   final String imagePath;
@@ -23,26 +27,16 @@ class _NavigasiState extends State<MenuNavigasi> {
   int _currentIndex = 0;
   // String currentMonth = DateFormat('M').format(DateTime.now());
   String currentMonth = '12';
-  late payrollDetailArgument arg;
+
   @override
   void initState() {
+    Future.microtask(
+      () => context.read<NotificationBloc>().add(
+            GetNotificationList(),
+          ),
+    );
     super.initState();
-    // Inisialisasi arg di sini
-    print(currentMonth);
-    arg = payrollDetailArgument(month: currentMonth);
   }
-
-  // final List<Widget> _screens = [
-  //   Dashboard(), // Buat HomePage() dan halaman lainnya sesuai kebutuhan.
-  //   MyAttandance(
-  //     imagePath: '',
-  //   ),
-  //   MyAttandance(
-  //     imagePath: '',
-  //   ),
-  //   PayRoll(argument: arg),
-  //   MyProfile()
-  // ];
 
   void _navigateToPage(int index) {
     setState(() {
@@ -69,7 +63,7 @@ class _NavigasiState extends State<MenuNavigasi> {
       Dashboard(),
       MyAttandance(imagePath: ''),
       MyAttandance(imagePath: ''),
-      PayRoll(argument: arg),
+      PayRoll(),
       MyProfile()
     ];
     return Scaffold(
@@ -140,20 +134,72 @@ class _NavigasiState extends State<MenuNavigasi> {
                 label: '',
               ),
               BottomNavigationBarItem(
-                icon: _currentIndex == 3
-                    ? SizedBox(
-                        height: 28, // Atur tinggi sesuai kebutuhan Anda
-                        width: 28, // Atur lebar sesuai kebutuhan Anda
-                        child: Image.asset(
-                          'assets/images/icon_3_ac.png',
-                        ),
-                      )
-                    : SizedBox(
-                        height: 24, // Atur tinggi sesuai kebutuhan Anda
-                        width: 24, // Atur lebar sesuai kebutuhan Anda
-                        child: Image.asset('assets/images/icon_3.png'),
-                      ),
-                label: 'Payroll',
+                icon: BlocBuilder<NotificationBloc, NotificationState>(
+                  builder: (context, state) {
+                    int unreadCount = 0; // Set default value to 0
+
+                    if (state is NotificationLoaded) {
+                      // Get the list of notifications
+                      final notifications = state.notificationList?.data?.data;
+
+                      // Print notifications for debugging
+                      print("Notifications: $notifications");
+
+                      // Filter notifications where isRead is "0"
+                      unreadCount = notifications
+                              ?.where((notif) =>
+                                  notif?.isRead ==
+                                  "0") // Check if isRead is "0"
+                              ?.length ??
+                          0; // Use 0 if no unread notifications found
+                    }
+
+                    return Stack(
+                      children: <Widget>[
+                        _currentIndex == 3
+                            ? SizedBox(
+                                height: 28,
+                                width: 28,
+                                child:
+                                    Image.asset('assets/images/icon_3_ac.png'),
+                              )
+                            : SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: Image.asset('assets/images/icon_3.png'),
+                              ),
+                        if (unreadCount > 0)
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(1),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 16,
+                                minHeight: 16,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '$unreadCount',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
+                label: 'Notification',
               ),
               BottomNavigationBarItem(
                 icon: Image.asset('assets/images/icon_4.png'),
@@ -184,7 +230,7 @@ class _NavigasiState extends State<MenuNavigasi> {
                 ),
                 builder: (BuildContext context) {
                   return SizedBox(
-                    height: 240,
+                    height: 300,
                     child: Container(
                       child: Column(
                         children: <Widget>[
@@ -194,7 +240,7 @@ class _NavigasiState extends State<MenuNavigasi> {
                               Padding(
                                 padding: EdgeInsets.all(15.0),
                                 child: Text(
-                                  'Pilih Menu',
+                                  'Select Menu',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
@@ -212,6 +258,19 @@ class _NavigasiState extends State<MenuNavigasi> {
                           Expanded(
                             child: ListView(
                               children: <Widget>[
+                                _buildMenuTile(
+                                    'Booking', 'assets/images/icon_modal_1.png',
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PageBooking(),
+                                    ),
+                                  );
+                                }),
+                                SizedBox(
+                                  height: 2,
+                                ),
                                 _buildMenuTile('Trainings',
                                     'assets/images/icon_modal_1.png', () {
                                   Navigator.push(

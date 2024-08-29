@@ -14,7 +14,6 @@ class SubmitAprovalGsBloc
   SubmitAprovalGsBloc({required this.apiSubmit})
       : super(SubmitAprorovalGsInitial()) {
     on<SubmitAprorovalGsEvent>((event, emit) async {
-      // TODO: implement event handler
       try {
         emit(SubmitAprorovalGsLoading());
         final result = await apiSubmit.fachdSalfSubmitApproval();

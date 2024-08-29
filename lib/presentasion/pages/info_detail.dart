@@ -158,40 +158,6 @@ class _infoState extends State<infoDetail> {
                                       ),
                                     ],
                                   ),
-                                  // SizedBox(
-                                  //   width:
-                                  //       30, // Tambahkan jarak horizontal antara title dan ikon titik tiga
-                                  // ),
-                                  // PopupMenuButton(
-                                  //   icon: Icon(
-                                  //     Icons
-                                  //         .more_vert, // Icon titik tiga (ellipsis)
-                                  //     color: Colors
-                                  //         .black, // Ganti warna sesuai keinginan Anda
-                                  //   ),
-                                  //   itemBuilder: (BuildContext context) {
-                                  //     return [
-                                  //       PopupMenuItem(
-                                  //         child: Text('Join'),
-                                  //         value: 'item1',
-                                  //       ),
-                                  //       PopupMenuItem(
-                                  //         child: Text('G dulu'),
-                                  //         value: 'item2',
-                                  //       ),
-                                  //       // Tambahkan item dropdown lainnya sesuai kebutuhan
-                                  //     ];
-                                  //   },
-                                  //   onSelected: (value) {
-                                  //     // Handler ketika item dropdown dipilih
-                                  //     if (value == 'item1') {
-                                  //       _showSimpleDialog();
-                                  //       // Lakukan sesuatu untuk item 1
-                                  //     } else if (value == 'item2') {
-                                  //       // Lakukan sesuatu untuk item 2
-                                  //     }
-                                  //   },
-                                  // ),
                                 ],
                               ),
                               SizedBox(

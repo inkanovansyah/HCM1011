@@ -12,7 +12,7 @@ class _infoTrainings extends State<Trainings> {
   Widget build(BuildContext context) {
     return Container(
       color: Color(0xffEEF2FD),
-      child: ListView(
+      child: Column(
         children: [
           CardTrining(),
         ],

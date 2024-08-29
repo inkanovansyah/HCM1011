@@ -247,7 +247,7 @@ class _nameState extends State<screen> {
                                         child: Text('OK, Got it!'),
                                       ),
                                       style: ElevatedButton.styleFrom(
-                                        primary: Color(0xFF202449),
+                                        backgroundColor: Color(0xFF202449),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),

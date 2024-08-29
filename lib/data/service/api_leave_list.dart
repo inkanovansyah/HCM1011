@@ -54,7 +54,7 @@ class ListLeave {
         },
         body: jsonEncode({
           "start": 0,
-          "length": 20,
+          "length": 25,
           "search": {
             "employee_leaves.employee_id": '$employee_id',
             "(YEAR(employee_leaves.date_start))": "$currentYear"

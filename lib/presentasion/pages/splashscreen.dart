@@ -19,12 +19,12 @@ class _SplashScreenState extends State<SplashScreen> {
   final List<Widget> _pages = [
     OnboardingPage(
       image: 'assets/images/splash.png',
-      text: 'Siapa Kita?Hero',
-      label2: 'hero_1',
+      text: 'Welcome, Heroes!',
+      label2: '',
     ),
     OnboardingPage(
         image: 'assets/images/splash_1.png',
-        text: 'HIGH GRIDE',
+        text: 'HIGH GRADE',
         label2: 'Individu dan hasil pekerjaan yang berkualitas'),
     OnboardingPage(
         image: 'assets/images/splash_2.png',
@@ -32,12 +32,12 @@ class _SplashScreenState extends State<SplashScreen> {
         label2: 'Individu yang memiliki etika dan moral'),
     OnboardingPage(
         image: 'assets/images/splash_3.png',
-        text: 'RELIBLE',
-        label2: 'Individu dan Produk yang dapat diandalkan'),
+        text: 'RELIABLE',
+        label2: 'Individu dan produk yang dapat diandalkan'),
     OnboardingPage(
         image: 'assets/images/splash_4.png',
         text: 'OVERCOME',
-        label2: 'Individu dan Perusahaan yang mau melampui pencapaiannya'),
+        label2: 'Individu dan perusahaan yang mau melampaui pencapaiannya'),
   ];
 
   @override
@@ -129,9 +129,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   padding: EdgeInsets.symmetric(
                       horizontal: 20.0), // Adjust padding as needed
-                  primary:
+                  backgroundColor:
                       Colors.transparent, // Set background color to transparent
-                  onPrimary:
+                  foregroundColor:
                       Colors.transparent, // Set overlay color to transparent
                 ),
                 child: Row(

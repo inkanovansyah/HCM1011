@@ -60,7 +60,7 @@ class SalfSubmitApprovalGs {
             'Content-Type': 'application/json',
           },
         );
-        print('listUrl: $listUrl');
+
         if (listResponse.statusCode == 200) {
           final decodedListResponse = json.decode(listResponse.body);
           final modelSubmitAproval =

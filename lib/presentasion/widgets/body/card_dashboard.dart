@@ -85,8 +85,6 @@ class _cardSchedule extends State<CardSchedule> {
                           infoDetail.route,
                           arguments: DetailPageArgument(info_id: id),
                         );
-
-                        print('Card Clicked! ${id}');
                         // Anda dapat menavigasi ke layar baru atau melakukan tindakan lainnya.
                       },
                       child: Container(
@@ -172,7 +170,7 @@ class _cardSchedule extends State<CardSchedule> {
               children: [
                 SizedBox(height: 10),
                 Text(
-                  'Terjadi kesalahan uuy ...',
+                  'Failed to load data',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,

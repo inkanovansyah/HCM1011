@@ -6,8 +6,6 @@ part 'sand_picture_state.dart';
 
 class SandPictureBloc extends Bloc<SandPictureEvent, SandPictureState> {
   SandPictureBloc() : super(SandPictureInitial()) {
-    on<SandPictureEvent>((event, emit) async {
-      // TODO: implement event handler
-    });
+    on<SandPictureEvent>((event, emit) async {});
   }
 }

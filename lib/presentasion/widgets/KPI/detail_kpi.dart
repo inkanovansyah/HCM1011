@@ -48,16 +48,14 @@ class _nameState extends State<KpiDetail> {
           ),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.00,
-            left: 10,
-            right: 10,
+            left: 20,
+            right: 20,
             child: Card(
               elevation: 5,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: Container(
-                width: 350,
-                height: 620,
                 padding: EdgeInsets.all(20),
                 child: BlocBuilder<KpiBloc, KpiState>(
                   builder: (context, state) {
@@ -85,20 +83,21 @@ class _nameState extends State<KpiDetail> {
                                     true
                                 ? kpiDatum.progress![0].progress.toString()
                                 : '0'; // Mengonversi nilai int ke dalam String
+
                             String progresdata = '';
                             Color progressColor = Colors.transparent;
                             switch (progressValue) {
                               case '1':
                                 progressColor = Colors.red;
-                                progresdata = 'Belum Ada Goal Setting';
+                                progresdata = 'No Goal Setting Yet';
                                 break;
                               case '15':
                                 progressColor = Colors.orange;
-                                progresdata = 'KPI belum lengkap';
+                                progresdata = 'KPI is not complete';
                                 break;
                               case '25':
                                 progressColor = Colors.lightGreen;
-                                progresdata = 'KPI WAITING APPROVAL';
+                                progresdata = 'KPI Waitting Approval';
                                 break;
                               case '50':
                                 progressColor = Colors.green;
@@ -121,14 +120,6 @@ class _nameState extends State<KpiDetail> {
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                // Text(
-                                //   '$start_date - $end_date', // Ganti dengan deskripsi sesuai kebutuhan
-                                //   style: TextStyle(
-                                //     fontSize: 16,
-                                //   ),
-                                //   textAlign: TextAlign.center,
-                                // ),
-
                                 Container(
                                   padding: EdgeInsets.all(5),
                                   child: Column(
@@ -188,29 +179,45 @@ class _nameState extends State<KpiDetail> {
                                               20), // Jarak antara teks dan tombol
                                       Center(
                                         child: ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => ListKpi(),
-                                              ),
-                                            ); // Tambahkan fungsi yang ingin dijalankan ketika tombol ditekan
-                                          },
+                                          onPressed: progressValue == '75' ||
+                                                  progressValue == '100'
+                                              ? null // Disable the button when progressValue is '75' or '100'
+                                              : () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ListKpi(),
+                                                    ),
+                                                  );
+                                                },
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 9.0,
                                                 horizontal: 20.0),
-                                            child: Text('View KPI'),
+                                            child: Text(
+                                              progressValue == '100'
+                                                  ? 'KPI Done' // Text when progressValue is '100'
+                                                  : (progressValue == '75'
+                                                      ? 'Menunggu Persetujuan'
+                                                      : 'View KPI'),
+                                            ),
                                           ),
                                           style: ElevatedButton.styleFrom(
-                                            primary: Color(0xFF202449),
+                                            backgroundColor: progressValue ==
+                                                    '100'
+                                                ? Colors
+                                                    .grey // Color when progressValue is '100'
+                                                : (progressValue == '75'
+                                                    ? Colors.grey
+                                                    : Color(0xFF202449)),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
                                             elevation: 0,
                                             minimumSize: Size(320,
-                                                50), // Sesuaikan tinggi sesuai kebutuhan
+                                                50), // Adjust height as needed
                                           ),
                                         ),
                                       ),
@@ -266,7 +273,25 @@ class _nameState extends State<KpiDetail> {
                             // Lakukan sesuatu dengan data yang hanya memiliki isActive bernilai 1 di sini
                             // Contohnya, tampilkan data ini di dalam Widget atau lakukan operasi lainnya
                           } else {
-                            return Container();
+                            return Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                      'assets/status/no_info.png'), // Replace with your image asset
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  Text(
+                                    'No Active KPI',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
                           }
                           // Return widget based on your requirements
                         },

@@ -47,7 +47,35 @@ class _ListKpi extends State<ListKpi> {
         ),
       ),
       backgroundColor: const Color(0xffEEF2FD),
-      body: CardKpi(),
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<SubmitAprovalGsBloc, SubmitAprorovalGsState>(
+            listener: (context, state) {
+              if (state is SubmitAprorovalGsLoaded) {
+                // Trigger refresh after submission
+                context.read<GoalSettingBloc>().add(const GoalSetting());
+              }
+            },
+          ),
+          BlocListener<SubmitGsBloc, SubmitGsState>(
+            listener: (context, state) {
+              if (state is SubmitGsLoaded) {
+                // Trigger refresh after submission
+                context.read<GoalSettingBloc>().add(const GoalSetting());
+              }
+            },
+          ),
+          BlocListener<SubmitAprovalGsBloc, SubmitAprorovalGsState>(
+            listener: (context, state) {
+              if (state is SubmitAprorovalGsLoaded) {
+                // Trigger refresh after submission
+                context.read<GoalSettingBloc>().add(const GoalSetting());
+              }
+            },
+          ),
+        ],
+        child: CardKpi(),
+      ),
       floatingActionButton: BlocBuilder<GoalSettingBloc, GoalSettingState>(
         builder: (context, state) {
           if (state is GoalSettingLoading) {
@@ -60,8 +88,52 @@ class _ListKpi extends State<ListKpi> {
             );
           } else if (state is GoalSettingLoaded) {
             if (state.listGoal == null || state.listGoal!.isEmpty) {
-              return const Center(
-                child: Text('goal submit approval 0'),
+              return Container(
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 5,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0), // Add horizontal padding
+                  child: Center(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FormGoalSetting(),
+                          ),
+                        );
+                      },
+                      label: const Text(
+                        'Add Goal Setting',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      icon: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF202449),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        elevation: 0,
+                        minimumSize: const Size(320, 50),
+                      ),
+                    ),
+                  ),
+                ),
               );
             } else {
               final firstGoalSelfSubmit = state.listGoal!.isNotEmpty
@@ -70,12 +142,15 @@ class _ListKpi extends State<ListKpi> {
               final aprovalGolasetting = state.listGoal!.isNotEmpty
                   ? state.listGoal![0].goalApprovalSubmit
                   : null;
-              print('data $aprovalGolasetting');
-              final totalWeightage = state.listGoal!.fold<int>(0, (sum, goal) {
-                final weightageString = goal.weightage ?? '0';
-                final weightage = int.tryParse(weightageString) ?? 0;
-                return sum + weightage;
-              });
+
+              final totalWeightage = state.listGoal!.fold<int>(
+                0,
+                (sum, goal) {
+                  final weightageString = goal.weightage ?? '0';
+                  final weightage = int.tryParse(weightageString) ?? 0;
+                  return sum + weightage;
+                },
+              );
 
               Widget buildButton({
                 required String label,
@@ -97,7 +172,7 @@ class _ListKpi extends State<ListKpi> {
                       color: Colors.white,
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: color,
+                      backgroundColor: color,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -127,7 +202,7 @@ class _ListKpi extends State<ListKpi> {
                     children: [
                       if (totalWeightage < 100)
                         buildButton(
-                          label: 'Tambah Goal Setting',
+                          label: 'Add Goal Setting',
                           icon: Icons.add,
                           color: const Color(0xFF202449),
                           onPressed: () {
@@ -140,7 +215,7 @@ class _ListKpi extends State<ListKpi> {
                         ),
                       if (totalWeightage == 100 && firstGoalSelfSubmit == "0")
                         buildButton(
-                          label: 'Minta Persetujuan',
+                          label: 'Ask For Approval',
                           icon: Icons.send,
                           color: const Color(0xFF202449),
                           onPressed: () {
@@ -150,14 +225,14 @@ class _ListKpi extends State<ListKpi> {
                       if (firstGoalSelfSubmit == "1" &&
                           aprovalGolasetting == "0")
                         buildButton(
-                          label: 'Menunggu Persetujuan',
+                          label: 'Waiting for Approval',
                           icon: Icons.hourglass_empty,
                           color: const Color(0xFF202449),
                           onPressed: null,
                         ),
                       if (aprovalGolasetting == "1")
                         buildButton(
-                          label: 'Kirim Ke Ktasan',
+                          label: 'Kirim Ke Atasan',
                           icon: Icons.hourglass_empty,
                           color: Colors.orange,
                           onPressed: () {

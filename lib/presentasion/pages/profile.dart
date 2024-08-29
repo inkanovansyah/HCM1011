@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/MyProfile/userprofile.dart';
-import 'package:hcm1011/presentasion/widgets/MyProfile/datauser.dart';
 import 'package:hcm1011/presentasion/pages/setting.dart';
 
 class MyProfile extends StatefulWidget {
@@ -64,7 +63,6 @@ class _profileState extends State<MyProfile> {
                   SizedBox(
                     height: 10,
                   ),
-                  ChartKpi('2023', 15000, 5000),
                 ],
               ),
             ),
@@ -78,24 +76,6 @@ class _profileState extends State<MyProfile> {
           ],
         ),
       ),
-      // body: ListView(
-      //   children: [
-      //     SizedBox(
-      //       height: 20,
-      //     ),
-      //     profile(
-      //       nama: 'Wardhatul Aini',
-      //       jabatan: 'HR Manager',
-      //     ),
-      //     SizedBox(
-      //       height: 20,
-      //     ),
-      //     ChartKpi(),
-      //     SizedBox(
-      //       height: 20,
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

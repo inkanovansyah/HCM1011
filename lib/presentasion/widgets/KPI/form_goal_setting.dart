@@ -6,6 +6,7 @@ import 'package:hcm1011/presentasion/bloc/bloc_creade_GS/cread_data_bloc.dart';
 import 'package:hcm1011/presentasion/widgets/KPI/atom/form_code.dart';
 import 'package:hcm1011/presentasion/widgets/KPI/atom/dropdown_satuan.dart';
 import 'package:hcm1011/data/service/api_creat_gs.dart';
+import 'package:hcm1011/presentasion/pages/kpi-list.dart';
 
 class FormGoal extends StatefulWidget {
   @override
@@ -20,8 +21,79 @@ class _FormGoalState extends State<FormGoal> {
   final TextEditingController targetController = TextEditingController();
   final TextEditingController satuanTargetController = TextEditingController();
   final TextEditingController sessionIdController = TextEditingController();
+  Future<void> _submitForm() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      // Trigger the event to submit the form data
+      context.read<CreadDataBloc>().add(
+            SubmitDataEvent(
+              jobDesc: jobDescController.text,
+              bobot: bobotController.text,
+              target: targetController.text,
+              satuanTarget: satuanTargetController.text,
+              sesionId: sessionIdController.text,
+            ),
+          );
 
-  bool _isLoading = false;
+      // Wait for the state change
+      await Future.delayed(
+          Duration(milliseconds: 500)); // Adjust delay if needed
+
+      // Navigate to the new page after submission
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.green,
+                      width: 4.0,
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.green,
+                    size: 50.0,
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  'Add Successful!',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+
+                  // Navigate to the ListKpi screen
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListKpi(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,35 +230,7 @@ class _FormGoalState extends State<FormGoal> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 0.0),
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            _isLoading = true;
-                          });
-
-                          final jobDesc = jobDescController.text;
-                          final bobot = bobotController.text;
-                          final target = targetController.text;
-                          final satuanTarget = satuanTargetController.text;
-                          final sesionId = sessionIdController.text;
-
-                          context.read<CreadDataBloc>().add(
-                                SubmitDataEvent(
-                                  jobDesc: jobDesc,
-                                  bobot: bobot,
-                                  target: target,
-                                  satuanTarget: satuanTarget,
-                                  sesionId: sesionId,
-                                ),
-                              );
-
-                          Future.delayed(Duration(seconds: 4), () {
-                            setState(() {
-                              _isLoading = false;
-                            });
-                          });
-                        }
-                      },
+                      onPressed: _submitForm,
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(
                           vertical: 16,
@@ -195,35 +239,40 @@ class _FormGoalState extends State<FormGoal> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        primary: darkdarkBlueColor,
+                        backgroundColor: darkdarkBlueColor,
                         minimumSize: Size(double.infinity, 60),
                       ),
-                      child: _isLoading
-                          ? CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : Text(
-                              'Save Goals Setting',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            ),
+                      child: Text(
+                        'Save Goals Setting',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
                     ),
                   ),
-                  BlocBuilder<CreadDataBloc, CreadDataState>(
-                    builder: (context, state) {
-                      if (state is CreadDataLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is CreadDataLoaded) {
-                        return Text('Submission Successful');
-                      } else if (state is CreadDataNoData) {
-                        return Text('No Data: ${state.message}');
-                      } else if (state is CreadDataError) {
-                        return Text('Error: ${state.message}');
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
+                  SizedBox(height: 20),
+                  // BlocConsumer<CreadDataBloc, CreadDataState>(
+                  //   listener: (context, state) {
+                  //     if (state is CreadDataLoaded) {
+                  //       // Navigate to another page when the submission is successful
+                  //       Navigator.pushReplacement(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => ListKpi(),
+                  //         ),
+                  //       );
+                  //     } else if (state is CreadDataError) {
+                  //       ScaffoldMessenger.of(context).showSnackBar(
+                  //         SnackBar(content: Text('Error: ${state.message}')),
+                  //       );
+                  //     }
+                  //   },
+                  //   builder: (context, state) {
+                  //     if (state is CreadDataLoading) {
+                  //       return Center(child: CircularProgressIndicator());
+                  //     } else {
+                  //       return Container();
+                  //     }
+                  //   },
+                  // ),
                 ],
               ),
             ),

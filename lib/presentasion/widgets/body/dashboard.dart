@@ -42,28 +42,23 @@ class _BodyDashboardState extends State<BodyDashboard> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: ClipRRect(
-              child: Container(
-                height: MediaQuery.of(context).size.height *
-                    0.14, // 15% of screen height
-                width: MediaQuery.of(context).size.width,
-                color:
-                    darkdarkBlueColor, // Background color (darkdarkBlueColor)
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
+      child: Align(
+        alignment: Alignment.bottomLeft,
+        child: ClipRRect(
+          child: Container(
+            height: MediaQuery.of(context).size.height *
+                0.14, // 15% dari tinggi layar
+            width: MediaQuery.of(context).size.width,
+            color:
+                darkdarkBlueColor, // Warna latar belakang (darkdarkBlueColor)
             child: Padding(
-              padding: const EdgeInsets.only(left: 16.0, top: 12.0),
+              padding:
+                  const EdgeInsets.only(left: 16.0, top: 12.0, bottom: 12.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment
+                    .spaceBetween, // Mengatur item ke sisi-sisi
                 children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -87,9 +82,6 @@ class _BodyDashboardState extends State<BodyDashboard> {
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    width: 100,
                   ),
                   ClipOval(
                     child: Container(
@@ -124,8 +116,8 @@ class _BodyDashboardState extends State<BodyDashboard> {
                 ],
               ),
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

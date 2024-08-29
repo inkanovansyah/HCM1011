@@ -20,9 +20,10 @@ class ListInfo {
       var token = prefs.getString('token');
       var company_id = prefs.getString('company_id');
       var level_id = prefs.getString('level_id');
+
       final Uri url = Uri.parse(
           '$baseUrl/office/$company_id/info/$level_id/2024-02-12/list-data-by-date');
-      // print(url);
+
       // Ganti ini dengan data yang ingin Anda kirimkan dalam permintaan POST
       final response = await http.post(
         url,
@@ -42,13 +43,7 @@ class ListInfo {
         final decodedResponse = json.decode(response.body);
         final modelListInfo = ModelList.fromJson(decodedResponse);
 
-        // final modelListInfoString = json.encode(modelListInfo);
-
-        // print('ModelListInfo as String: ${modelListInfoString}');
-
         return modelListInfo;
-
-        // return ModelListInfo.fromJson(decodedResponse);
       } else {
         print('HTTP Error: ${response.statusCode}');
         throw FailureException('Response are not success');

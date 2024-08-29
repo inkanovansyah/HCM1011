@@ -95,17 +95,6 @@ class _InfoCarouselState extends State<InfoCarousel> {
                                         ),
                                       ),
                                     ),
-                                    // Padding(
-                                    //   padding: EdgeInsets.only(top: 2.0),
-                                    //   child: Text(
-                                    //     '${author}',
-                                    //     style: TextStyle(
-                                    //       color: Colors.white,
-                                    //       fontSize: 12,
-                                    //       fontWeight: FontWeight.bold,
-                                    //     ),
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                               ),
@@ -170,7 +159,7 @@ class _InfoCarouselState extends State<InfoCarousel> {
         } else if (state is InfoNoData) {
           return Container(
             margin: EdgeInsets.symmetric(vertical: 20.0),
-            child: Text('No data available'),
+            child: Text('Faild to load data'),
           );
         } else if (state is InfoError) {
           return Center(

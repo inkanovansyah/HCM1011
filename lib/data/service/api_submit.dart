@@ -30,14 +30,13 @@ class SubmitGs {
           "is_active": 1,
         }),
       );
-      print('listUrl: $listUrl');
 
       if (listResponse.statusCode == 200) {
         final decodedListResponse = json.decode(listResponse.body);
         // print('decodedListResponse: $decodedListResponse');
 
         var sectionId;
-        var id;
+        print('decodedListResponse: $sectionId');
 
         // Check if the response contains 'data' and 'data' is a list
         if (decodedListResponse.containsKey('data') &&
@@ -54,7 +53,7 @@ class SubmitGs {
         }
 
         // Ensure sectionId and id are not null
-        if (sectionId == null || id == null) {
+        if (sectionId == null) {
           throw FailureException('Extracted sectionId or id is null');
         }
 

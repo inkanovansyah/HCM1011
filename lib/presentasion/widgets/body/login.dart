@@ -70,7 +70,7 @@ class _BodyLoginState extends State<BodyLogin> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 10.0),
                       child: Text(
-                        'Yuk login teman teman',
+                        'Yuk, login~',
                         textAlign: TextAlign.start,
                         style: openSensBoldDark.copyWith(
                           fontSize: 18,
@@ -184,7 +184,7 @@ class _BodyLoginState extends State<BodyLogin> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    primary: darkdarkBlueColor,
+                    backgroundColor: darkdarkBlueColor,
                     minimumSize: Size(double.infinity, 50),
                   ),
                   child: isLoading

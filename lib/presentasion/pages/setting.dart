@@ -263,7 +263,7 @@ class LoadingAlertDialog extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Sabar Sedang Memuat',
+              'Closing the application',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

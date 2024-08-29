@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_delete_gs/delete_bloc.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
+import 'package:hcm1011/presentasion/pages/form_goal_setting_edit.dart';
 
 class CardKPI extends StatefulWidget {
   const CardKPI({super.key});
@@ -66,7 +67,7 @@ class _CardKPI extends State<CardKPI> {
                   final weightage = state.listGoal?[index].weightage;
                   final question_value = state.listGoal?[index].questionValue;
                   final salf_submit = state.listGoal?[index].goalSelfSubmit;
-                  final id = state.listGoal?[index].id;
+                  final id = state.listGoal?[index].id?.toString() ?? '';
                   final aproval_submit =
                       state.listGoal?[index].goalApprovalSubmit;
                   final questionValueMap =
@@ -169,10 +170,16 @@ class _CardKPI extends State<CardKPI> {
                                         Expanded(
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              // Add your edit action here
+                                              // This will print the value of id in the console
+                                              Navigator.pushNamed(
+                                                context,
+                                                infoDetailFrom.route,
+                                                arguments: EditFormPageArgument(
+                                                    edit_id: id),
+                                              );
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              primary: Colors.green,
+                                              backgroundColor: Colors.green,
                                               elevation: 0,
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -206,7 +213,7 @@ class _CardKPI extends State<CardKPI> {
                                               }
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              primary: Colors.red,
+                                              backgroundColor: Colors.red,
                                               elevation: 0,
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -240,7 +247,8 @@ class _CardKPI extends State<CardKPI> {
                                               child: ElevatedButton(
                                                 onPressed: null,
                                                 style: ElevatedButton.styleFrom(
-                                                  primary: Colors.orange,
+                                                  backgroundColor:
+                                                      Colors.orange,
                                                   elevation: 0,
                                                   padding: const EdgeInsets
                                                       .symmetric(
@@ -273,9 +281,17 @@ class _CardKPI extends State<CardKPI> {
                                         children: [
                                           Expanded(
                                             child: ElevatedButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  infoDetailFrom.route,
+                                                  arguments:
+                                                      EditFormPageArgument(
+                                                          edit_id: id),
+                                                );
+                                              },
                                               style: ElevatedButton.styleFrom(
-                                                primary: Colors.orange,
+                                                backgroundColor: Colors.orange,
                                                 elevation: 0,
                                                 padding:
                                                     const EdgeInsets.symmetric(
@@ -288,7 +304,7 @@ class _CardKPI extends State<CardKPI> {
                                                 ),
                                               ),
                                               child: const Text(
-                                                'Edit',
+                                                'Edit KPI',
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.white,

@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:hcm1011/presentasion/pages/info_detail.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_list_info/list_info_bloc.dart';
 
 class CardSchedule extends StatefulWidget {
-  // const cardSchedule({super.key});
   const CardSchedule({Key? key}) : super(key: key);
 
   @override
-  State<CardSchedule> createState() => _cardSchedule();
+  State<CardSchedule> createState() => _CardScheduleState();
 }
 
-class _cardSchedule extends State<CardSchedule> {
+class _CardScheduleState extends State<CardSchedule> {
   @override
   void initState() {
     Future.microtask(
       () => context.read<ListInfoBloc>().add(const GetList()),
     );
-
     super.initState();
   }
 
@@ -28,26 +27,42 @@ class _cardSchedule extends State<CardSchedule> {
       builder: (context, state) {
         if (state is ListInfoLoading) {
           return Container(
-            color: Color.fromARGB(
-                255, 245, 251, 255), // Tambahkan latar belakang putih di sini
-            height: 100, // Tambahkan ketinggian di sini
-            child: Center(
-              child: CircularProgressIndicator(),
+            color: Color.fromARGB(255, 245, 251, 255),
+            height: 100,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: 3, // Display 3 shimmer items
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      height: 90,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Color(0xFF1BEFC7),
+                          width: 1.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           );
         } else if (state is ListInfoLoaded) {
-          // return _buildCard(context, state.modelList);
           if (state.infoList == null || state.infoList!.isEmpty) {
-            // Display an image or a message indicating no data
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset(
-                      'assets/status/no_info.png'), // Replace with your image asset
-                  SizedBox(
-                    height: 6,
-                  ),
+                  Image.asset('assets/status/no_info.png'),
+                  SizedBox(height: 6),
                   Text(
                     'No data available',
                     style: TextStyle(
@@ -71,7 +86,7 @@ class _cardSchedule extends State<CardSchedule> {
                 final media = state.infoList?[index].media;
 
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   child: Card(
                     elevation: 1.0,
                     shape: RoundedRectangleBorder(
@@ -85,25 +100,21 @@ class _cardSchedule extends State<CardSchedule> {
                           infoDetail.route,
                           arguments: DetailPageArgument(info_id: id),
                         );
-                        // Anda dapat menavigasi ke layar baru atau melakukan tindakan lainnya.
                       },
                       child: Container(
                         height: 90,
-                        width: 159,
+                        width: double.infinity,
                         decoration: BoxDecoration(
                           color: whiteColor,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color:
-                                Color(0xFF1BEFC7), // Warna garis tepi (strok)
-                            width: 1.0, // Lebar garis tepi (strok)
+                            color: Color(0xFF1BEFC7),
+                            width: 1.0,
                           ),
                         ),
                         child: Row(
                           children: [
-                            SizedBox(
-                              width: 20,
-                            ),
+                            SizedBox(width: 20),
                             Container(
                               height: 50,
                               width: 50,
@@ -116,13 +127,11 @@ class _cardSchedule extends State<CardSchedule> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                  height: 20,
-                                ),
+                                SizedBox(height: 20),
                                 Padding(
                                   padding: EdgeInsets.only(left: 10.0),
                                   child: Text(
-                                    '${title}',
+                                    title ?? '',
                                     style: openSensBoldDark.copyWith(
                                       fontSize: 16,
                                       color: darkColor,
@@ -130,13 +139,11 @@ class _cardSchedule extends State<CardSchedule> {
                                     textAlign: TextAlign.left,
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 4,
-                                ),
+                                SizedBox(height: 4),
                                 Padding(
                                   padding: EdgeInsets.only(left: 10.0),
                                   child: Text(
-                                    '${author}',
+                                    author ?? '',
                                     style: openSensMediumDark.copyWith(
                                       fontSize: 13,
                                     ),
@@ -145,9 +152,7 @@ class _cardSchedule extends State<CardSchedule> {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
+                            SizedBox(width: 10),
                           ],
                         ),
                       ),

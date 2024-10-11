@@ -19,6 +19,7 @@ class FormDetailIdBloc extends Bloc<FormDetailIdEvent, FormDetailIdState> {
         emit(FormDetailIdLoading());
         final edit_id = event.edit_id;
         final result = await apiEditGS.fachdataGs(edit_id);
+
         if (result.status == 200) {
           emit(FormDetailIdLoaded(result.data, result.status));
         } else {

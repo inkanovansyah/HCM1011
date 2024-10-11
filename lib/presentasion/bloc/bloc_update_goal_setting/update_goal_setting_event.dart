@@ -14,6 +14,7 @@ class UpdateGoalSettingEventSubmit extends UpdateGoalSettingEvent {
   final String target;
   final String bobot;
   final String satuanTarget;
+  final String updateGoalSetting;
 
   const UpdateGoalSettingEventSubmit({
     required this.sectionId,
@@ -22,9 +23,17 @@ class UpdateGoalSettingEventSubmit extends UpdateGoalSettingEvent {
     required this.target,
     required this.bobot,
     required this.satuanTarget,
+    required this.updateGoalSetting,
   });
 
   @override
-  List<Object> get props =>
-      [sectionId, formId, jobDesc, target, bobot, satuanTarget];
+  List<Object> get props => [
+        sectionId,
+        formId,
+        jobDesc,
+        target,
+        bobot,
+        satuanTarget,
+        updateGoalSetting
+      ];
 }

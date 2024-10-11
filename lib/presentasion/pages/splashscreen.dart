@@ -171,7 +171,7 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? backgroundColor;
     Color? textColor;
-    if (label2 == 'hero_1') {
+    if (label2 == '') {
       backgroundColor = Colors.white; // Set background color for the first page
       textColor = darkdarkBlueColor; // Set text color for the first page
     } else {

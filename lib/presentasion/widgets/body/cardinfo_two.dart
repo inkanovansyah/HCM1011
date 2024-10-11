@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_balance/balance_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 
 class CardInfoTwo extends StatefulWidget {
@@ -7,6 +10,14 @@ class CardInfoTwo extends StatefulWidget {
 }
 
 class _CardInfotwoState extends State<CardInfoTwo> {
+  @override
+  void initState() {
+    Future.microtask(
+      () => context.read<BalanceBloc>().add(const GetBalance()),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
@@ -39,19 +50,76 @@ class _CardInfotwoState extends State<CardInfoTwo> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Not yet available',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: darkdarkBlueColor,
-                        ),
-                      ),
-                    ),
+                  BlocBuilder<BalanceBloc, BalanceState>(
+                    builder: (context, state) {
+                      if (state is BalanceLoading) {
+                        return Center(
+                          child: Container(),
+                        );
+                      } else if (state is BalanceLoaded) {
+                        final jatah = state.data?.jatah ?? 0;
+                        final sisa = state.data?.sisa ?? 0;
+                        return Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  '$sisa Days Used',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: darkdarkBlueColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  '$jatah Leave Quota',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: darkdarkBlueColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      } else if (state is BalanceError) {
+                        return Center(
+                          child: Text(
+                            state.message,
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        );
+                      } else {
+                        return Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Unexpected State',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      }
+                    },
                   ),
+                  // Align(
+                  //   alignment: Alignment.bottomRight,
+                  //   child: Padding(
+                  //     padding: EdgeInsets.all(8.0),
+                  //     child: Text(
+                  //       'Not yet available',
+                  //       style: TextStyle(
+                  //         fontSize: 16,
+                  //         color: darkdarkBlueColor,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

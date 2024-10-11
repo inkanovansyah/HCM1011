@@ -23,13 +23,7 @@ class _FormCodeState extends State<FormCode> {
     return BlocBuilder<KpiBloc, KpiState>(
       builder: (context, state) {
         if (state is KpiLoading) {
-          return Container(
-            color: Color.fromARGB(255, 245, 251, 255),
-            height: 30,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return SizedBox.shrink(); // Tidak menampilkan apapun
         } else if (state is KpiLoaded) {
           final sectionId = state.dataKpi?.data?.isNotEmpty == true
               ? state.dataKpi!.data![0].sectionId ?? ''
@@ -38,7 +32,7 @@ class _FormCodeState extends State<FormCode> {
           widget.sessionIdController.text = sectionId;
 
           return Visibility(
-            visible: sectionId.isNotEmpty, // Change this condition as needed
+            visible: false, // Change this condition as needed
             child: Padding(
               padding: const EdgeInsets.all(0.0),
               child: TextFormField(

@@ -12,16 +12,18 @@ class ApplyBookingInitial extends ApplyBookingState {}
 class ApplyBookingLoading extends ApplyBookingState {}
 
 class ApplyBookingLoaded extends ApplyBookingState {
-  final DataData? data;
+  final Data? data;
+  final String? messages;
   final int status;
 
   const ApplyBookingLoaded(
     this.data,
+    this.messages,
     this.status,
   );
 
   @override
-  List<Object> get props => [data ?? [], status];
+  List<Object> get props => [data ?? [], messages ?? [], status];
 }
 
 class ApplyBookingNoData extends ApplyBookingState {

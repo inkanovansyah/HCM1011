@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_apply_booking/apply_booking_bloc.dart';
 import 'package:hcm1011/presentasion/widgets/booking/atom/room.dart';
-import 'package:hcm1011/data/service/api_apply_room.dart';
 import 'package:hcm1011/presentasion/pages/booking.dart';
 
 class FormRoom extends StatefulWidget {
@@ -46,9 +46,11 @@ class _FormRoomState extends State<FormRoom> {
           pickedTime.minute,
         );
 
+        final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm');
+        final String formatted = formatter.format(selectedDateTime);
+
         setState(() {
-          controller.text = "${selectedDateTime.toLocal()}".split(' ')[0] +
-              " ${selectedDateTime.hour}:${selectedDateTime.minute}";
+          controller.text = formatted;
         });
       }
     }
@@ -58,10 +60,14 @@ class _FormRoomState extends State<FormRoom> {
     switch (leaveType) {
       case 'Ruang meeting Besar':
         return 1;
-      case 'Ruang Meeting Sedang':
+      case 'Ruang Meeting Atas':
         return 2;
       case 'Ruang Meeting Kecil':
         return 3;
+      case 'Ruang Postpro':
+        return 4;
+      case 'Ruang Konsultasi':
+        return 5;
       default:
         return 0;
     }
@@ -71,49 +77,46 @@ class _FormRoomState extends State<FormRoom> {
     if (_formKey.currentState?.validate() ?? false) {
       BlocProvider.of<ApplyBookingBloc>(context).add(ApplyBookingSubmitEvent(
         room: _getLeaveTypeId(roomController.text).toString(),
-        startdate: startDateController.text,
-        enddate: endDateController.text,
-        title: keteranganController.text,
-        descrip: kegiatanController.text,
+        startdate: startDateController.text.toString(),
+        enddate: endDateController.text.toString(),
+        title: keteranganController.text.toString(),
+        descrip: kegiatanController.text.toString(),
       ));
-
-      // Menunggu hingga state ApplyBookingLoaded
-      await Future.delayed(
-          Duration(milliseconds: 500)); // Contoh delay jika diperlukan
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => PageBooking(),
-        ),
-      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ApplyBookingBloc(
-        ApplyRoomapi: ApplyRoomApi(),
-      ),
-      child: BlocListener<ApplyBookingBloc, ApplyBookingState>(
-        listener: (context, state) {
-          if (state is ApplyBookingLoading) {
-            // Optional: Update UI if necessary during loading
-          } else if (state is ApplyBookingNoData ||
-              state is ApplyBookingError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content: Text(
-                      'Pengajuan Ruang Gagal: ${state is ApplyBookingError ? state.message : (state as ApplyBookingNoData).message}')),
-            );
-          } else if (state is ApplyBookingLoaded) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Pengajuan Berhasil')),
-            );
-            // Navigasi ke halaman baru setelah berhasil
-          }
-        },
-        child: Padding(
+    return BlocConsumer<ApplyBookingBloc, ApplyBookingState>(
+      listener: (context, state) {
+        if (state is ApplyBookingLoading) {
+          // Optional: Update UI if necessary during loading
+        } else if (state is ApplyBookingLoaded) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                  state.messages ?? 'Tidak ada pesan'), // Berikan nilai default
+              backgroundColor: Colors.green,
+            ),
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PageBooking(),
+            ),
+          );
+        } else if (state is ApplyBookingError) {
+          // Tangani kondisi error
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${state.message}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
             elevation: 6.0,
@@ -126,7 +129,7 @@ class _FormRoomState extends State<FormRoom> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Pilih Ruang Meeting',
+                      'Select Meeting Room',
                       textAlign: TextAlign.start,
                       style: openSensBoldDark.copyWith(
                         fontSize: 14,
@@ -163,7 +166,7 @@ class _FormRoomState extends State<FormRoom> {
                                     context, startDateController),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Wajib diisi';
+                                    return 'Required fields';
                                   }
                                   return null;
                                 },
@@ -198,7 +201,7 @@ class _FormRoomState extends State<FormRoom> {
                                     _selectDateTime(context, endDateController),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Wajib diisi';
+                                    return 'Required fields';
                                   }
                                   return null;
                                 },
@@ -210,7 +213,7 @@ class _FormRoomState extends State<FormRoom> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Judul Aktivitas',
+                      'Activity Title',
                       textAlign: TextAlign.start,
                       style: openSensBoldDark.copyWith(
                         fontSize: 14,
@@ -220,20 +223,20 @@ class _FormRoomState extends State<FormRoom> {
                     TextFormField(
                       controller: keteranganController,
                       decoration: InputDecoration(
-                        labelText: 'Judul Aktivitas',
+                        labelText: 'Activity Title',
                         fillColor: Colors.grey[200],
                         filled: true,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Wajib diisi';
+                          return 'Required fields';
                         }
                         return null;
                       },
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Informasi',
+                      'Information',
                       textAlign: TextAlign.start,
                       style: openSensBoldDark.copyWith(
                         fontSize: 14,
@@ -243,13 +246,13 @@ class _FormRoomState extends State<FormRoom> {
                     TextFormField(
                       controller: kegiatanController,
                       decoration: InputDecoration(
-                        labelText: 'Informasi',
+                        labelText: 'Information',
                         fillColor: Colors.grey[200],
                         filled: true,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Wajib diisi';
+                          return 'Required fields';
                         }
                         return null;
                       },
@@ -271,7 +274,7 @@ class _FormRoomState extends State<FormRoom> {
                           minimumSize: Size(double.infinity, 60),
                         ),
                         child: Text(
-                          'Ajukan Permohonan Ruang',
+                          'Submit a Space Request',
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                       ),
@@ -281,8 +284,8 @@ class _FormRoomState extends State<FormRoom> {
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:hcm1011/presentasion/bloc/bloc_transaksi_booking/transaksi_booking_bloc.dart';
 import 'package:hcm1011/data/model/listTransaksiBooking.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_booking_backapply/booking_backapply_bloc.dart';
 
 class CardTransactionCar extends StatefulWidget {
   const CardTransactionCar({super.key});
@@ -14,15 +17,25 @@ class CardTransactionCar extends StatefulWidget {
 class _CardBookingCar extends State<CardTransactionCar> {
   DateTime _selectedDay = DateTime.now();
   List<Datum> _bookings = [];
+  String? _sharedEmployeeId; // To store employeeId from SharedPreferences
 
   @override
   void initState() {
     super.initState();
+    _loadEmployeeId(); // Load employee ID from SharedPreferences
     _loadBookings();
   }
 
   DateTime _stripTime(DateTime date) {
     return DateTime(date.year, date.month, date.day);
+  }
+
+  Future<void> _loadEmployeeId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _sharedEmployeeId = prefs.getString(
+          'employee_id'); // Assuming 'employeeId' is stored as a String
+    });
   }
 
   void _loadBookings() {
@@ -37,81 +50,82 @@ class _CardBookingCar extends State<CardTransactionCar> {
     }
   }
 
-  // @override
-  // void initState() {
-  //   Future.microtask(
-  //     () => context.read<TransaksiBookingBloc>().add(const GetTransaksi()),
-  //   );
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TransaksiBookingBloc, TransaksiBookingState>(
-      builder: (context, state) {
-        if (state is TransaksiBookingLoading) {
-          return Center(child: CircularProgressIndicator()); // Loading state
-        } else if (state is TransaksiBookingLoaded) {
-          DateTime today = _stripTime(DateTime.now());
-
-          if (_selectedDay.isBefore(today)) {
-            _bookings = []; // Clear bookings for past dates
-          } else {
-            _bookings = state.transakiList?.where((booking) {
-                  final startDate = _stripTime(DateTime(
-                    booking.bookingStart!.year,
-                    booking.bookingStart!.month,
-                    booking.bookingStart!.day,
-                  ));
-                  return startDate == _selectedDay;
-                }).toList() ??
-                [];
-          }
-
-          return Column(
-            children: [
-              Container(
-                color: Colors.white, // Set background color to white
-                child: CalendarDatePicker(
-                  initialDate: _selectedDay,
-                  firstDate:
-                      _stripTime(DateTime.now()), // Disable dates before today
-                  lastDate: DateTime(2030),
-                  onDateChanged: (pickedDate) {
-                    setState(() {
-                      _selectedDay = _stripTime(pickedDate);
-                      _loadBookings(); // Reload bookings only if the date is today or in the future
-                    });
-                  },
-                ),
-              ),
-              const SizedBox(height: 4.0),
-              _buildEventsList(),
-            ],
-          );
-        } else if (state is BookingError) {
-          return Text(state.message);
-        } else {
-          return Container(
-            color: Color(0xffEEF2FD),
-            height: 100,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 10),
-                Text(
-                  'tidak terduga...',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          );
+    return BlocListener<BookingBackapplyBloc, BookingBackapplyState>(
+      listener: (context, state) {
+        if (state is TransaksiBookingLoaded) {
+          context.read<TransaksiBookingBloc>().add(const GetTransaksi());
         }
       },
+      child: BlocBuilder<TransaksiBookingBloc, TransaksiBookingState>(
+        builder: (context, state) {
+          if (state is TransaksiBookingLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            ); // Loading state
+          } else if (state is TransaksiBookingLoaded) {
+            DateTime today = _stripTime(DateTime.now());
+
+            if (_selectedDay.isBefore(today)) {
+              _bookings = []; // Clear bookings for past dates
+            } else {
+              _bookings = state.transakiList?.where((booking) {
+                    final startDate = _stripTime(DateTime(
+                      booking.bookingStart!.year,
+                      booking.bookingStart!.month,
+                      booking.bookingStart!.day,
+                    ));
+                    return startDate == _selectedDay && booking.isActive == "1";
+                  }).toList() ??
+                  [];
+            }
+
+            return Column(
+              children: [
+                Container(
+                  color: Colors.white, // Set background color to white
+                  child: CalendarDatePicker(
+                    initialDate: _selectedDay,
+                    firstDate: _stripTime(
+                        DateTime.now()), // Disable dates before today
+                    lastDate: DateTime(2030),
+                    onDateChanged: (pickedDate) {
+                      setState(() {
+                        _selectedDay = _stripTime(pickedDate);
+                        _loadBookings(); // Reload bookings only if the date is today or in the future
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(height: 4.0),
+                _buildEventsList(),
+              ],
+            );
+          } else if (state is BookingError) {
+            return Text(state.message);
+          } else {
+            return Container(
+              color: Color(0xffEEF2FD),
+              height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 10),
+                  Text(
+                    'tidak terduga...',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 
@@ -148,21 +162,20 @@ class _CardBookingCar extends State<CardTransactionCar> {
     } else {
       return ListView.builder(
         shrinkWrap: true,
-        physics:
-            NeverScrollableScrollPhysics(), // Add this to prevent infinite size error.
+        physics: NeverScrollableScrollPhysics(),
         itemCount: _bookings.length,
         itemBuilder: (context, index) {
           final bookingData = _bookings[index];
-          final String? id = bookingData.id;
           final namemobil = bookingData.description;
           final description = bookingData.deskripsi;
           final namaPenguna = bookingData.namaPengguna;
-          final bookingStatus = bookingData.isActive;
           final bookingStart = bookingData.bookingStart;
           final bookingEnd = bookingData.bookingEnd;
           final transmisi = bookingData.transmisi;
           final bahanBakar = bookingData.bahanBakar;
           final jumlahKursi = bookingData.jenisChar;
+          final employeeId = bookingData.employeeId;
+          final id = bookingData.id;
 
           final String startDate = bookingStart != null
               ? DateFormat('dd MMM yyyy ,HH:mm').format(bookingStart)
@@ -170,20 +183,6 @@ class _CardBookingCar extends State<CardTransactionCar> {
           final String endDate = bookingEnd != null
               ? DateFormat('HH:mm').format(bookingEnd)
               : 'Unknown';
-
-          String statusLabel;
-          Color statusColor;
-
-          if (bookingStatus == '0') {
-            statusLabel = "finished";
-            statusColor = Colors.red;
-          } else if (bookingStatus == '1') {
-            statusLabel = "booked";
-            statusColor = Colors.green;
-          } else {
-            statusLabel = "Unknown";
-            statusColor = Colors.grey;
-          }
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -298,6 +297,35 @@ class _CardBookingCar extends State<CardTransactionCar> {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 15),
+                        // Show the "Cancel" button only if employeeId matches
+                        if (_sharedEmployeeId == employeeId)
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (id != null) {
+                                  context
+                                      .read<BookingBackapplyBloc>()
+                                      .add(BookingBackEvent(idbooking: id));
+                                } else {
+                                  // Handle case where id is null, maybe show a snackbar or an error message
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red, // Button color
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 14.0),
+                              ),
+                              child: const Text(
+                                'Cancel Booking',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),

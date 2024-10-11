@@ -31,7 +31,14 @@ import 'package:hcm1011/data/service/api_notification_read.dart';
 import 'package:hcm1011/data/service/api_edit_gs.dart';
 import 'package:hcm1011/data/service/api_update_goalsetting.dart';
 import 'package:hcm1011/data/service/api_apply_car.dart';
+import 'package:hcm1011/data/service/api_list_car_type.dart';
+import 'package:hcm1011/data/service/api_delete_story.dart';
+import 'package:hcm1011/data/service/api_delete_booking_room.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_form_detail_id/form_detail_id_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_delete_room_booking/delete_booking_room_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_delate_story/delate_story_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_car_type/car_type_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_edit_kpi/edit_kpi_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_booking_backapply/booking_backapply_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_update_goal_setting/update_goal_setting_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_read_notification/read_notification_bloc.dart';
@@ -168,6 +175,41 @@ Future<void> setup() async {
 
   getIt.registerFactory<ApplyCarApi>(
     (() => ApplyCarApi()),
+  );
+
+  getIt.registerFactory<ListCarType>(
+    (() => ListCarType()),
+  );
+
+  getIt.registerFactory<DeleteStoryList>(
+    () => DeleteStoryList(),
+  );
+  getIt.registerFactory<ApiDeleteBookingRoom>(
+    () => ApiDeleteBookingRoom(),
+  );
+
+  getIt.registerFactory<EditKpiBloc>(
+    () => EditKpiBloc(
+      apiEditKpi: getIt(),
+    ),
+  );
+
+  getIt.registerFactory<DeleteBookingRoomBloc>(
+    () => DeleteBookingRoomBloc(
+      dalateGs: getIt(),
+    ),
+  );
+
+  getIt.registerFactory<DelateStoryBloc>(
+    () => DelateStoryBloc(
+      apiDeleteStory: getIt(),
+    ),
+  );
+
+  getIt.registerFactory<CarTypeBloc>(
+    () => CarTypeBloc(
+      apiCarType: getIt(),
+    ),
   );
 
   getIt.registerFactory<ApplyTrainingBloc>(

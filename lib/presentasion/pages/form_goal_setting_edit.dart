@@ -55,6 +55,7 @@ class _FormGoalSetting extends State<infoDetailFrom> {
   final TextEditingController satuanActualController = TextEditingController();
   final TextEditingController sessionIdController = TextEditingController();
   final TextEditingController formIdController = TextEditingController();
+  final TextEditingController kpiController = TextEditingController();
 
   // Method to populate controllers with data from state
   void _populateFormData(FormDetailIdLoaded state) {
@@ -89,6 +90,8 @@ class _FormGoalSetting extends State<infoDetailFrom> {
               satuanTarget: satuanActualController.text.isNotEmpty
                   ? satuanActualController.text
                   : '',
+              updateGoalSetting:
+                  kpiController.text.isNotEmpty ? kpiController.text : '',
             ),
           );
 
@@ -256,7 +259,7 @@ class _FormGoalSetting extends State<infoDetailFrom> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 10),
+                  // SizedBox(height: 10),
                   // FormCode(sessionIdController: sessionIdController),
                   SizedBox(height: 10),
                   Row(
@@ -317,6 +320,7 @@ class _FormGoalSetting extends State<infoDetailFrom> {
                       ),
                     ],
                   ),
+                  // Menampilkan widget 'Text' dan 'TextFormField' sesuai dengan kondisi selfSubmit
                   SizedBox(height: 30),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 0.0),

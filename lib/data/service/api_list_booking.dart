@@ -6,7 +6,7 @@ import 'package:hcm1011/data/model/failure_exception.dart';
 import 'package:hcm1011/data/model/bookinglist.dart';
 
 class ListBookingApi {
-  final String baseUrl = "http://172.16.0.73";
+  final String baseUrl = "http://172.16.0.206";
 
   Future<ListBooking> fatchDataBookingList() async {
     try {

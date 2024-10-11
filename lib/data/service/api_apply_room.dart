@@ -42,10 +42,11 @@ class ApplyRoomApi {
           },
         ),
       );
-
+      print(response.body);
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
         final modelApplyRoom = ApplyRoom.fromJson(decodedResponse);
+        print('Booking successful: ${modelApplyRoom.messages}');
         return modelApplyRoom;
       } else {
         print('HTTP Error: ${response.statusCode}');
@@ -54,8 +55,9 @@ class ApplyRoomApi {
     } on SocketException {
       throw FailureException('no internet Connection');
     } catch (e) {
-      print('Error: $e');
-      throw FailureException('failed to load');
+      print('Error : $e');
+      throw FailureException(
+          'Booking range conflicts with an existing booking.');
     }
   }
 }

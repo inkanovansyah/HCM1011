@@ -24,6 +24,7 @@ class UpdateGoalSettingBloc
           final target = event.target;
           final actual = event.bobot;
           final satuanTarget = event.satuanTarget;
+          final updateGoalSetting = event.updateGoalSetting;
 
           final result = await apiUpdateGS.fachdataGs(
             sectionId,
@@ -32,6 +33,7 @@ class UpdateGoalSettingBloc
             target,
             actual,
             satuanTarget,
+            updateGoalSetting,
           );
           if (result.data != null && result.status == 200) {
             emit(UpdateGoalSettingLoaded(result.data!, result.status ?? 0));

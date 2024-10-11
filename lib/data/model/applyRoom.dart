@@ -3,8 +3,8 @@ import 'dart:convert';
 class ApplyRoom {
   int? status;
   dynamic error;
-  List<dynamic>? messages;
-  ApplyRoomData? data;
+  String? messages;
+  Data? data;
 
   ApplyRoom({
     this.status,
@@ -21,60 +21,27 @@ class ApplyRoom {
   factory ApplyRoom.fromJson(Map<String, dynamic> json) => ApplyRoom(
         status: json["status"],
         error: json["error"],
-        messages: json["messages"] == null
-            ? []
-            : List<dynamic>.from(json["messages"]!.map((x) => x)),
-        data:
-            json["data"] == null ? null : ApplyRoomData.fromJson(json["data"]),
+        messages: json["messages"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "error": error,
-        "messages":
-            messages == null ? [] : List<dynamic>.from(messages!.map((x) => x)),
+        "messages": messages,
         "data": data?.toJson(),
       };
 }
 
-class ApplyRoomData {
-  int? status;
-  String? msg;
-  DataData? data;
-
-  ApplyRoomData({
-    this.status,
-    this.msg,
-    this.data,
-  });
-
-  factory ApplyRoomData.fromRawJson(String str) =>
-      ApplyRoomData.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory ApplyRoomData.fromJson(Map<String, dynamic> json) => ApplyRoomData(
-        status: json["status"],
-        msg: json["msg"],
-        data: json["data"] == null ? null : DataData.fromJson(json["data"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "status": status,
-        "msg": msg,
-        "data": data?.toJson(),
-      };
-}
-
-class DataData {
-  int? roomId;
+class Data {
+  String? roomId;
   String? employeeId;
   String? roomValue;
   String? alias;
   DateTime? startDate;
   DateTime? endDate;
 
-  DataData({
+  Data({
     this.roomId,
     this.employeeId,
     this.roomValue,
@@ -83,12 +50,11 @@ class DataData {
     this.endDate,
   });
 
-  factory DataData.fromRawJson(String str) =>
-      DataData.fromJson(json.decode(str));
+  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory DataData.fromJson(Map<String, dynamic> json) => DataData(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
         roomId: json["room_id"],
         employeeId: json["employee_id"],
         roomValue: json["room_value"],
@@ -105,7 +71,9 @@ class DataData {
         "employee_id": employeeId,
         "room_value": roomValue,
         "alias": alias,
-        "start_date": startDate?.toIso8601String(),
-        "end_date": endDate?.toIso8601String(),
+        "start_date":
+            "${startDate!.year.toString().padLeft(4, '0')}-${startDate!.month.toString().padLeft(2, '0')}-${startDate!.day.toString().padLeft(2, '0')}",
+        "end_date":
+            "${endDate!.year.toString().padLeft(4, '0')}-${endDate!.month.toString().padLeft(2, '0')}-${endDate!.day.toString().padLeft(2, '0')}",
       };
 }

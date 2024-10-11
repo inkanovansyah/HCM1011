@@ -7,7 +7,7 @@ import 'package:hcm1011/data/model/failure_exception.dart';
 import 'package:hcm1011/data/model/appCar.dart';
 
 class ApplyCarApi {
-  final String baseUrl = "http://172.16.0.73";
+  final String baseUrl = "http://172.16.0.206";
 
   Future<AppCar> fatchDataApplyCar(
     String id,

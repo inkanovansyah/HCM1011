@@ -37,11 +37,11 @@ class Applyleave {
 }
 
 class Data {
-  int? employeeId;
+  String? employeeId;
   int? subsId;
   String? letterNo;
   String? letterDate;
-  int? leaveId;
+  String? leaveId;
   DateTime? dateStart;
   DateTime? dateEnd;
   String? notes;

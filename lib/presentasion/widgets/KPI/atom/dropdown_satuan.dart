@@ -66,24 +66,7 @@ class _satuanDropdown extends State<DropdownSatuan> {
       } else if (state is SatuanError) {
         return Text(state.messages);
       } else {
-        return Container(
-          color: Color(0xffEEF2FD),
-          height: 100,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 10),
-              Text(
-                'load.',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        );
+        return SizedBox.shrink(); // Tidak menampilkan apapun
       }
     });
   }

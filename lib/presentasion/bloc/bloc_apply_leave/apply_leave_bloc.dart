@@ -5,7 +5,6 @@ import 'package:hcm1011/data/service/api_apply_leave.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
 import 'package:hcm1011/data/model/applyLeave.dart';
 
-
 part 'apply_leave_event.dart';
 part 'apply_leave_state.dart';
 

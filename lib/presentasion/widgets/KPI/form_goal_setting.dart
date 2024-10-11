@@ -114,7 +114,7 @@ class _FormGoalState extends State<FormGoal> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Item/Keterangan',
+                    'Item/Description',
                     textAlign: TextAlign.start,
                     style: openSensBoldDark.copyWith(
                       fontSize: 14,
@@ -124,7 +124,7 @@ class _FormGoalState extends State<FormGoal> {
                   TextFormField(
                     controller: jobDescController,
                     decoration: InputDecoration(
-                      labelText: 'Item/Keterangan',
+                      labelText: 'Item/Description',
                       fillColor: Colors.grey[200],
                       filled: true,
                       prefixIcon: Icon(Icons.description),
@@ -209,7 +209,7 @@ class _FormGoalState extends State<FormGoal> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Satuan',
+                              'Unit',
                               textAlign: TextAlign.left,
                               style: openSensBoldDark.copyWith(
                                 fontSize: 14,

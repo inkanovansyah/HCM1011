@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:shimmer/shimmer.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_booking_list/booking_list_bloc.dart';
 
 class CardBookingCar extends StatefulWidget {
@@ -16,7 +16,6 @@ class _CardBookingCarRequest extends State<CardBookingCar> {
     Future.microtask(
       () => context.read<BookingListBloc>().add(const GetBookingList()),
     );
-
     super.initState();
   }
 
@@ -26,23 +25,41 @@ class _CardBookingCarRequest extends State<CardBookingCar> {
       builder: (context, state) {
         if (state is BookingListLoading) {
           return Container(
-            color: Color.fromARGB(
-                255, 245, 251, 255), // Tambahkan latar belakang putih di sini
-            height: 100, // Tambahkan ketinggian di sini
-            child: Center(
-              child: CircularProgressIndicator(),
+            color: Color.fromARGB(255, 245, 251, 255),
+            height: 100,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: 3, // Display 3 shimmer items
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      height: 100,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Color(0xFF1BEFC7),
+                          width: 1.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           );
         } else if (state is BookingListLoaded) {
           if (state.bookingList?.isEmpty ?? true) {
-            // Data list is empty
             return Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 40,
-                  ),
+                  SizedBox(height: 40),
                   Image.asset(
                     'assets/images/no_leave.png', // Add a path to your no data image
                     width: 100,
@@ -57,39 +74,21 @@ class _CardBookingCarRequest extends State<CardBookingCar> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
-                    height: 40,
-                  ),
+                  SizedBox(height: 40),
                 ],
               ),
             );
           } else {
             return ListView.builder(
               shrinkWrap: true,
-              itemCount: state.bookingList
-                  ?.length, // Tentukan jumlah item yang ingin ditampilkan
+              itemCount: state.bookingList?.length,
               itemBuilder: (context, index) {
                 final bookingData = state.bookingList![index];
                 final bookingName = bookingData.description;
                 final description = bookingData.deskripsi;
-                final bookingStatus = bookingData.isActive;
                 final transmisi = bookingData.transmisi;
                 final bahanBakar = bookingData.bahanBakar;
                 final jumlahKursi = bookingData.jenisChar;
-
-                String statusLabel;
-                Color statusColor;
-
-                if (bookingStatus == '0') {
-                  statusLabel = "Available";
-                  statusColor = Colors.green;
-                } else if (bookingStatus == '1') {
-                  statusLabel = "Booked";
-                  statusColor = Colors.red;
-                } else {
-                  statusLabel = "Unknown";
-                  statusColor = Colors.grey;
-                }
 
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
@@ -185,7 +184,6 @@ class _CardBookingCarRequest extends State<CardBookingCar> {
                                       ),
                                     ],
                                   ),
-                                  // line indicator in green
                                 ],
                               ),
                             ],

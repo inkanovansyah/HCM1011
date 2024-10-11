@@ -28,13 +28,13 @@ class _InfoCarouselState extends State<InfoCarousel> {
       builder: (context, state) {
         if (state is InfoLoading) {
           return Container(
-            color: Color.fromARGB(
-                255, 245, 251, 255), // Tambahkan latar belakang putih di sini
-            height: 100, // Tambahkan ketinggian di sini
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+              // color: Color.fromARGB(
+              //     255, 245, 251, 255), // Tambahkan latar belakang putih di sini
+              // height: 100, // Tambahkan ketinggian di sini
+              // child: Center(
+              //   child: CircularProgressIndicator(),
+              // ),
+              );
         } else if (state is InfoLoaded) {
           // Sort the state.infoList ascending based on ID
           if (state.infoList != null) {
@@ -47,6 +47,7 @@ class _InfoCarouselState extends State<InfoCarousel> {
               return a.id!.compareTo(b.id!);
             });
           }
+
           return SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

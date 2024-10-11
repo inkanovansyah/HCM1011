@@ -38,15 +38,15 @@ class _nameCardTrining extends State<CardTrining> {
             itemBuilder: (context, index) {
               state.data?.data
                   ?.sort((a, b) => (b.id ?? '').compareTo(a.id ?? ''));
-              final id = state.data?.data?[index].id ?? '';
+              // final id = state.data?.data?[index].id ?? '';
               final name = state.data?.data?[index].name;
-              final points = state.data?.data?[index].points;
+              // final points = state.data?.data?[index].points;
               final certificateValue = state.data?.data?[index].hasCertificate;
               final String certificateStatus =
                   certificateValue == 1 ? "No Certificate" : "Certificate";
               final startDate = state.data?.data?[index].startDate;
               final endDate = state.data?.data?[index].endDate;
-              final vendor_name = state.data?.data?[index].vendorName;
+              // final vendor_name = state.data?.data?[index].vendorName;
               // Menghilangkan bagian waktu dari string tanggal
               final String formattedStartDate = startDate != null
                   ? '${startDate.toLocal().toIso8601String().split('T')[0]}'

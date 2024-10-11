@@ -3,7 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_booking_car/booking_car_bloc.dart';
-import 'package:hcm1011/presentasion/widgets/booking/atom/room.dart';
+// import 'package:hcm1011/presentasion/widgets/booking/atom/room.dart';
+import 'package:hcm1011/presentasion/widgets/booking/atom/type_car.dart';
 import 'package:hcm1011/presentasion/pages/booking.dart';
 
 class FormCar extends StatefulWidget {
@@ -24,10 +25,6 @@ class _FormCarState extends State<FormCar> {
     switch (leaveType) {
       case 'Ruang meeting Besar':
         return 1;
-      case 'Ruang Meeting Sedang':
-        return 2;
-      case 'Ruang Meeting Kecil':
-        return 3;
       default:
         return 0;
     }
@@ -93,17 +90,7 @@ class _FormCarState extends State<FormCar> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    DropdownButton<String>(
-                      value: 'Wuling', // Dummy value
-                      onChanged: (String? newValue) {},
-                      items: <String>['Wuling'] // Dummy value
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
+                    TypeCar(typeCarController: roomController),
                     SizedBox(height: 10),
                     Row(
                       children: [

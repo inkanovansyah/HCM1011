@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:convert'; // Needed for jsonDecode
+import 'package:shimmer/shimmer.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_delete_gs/delete_bloc.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/pages/form_goal_setting_edit.dart';
+import 'package:hcm1011/presentasion/pages/form_kpi_edit.dart';
 
 class CardKPI extends StatefulWidget {
   const CardKPI({super.key});
@@ -37,8 +40,33 @@ class _CardKPI extends State<CardKPI> {
             return Container(
               color: Color.fromARGB(255, 245, 251, 255),
               height: 100,
-              child: Center(
-                child: CircularProgressIndicator(),
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: ListView.builder(
+                  itemCount: 5, // Simulate 5 placeholder items
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    child: Card(
+                      elevation: 4.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Container(
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 4.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             );
           } else if (state is GoalSettingLoaded) {
@@ -284,11 +312,18 @@ class _CardKPI extends State<CardKPI> {
                                               onPressed: () {
                                                 Navigator.pushNamed(
                                                   context,
-                                                  infoDetailFrom.route,
+                                                  infoDetailFromKpi.route,
                                                   arguments:
-                                                      EditFormPageArgument(
-                                                          edit_id: id),
+                                                      EditFormKPIPageArgument(
+                                                          editkpi_id: id),
                                                 );
+                                                // Navigator.pushNamed(
+                                                //   context,
+                                                //   infoDetailFrom.route,
+                                                //   arguments:
+                                                //       EditFormPageArgument(
+                                                //           edit_id: id),
+                                                // );
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.orange,

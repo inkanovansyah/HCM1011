@@ -7,7 +7,7 @@ import 'package:hcm1011/data/model/failure_exception.dart';
 import 'package:hcm1011/data/model/listTransaksiBooking.dart';
 
 class TransaksiRoomType {
-  final String baseUri = "http://172.16.0.73";
+  final String baseUri = "http://172.16.0.206";
 
   Future<ListtransaksiBooking> fatchDataTransaksiBooking() async {
     try {

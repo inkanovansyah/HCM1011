@@ -34,10 +34,15 @@ import 'package:hcm1011/presentasion/bloc/bloc_apply_traning/apply_training_bloc
 import 'package:hcm1011/presentasion/bloc/bloc_form_detail_id/form_detail_id_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_update_goal_setting/update_goal_setting_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_booking_backapply/booking_backapply_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_edit_kpi/edit_kpi_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_car_type/car_type_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_delate_story/delate_story_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_delete_room_booking/delete_booking_room_bloc.dart';
 import 'package:hcm1011/presentasion/pages/splashscreen.dart';
 import 'package:hcm1011/presentasion/pages/info_detail.dart';
 import 'package:hcm1011/presentasion/pages/login.dart';
 import 'package:hcm1011/presentasion/pages/form_goal_setting_edit.dart';
+import 'package:hcm1011/presentasion/pages/form_kpi_edit.dart';
 
 import 'package:hcm1011/utils/utils.dart';
 import 'injector.dart' as di;
@@ -88,6 +93,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.getIt<FormDetailIdBloc>()),
         BlocProvider(create: (_) => di.getIt<UpdateGoalSettingBloc>()),
         BlocProvider(create: (_) => di.getIt<BookingBackapplyBloc>()),
+        BlocProvider(create: (_) => di.getIt<EditKpiBloc>()),
+        BlocProvider(create: (_) => di.getIt<CarTypeBloc>()),
+        BlocProvider(create: (_) => di.getIt<DelateStoryBloc>()),
+        BlocProvider(create: (_) => di.getIt<DeleteBookingRoomBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -103,6 +112,7 @@ class MyApp extends StatelessWidget {
         routes: {
           SplashScreen.route: (_) => const SplashScreen(),
           Login.route: (context) => Login(),
+          // Dashboard.route: (context) => Dashboard(),
           infoDetail.route: (context) => infoDetail(
                 argument: ModalRoute.of(context)!.settings.arguments
                     as DetailPageArgument,
@@ -111,6 +121,11 @@ class MyApp extends StatelessWidget {
                 argumentFromDetail: ModalRoute.of(context)!.settings.arguments
                     as EditFormPageArgument,
               ),
+          infoDetailFromKpi.route: (context) => infoDetailFromKpi(
+                argumentFromKpiDetail: ModalRoute.of(context)!
+                    .settings
+                    .arguments as EditFormKPIPageArgument,
+              )
         },
       ),
     );

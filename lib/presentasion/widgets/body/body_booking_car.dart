@@ -34,7 +34,7 @@ class _cardBookingCarState extends State<cardBookingCar> {
                     const Icon(Icons.check_circle,
                         color: Colors.green, size: 40),
                     const SizedBox(width: 10),
-                    const Text('Your booking is finished.'),
+                    const Text('Your booking cancel.'),
                   ],
                 ),
                 actions: [
@@ -116,9 +116,11 @@ class _cardBookingCarState extends State<cardBookingCar> {
             SizedBox(
               height: 20.0,
             ),
-            Expanded(child: CardTransactionCar()), // Use Expanded here
+            Container(
+              child: CardTransactionCar(),
+            ), // Use Expanded here
             SizedBox(
-              height: 20.0,
+              height: 120.0,
             ),
           ],
         ),

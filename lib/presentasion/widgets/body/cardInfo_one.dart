@@ -78,15 +78,15 @@ class _CardInfoOneState extends State<CardInfoOne> {
                           switch (progressValue) {
                             case '1':
                               progressColor = Colors.red;
-                              progresdata = 'Belum Ada Goal Setting';
+                              progresdata = 'No Goal Setting Yet';
                               break;
                             case '15':
                               progressColor = Colors.orange;
-                              progresdata = 'KPI belum lengkap';
+                              progresdata = 'KPI is not complete';
                               break;
                             case '25':
                               progressColor = Colors.lightGreen;
-                              progresdata = 'KPI WAITING APPROVAL';
+                              progresdata = 'KPI Waitting Approval';
                               break;
                             case '50':
                               progressColor = Colors.green;
@@ -94,11 +94,11 @@ class _CardInfoOneState extends State<CardInfoOne> {
                               break;
                             case '75':
                               progressColor = Colors.lightGreen;
-                              progresdata = 'Atasan Appraisal';
+                              progresdata = 'Appraisal Supervisor';
                               break;
                             case '100':
                               progressColor = Colors.lightGreen;
-                              progresdata = 'Atasan Appraisal';
+                              progresdata = 'Finished';
                               break;
                             default:
                               progressColor =

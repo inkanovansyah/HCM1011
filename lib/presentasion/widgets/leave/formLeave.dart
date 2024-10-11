@@ -38,16 +38,16 @@ class _FormLeaveState extends State<FormLeave> {
     }
   }
 
-  int _getLeaveTypeId(String leaveType) {
+  String _getLeaveTypeId(String leaveType) {
     switch (leaveType) {
       case 'CUTI TAHUNAN':
-        return 1;
+        return '1'; // Mengembalikan sebagai String
       case 'CUTI MELAHIRKAN':
-        return 2;
+        return '2';
       case 'CUTI SPESIAL':
-        return 3;
+        return '3';
       default:
-        return 0;
+        return '0';
     }
   }
 
@@ -57,16 +57,17 @@ class _FormLeaveState extends State<FormLeave> {
         _isLoading = true;
       });
 
-      int leaveTypeId = _getLeaveTypeId(leaveTypeController.text);
+      // Mendapatkan leaveTypeId sebagai integer
+      // Mendapatkan leaveTypeId sebagai String
+      String leaveTypeIdString = _getLeaveTypeId(leaveTypeController.text);
 
-      // Trigger the BLoC event
+      // Trigger the BLoC event dengan leaveTypeIdString sebagai String
       BlocProvider.of<ApplyLeaveBloc>(context).add(ApplyLeaveSubmitEvent(
         startdate: startDateController.text,
         enddate: endDateController.text,
-        leaveType: leaveTypeId.toString(),
+        leaveType: leaveTypeIdString, // Kirim sebagai String
         descrip: leaveReasonController.text,
       ));
-
       // Wait for a short duration to simulate processing
       await Future.delayed(Duration(milliseconds: 500)); // Adjust as needed
 
@@ -75,7 +76,12 @@ class _FormLeaveState extends State<FormLeave> {
         setState(() {
           _isLoading = false;
         });
-
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Successfully applied for leave'),
+            backgroundColor: Colors.green, // Menetapkan warna hijau
+          ),
+        );
         // Navigate to the desired page
         Navigator.pushReplacement(
           context,
@@ -88,7 +94,10 @@ class _FormLeaveState extends State<FormLeave> {
           _isLoading = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to apply for leave')),
+          SnackBar(
+            content: Text('Failed to apply for leave'),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
@@ -137,7 +146,7 @@ class _FormLeaveState extends State<FormLeave> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Jenis Cuti',
+                      'Leave Type',
                       textAlign: TextAlign.start,
                       style: openSensBoldDark.copyWith(
                         fontSize: 14,
@@ -147,7 +156,7 @@ class _FormLeaveState extends State<FormLeave> {
                     TypeLeave(leaveTypeController: leaveTypeController),
                     SizedBox(height: 10),
                     Text(
-                      'Pengganti',
+                      'Replacement',
                       textAlign: TextAlign.start,
                       style: openSensBoldDark.copyWith(
                         fontSize: 14,
@@ -231,7 +240,7 @@ class _FormLeaveState extends State<FormLeave> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Keterangan',
+                      'Information',
                       textAlign: TextAlign.start,
                       style: openSensBoldDark.copyWith(
                         fontSize: 14,

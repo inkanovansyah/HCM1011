@@ -37,6 +37,7 @@ class ListtransaksiBooking {
 class Datum {
   String? id;
   String? bookingmobilId;
+  String? employeeId;
   String? namaPengguna;
   String? deskripsi;
   DateTime? bookingStart;
@@ -54,6 +55,7 @@ class Datum {
   Datum({
     this.id,
     this.bookingmobilId,
+    this.employeeId,
     this.namaPengguna,
     this.deskripsi,
     this.bookingStart,
@@ -76,6 +78,7 @@ class Datum {
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         bookingmobilId: json["bookingmobil_id"],
+        employeeId: json["employee_id"],
         namaPengguna: json["nama_pengguna"],
         deskripsi: json["Deskripsi"],
         bookingStart: json["booking_start"] == null
@@ -100,6 +103,7 @@ class Datum {
   Map<String, dynamic> toJson() => {
         "id": id,
         "bookingmobil_id": bookingmobilId,
+        "employee_id": employeeId,
         "nama_pengguna": namaPengguna,
         "Deskripsi": deskripsi,
         "booking_start":

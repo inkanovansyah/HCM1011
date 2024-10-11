@@ -26,7 +26,8 @@ class ApplyBookingBloc extends Bloc<ApplyBookingEvent, ApplyBookingState> {
             room, title, descrip, startdate, enddate);
 
         if (result.data != null && result.status == 200) {
-          emit(ApplyBookingLoaded(result.data!.data, result.status ?? 0));
+          emit(ApplyBookingLoaded(
+              result.data, result.messages?.toString(), result.status ?? 0));
         } else {
           emit(ApplyBookingNoData(result.status.toString()));
         }

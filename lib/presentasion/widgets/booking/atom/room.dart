@@ -36,51 +36,46 @@ class _TypeRoomState extends State<TypeRoom> {
             ),
           );
         } else if (state is RoomTypeLoaded) {
-          if (state.typeofroom != null) {
-            if (state.typeofroom != null &&
-                state.typeofroom!.data != null &&
-                state.typeofroom!.data!.isNotEmpty) {
-              List<Datum> dataList = state.typeofroom!.data!;
+          if (state.typeofroom != null && state.typeofroom!.data!.isNotEmpty) {
+            List<Datum> dataList = state.typeofroom!.data!;
 
-              return SizedBox(
-                height: 50,
-                child: DropdownButtonFormField<String>(
-                  key: UniqueKey(),
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey[200],
-                    filled: true,
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                  ),
-                  items: dataList.map(
-                    (type) {
-                      var name = type.name ?? '';
-                      return DropdownMenuItem<String>(
-                        value: name,
-                        child: Text(name),
-                      );
-                    },
-                  ).toList(),
-                  value: selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedValue = value;
-                    });
-                    widget.roomController.text = value ?? '';
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return 'Silakan pilih nama';
-                    }
-                    return null;
-                  },
-                  isExpanded: true,
+            return SizedBox(
+              height: 50,
+              child: DropdownButtonFormField<String>(
+                key: UniqueKey(),
+                decoration: InputDecoration(
+                  fillColor: Colors.grey[200],
+                  filled: true,
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  labelText: 'Select Type Room',
                 ),
-              );
-            } else {
-              return const Text('Format data tidak valid: List kosong');
-            }
+                items: dataList.map(
+                  (Datum type) {
+                    var name = type.name ?? '';
+                    return DropdownMenuItem<String>(
+                      value: name,
+                      child: Text(name),
+                    );
+                  },
+                ).toList(),
+                value: selectedValue,
+                onChanged: (value) {
+                  setState(() {
+                    selectedValue = value;
+                  });
+                  widget.roomController.text = value ?? '';
+                },
+                validator: (value) {
+                  if (value == null) {
+                    return 'Required fields';
+                  }
+                  return null;
+                },
+                isExpanded: true,
+              ),
+            );
           } else {
-            return const Text('Format data tidak valid: typeofleavel null');
+            return const Text('Format data tidak valid: List kosong');
           }
         } else if (state is RoomTypeNoData) {
           return Text(state.message);

@@ -105,11 +105,11 @@ class _nameState extends State<KpiDetail> {
                                 break;
                               case '75':
                                 progressColor = Colors.lightGreen;
-                                progresdata = 'Atasan Appraisal';
+                                progresdata = 'Appraisal Supervisor';
                                 break;
                               case '100':
                                 progressColor = Colors.lightGreen;
-                                progresdata = 'Atasan Appraisal';
+                                progresdata = 'Finished KPI';
                                 break;
                               default:
                                 progressColor = Colors

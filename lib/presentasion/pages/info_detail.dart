@@ -158,40 +158,6 @@ class _infoState extends State<infoDetail> {
                                       ),
                                     ],
                                   ),
-                                  // SizedBox(
-                                  //   width:
-                                  //       30, // Tambahkan jarak horizontal antara title dan ikon titik tiga
-                                  // ),
-                                  // PopupMenuButton(
-                                  //   icon: Icon(
-                                  //     Icons
-                                  //         .more_vert, // Icon titik tiga (ellipsis)
-                                  //     color: Colors
-                                  //         .black, // Ganti warna sesuai keinginan Anda
-                                  //   ),
-                                  //   itemBuilder: (BuildContext context) {
-                                  //     return [
-                                  //       PopupMenuItem(
-                                  //         child: Text('Join'),
-                                  //         value: 'item1',
-                                  //       ),
-                                  //       PopupMenuItem(
-                                  //         child: Text('G dulu'),
-                                  //         value: 'item2',
-                                  //       ),
-                                  //       // Tambahkan item dropdown lainnya sesuai kebutuhan
-                                  //     ];
-                                  //   },
-                                  //   onSelected: (value) {
-                                  //     // Handler ketika item dropdown dipilih
-                                  //     if (value == 'item1') {
-                                  //       _showSimpleDialog();
-                                  //       // Lakukan sesuatu untuk item 1
-                                  //     } else if (value == 'item2') {
-                                  //       // Lakukan sesuatu untuk item 2
-                                  //     }
-                                  //   },
-                                  // ),
                                 ],
                               ),
                               SizedBox(
@@ -266,75 +232,6 @@ class _infoState extends State<infoDetail> {
           return const Text("");
         }
       }),
-    );
-  }
-
-  void _showSimpleDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Center(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: SimpleDialog(
-              title: Center(
-                child: Text('Are you sure?'),
-              ),
-              children: <Widget>[
-                SizedBox(
-                  height: 20.0,
-                ),
-                Center(
-                  child: SizedBox(
-                    width: 240, // Lebar tombol 180 pixel
-                    child: MaterialButton(
-                      elevation: 0,
-                      height: 50,
-                      onPressed: () {
-                        // Tambahkan fungsi yang akan dijalankan ketika tombol ditekan
-                      },
-                      color: darkdarkBlueColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        'Join Training',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      textColor: Colors.white,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Center(
-                  child: SizedBox(
-                    width: 240, // Lebar tombol 180 pixel
-                    child: MaterialButton(
-                      elevation: 0,
-                      height: 50,
-                      onPressed: () {
-                        // Tambahkan fungsi yang akan dijalankan ketika tombol ditekan
-                      },
-                      color: grayColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        'Not Now',
-                        style:
-                            TextStyle(color: darkdarkBlueColor, fontSize: 16),
-                      ),
-                      textColor: darkdarkBlueColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

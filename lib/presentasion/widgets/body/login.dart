@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:jwt_decoder/jwt_decoder.dart';
+
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/data/service/api_login.dart';
 import 'package:hcm1011/presentasion/widgets/menunavigasi/menu.dart';
@@ -23,17 +25,45 @@ class _BodyLoginState extends State<BodyLogin> {
     checkInitialLogin();
   }
 
+  // Future<void> checkInitialLogin() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final bool isLoggedIn = prefs.getBool('isLogin') ?? false;
+
+  //   if (isLoggedIn) {
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => MenuNavigasi(
+  //           imagePath: '',
+  //         ),
+  //       ),
+  //     );
+  //   }
+  // }
+
   Future<void> checkInitialLogin() async {
     final prefs = await SharedPreferences.getInstance();
-    final bool isLoggedIn = prefs.getBool('isLogin') ?? false;
+    final token = prefs.getString('token');
 
-    if (isLoggedIn) {
+    if (token != null && !JwtDecoder.isExpired(token)) {
+      // If the token exists and is not expired, navigate to the home screen
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => MenuNavigasi(
             imagePath: '',
           ),
+        ),
+      );
+    } else {
+      // If the token is expired or doesn't exist, clear the token and stay on the login page
+      prefs.remove('token'); // Clear the expired token
+      // Optionally, you could display a message or dialog informing the user about the session expiration
+      // For example:
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Session expired. Please log in again.'),
+          backgroundColor: Colors.red,
         ),
       );
     }
@@ -70,7 +100,7 @@ class _BodyLoginState extends State<BodyLogin> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 10.0),
                       child: Text(
-                        'Yuk login teman teman',
+                        'Yuk, login~',
                         textAlign: TextAlign.start,
                         style: openSensBoldDark.copyWith(
                           fontSize: 18,
@@ -184,7 +214,7 @@ class _BodyLoginState extends State<BodyLogin> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    primary: darkdarkBlueColor,
+                    backgroundColor: darkdarkBlueColor,
                     minimumSize: Size(double.infinity, 50),
                   ),
                   child: isLoading

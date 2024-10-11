@@ -6,7 +6,7 @@ import 'package:hcm1011/data/model/liststory.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
 
 class ListStory {
-  final String baseUrl = "http://172.16.0.104/rest-api/public/list-upload";
+  final String baseUrl = "http://172.16.0.206/rest-api/public/list-upload";
   Future<ListStoryn> fatchListStory() async {
     try {
       final Uri url = Uri.parse('$baseUrl');

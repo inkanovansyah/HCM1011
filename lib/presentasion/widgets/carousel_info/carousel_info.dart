@@ -28,13 +28,13 @@ class _InfoCarouselState extends State<InfoCarousel> {
       builder: (context, state) {
         if (state is InfoLoading) {
           return Container(
-            color: Color.fromARGB(
-                255, 245, 251, 255), // Tambahkan latar belakang putih di sini
-            height: 100, // Tambahkan ketinggian di sini
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+              // color: Color.fromARGB(
+              //     255, 245, 251, 255), // Tambahkan latar belakang putih di sini
+              // height: 100, // Tambahkan ketinggian di sini
+              // child: Center(
+              //   child: CircularProgressIndicator(),
+              // ),
+              );
         } else if (state is InfoLoaded) {
           // Sort the state.infoList ascending based on ID
           if (state.infoList != null) {
@@ -47,6 +47,7 @@ class _InfoCarouselState extends State<InfoCarousel> {
               return a.id!.compareTo(b.id!);
             });
           }
+
           return SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -95,17 +96,6 @@ class _InfoCarouselState extends State<InfoCarousel> {
                                         ),
                                       ),
                                     ),
-                                    // Padding(
-                                    //   padding: EdgeInsets.only(top: 2.0),
-                                    //   child: Text(
-                                    //     '${author}',
-                                    //     style: TextStyle(
-                                    //       color: Colors.white,
-                                    //       fontSize: 12,
-                                    //       fontWeight: FontWeight.bold,
-                                    //     ),
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                               ),
@@ -170,7 +160,7 @@ class _InfoCarouselState extends State<InfoCarousel> {
         } else if (state is InfoNoData) {
           return Container(
             margin: EdgeInsets.symmetric(vertical: 20.0),
-            child: Text('No data available'),
+            child: Text('Faild to load data'),
           );
         } else if (state is InfoError) {
           return Center(

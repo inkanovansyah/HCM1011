@@ -21,14 +21,14 @@ class DetailInfo {
       var randomString = generateRandomString(8); // Adjust the length as needed
       // final Uri url = Uri.parse('$baseUrl/api/store');
       var request =
-          http.MultipartRequest('POST', Uri.parse('$baseUrl/api/store'));
+          http.MultipartRequest('POST', Uri.parse('$baseUrl/api/store-image'));
 
       request.fields.addAll({
         '_method': 'PUT',
         'key': '123456',
         'domain': '1011.co.id',
-        'folder': 'nama-story-1011',
-        'size': '{"large":{"width":"1080","height":"1080"}}',
+        'folder': 'hcm-story-1011',
+        'size': '{"small":{"width":"480","height":"720"}}',
         'title': '1011.co.id',
       });
       var file = http.MultipartFile(
@@ -41,7 +41,7 @@ class DetailInfo {
             '$nama-$randomString.png', // Gunakan ID perusahaan sebagai nama file
       );
       request.files.add(file);
-      print('$request');
+      // print('$request');
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200 || response.statusCode == 201) {

@@ -49,20 +49,12 @@ class KpiDetail {
           'Authorization': 'Bearer $token', // Tambahkan token ke header
           'Content-Type': 'application/json',
         },
-        body: jsonEncode({
-          "is_active": 1,
-        }),
+        body: jsonEncode({"is_active": 1, "start": 0, "length": 1}),
       );
       // print(response.body);
 
       // print(url);
       if (response.statusCode == 200) {
-        // final decodedResponse = json.decode(response.body);
-        // final modelListInfo = ModelDetailKpi.fromJson(decodedResponse);
-        // final modelListInfoString = json.encode(modelListInfo);
-        // print('ModelListInfo as String: ${modelListInfoString}');
-
-        // Parse the response
         final result = ModelDetailKpi.fromJson(json.decode(response.body));
 
         // Save response to SharedPreferences

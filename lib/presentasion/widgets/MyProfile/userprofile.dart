@@ -171,11 +171,11 @@ class _profileState extends State<profile> {
                           style: TextStyle(fontSize: 14.0),
                         ),
                         SizedBox(width: 43), // Jarak antara 'NIK' dan nilai
-                        // Text(
-                        //   '${dob ?? 'Data tidak tersedia'}',
-                        //   style: TextStyle(
-                        //       fontSize: 12.0, fontWeight: FontWeight.bold),
-                        // ),
+                        Text(
+                          '${dob ?? 'Data tidak tersedia'}',
+                          style: TextStyle(
+                              fontSize: 12.0, fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                     SizedBox(

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/leave/leave.dart';
 import 'package:hcm1011/presentasion/widgets/leave/cardRequest.dart';
+import 'package:hcm1011/presentasion/widgets/body/form_leave_request.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Leave extends StatefulWidget {
   const Leave({super.key});
@@ -11,6 +15,88 @@ class Leave extends StatefulWidget {
 }
 
 class _leaveState extends State<Leave> {
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  void showSessionTimeoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible:
+          false, // Prevent dismissing the dialog by tapping outside
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 20.0),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
+                Icons.info_outline,
+                size: 50,
+                color: Colors.grey,
+              ),
+              SizedBox(height: 16.0),
+              Text(
+                "Session Timeout!",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                "You have been logged out due to inactivity.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
+              ),
+              SizedBox(height: 20.0),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context)
+                      .pushReplacementNamed('/login'); // Navigate to login
+                },
+                child: Text("Login"),
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token') ?? '';
+
+    if (token.isNotEmpty) {
+      // If the token exists, check if it is expired
+      bool isExpired = JwtDecoder.isExpired(token);
+
+      if (isExpired) {
+        // Token is expired, show session timeout dialog and redirect to login
+        showSessionTimeoutDialog(context);
+      } else {
+        // Token is valid, proceed as normal
+        // You can also check if you need to refresh the token here
+      }
+    } else {
+      // Token does not exist, redirect to login
+      showSessionTimeoutDialog(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,23 +122,27 @@ class _leaveState extends State<Leave> {
               padding: EdgeInsets.symmetric(),
               child: ListView(
                 children: [
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: ClipRRect(
-                      child: Container(
-                        height: MediaQuery.of(context).size.height *
-                            0.20, // 15% of screen height
-                        width: MediaQuery.of(context).size.width,
-                        color:
-                            darkdarkBlueColor, // Background color (darkdarkBlueColor)
-                      ),
-                    ),
-                  ),
                   Container(
                     color: Color.fromARGB(
                         255, 245, 251, 255), // Mengatur warna abu-abu
                     child: Column(
                       children: [
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: ClipRRect(
+                            child: Container(
+                              height: MediaQuery.of(context).size.height *
+                                  0.20, // 15% of screen height
+                              width: MediaQuery.of(context).size.width,
+                              color:
+                                  darkdarkBlueColor, // Background color (darkdarkBlueColor)
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: LeaveW(),
+                              ),
+                            ),
+                          ),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
@@ -67,71 +157,16 @@ class _leaveState extends State<Leave> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            leaveW(),
             Positioned(
               bottom: 20, // Jarak dari bawah layar
               right: 20, // Jarak dari kanan layar
               child: ElevatedButton(
                 onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0),
-                      ),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => bodyFromLeave(),
                     ),
-                    builder: (BuildContext context) {
-                      return Container(
-                        padding: EdgeInsets.all(20.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Leave type',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Substitution',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // Logic to handle form submission
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 16,
-                                    horizontal: 20,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  primary: darkdarkBlueColor,
-                                  minimumSize: Size(double.infinity, 60),
-                                ),
-                                child: Text(
-                                  'Submit',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    },
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -140,7 +175,7 @@ class _leaveState extends State<Leave> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                           8)), // Bentuk tombol (bordes melengkung)
-                  primary: Color(0xffD0D9F3), // Warna latar belakang
+                  backgroundColor: Color(0xffD0D9F3), // Warna latar belakang
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

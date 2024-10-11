@@ -38,25 +38,22 @@ class _nameCardTrining extends State<CardTrining> {
             itemBuilder: (context, index) {
               state.data?.data
                   ?.sort((a, b) => (b.id ?? '').compareTo(a.id ?? ''));
-              final id = state.data?.data?[index].id ?? '';
+              // final id = state.data?.data?[index].id ?? '';
               final name = state.data?.data?[index].name;
-              final points = state.data?.data?[index].points;
+              // final points = state.data?.data?[index].points;
               final certificateValue = state.data?.data?[index].hasCertificate;
               final String certificateStatus =
                   certificateValue == 1 ? "No Certificate" : "Certificate";
               final startDate = state.data?.data?[index].startDate;
               final endDate = state.data?.data?[index].endDate;
-              final vendor_name = state.data?.data?[index].vendorName;
-
-              // DateFormat dateFormat =
-              //     DateFormat('yyyy-MM-dd'); // Sesuaikan format jika diperlukan
-              // String formattedStartDate = startDate != null
-              //     ? dateFormat.format(DateTime.parse(startDate))
-              //     : 'N/A';
-              // String formattedEndDate = endDate != null
-              //     ? dateFormat.format(DateTime.parse(endDate))
-              //     : 'N/A';
-
+              // final vendor_name = state.data?.data?[index].vendorName;
+              // Menghilangkan bagian waktu dari string tanggal
+              final String formattedStartDate = startDate != null
+                  ? '${startDate.toLocal().toIso8601String().split('T')[0]}'
+                  : 'N/A';
+              final String formattedEndDate = endDate != null
+                  ? '${endDate.toLocal().toIso8601String().split('T')[0]}'
+                  : 'N/A';
               return Container(
                 color: Color(0xffEEF2FD),
                 child: Padding(
@@ -125,7 +122,7 @@ class _nameCardTrining extends State<CardTrining> {
                                           height: 4,
                                         ),
                                         Text(
-                                          '${startDate} - ${endDate}',
+                                          '${formattedStartDate} - ${formattedEndDate}',
                                           style: openSensMediumDark.copyWith(
                                             fontSize: 13,
                                           ),
@@ -149,7 +146,30 @@ class _nameCardTrining extends State<CardTrining> {
           );
         } else if (state is MyTriningError) {
           return Center(
-            child: Text(state.messages),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: 50.0), // Adjust the padding value as needed
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/status/no_info.png',
+                    height: 100, // Adjust height if necessary
+                    width: 100, // Adjust width if necessary
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Text(
+                    'No data available',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           );
         } else {
           return Container(

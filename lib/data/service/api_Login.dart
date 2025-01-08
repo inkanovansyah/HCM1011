@@ -54,6 +54,8 @@ class NetworkLogin {
               as String?, // Check if it's the correct key
           'nik': detail['detail']['nik'] as String?,
           'image': detail['detail']['image'] as String?,
+          'bos_id': detail['detail']['bos_id'],
+          'dept_id': detail['detail']['dept_id'],
         };
         final prefs = await SharedPreferences.getInstance();
         dataToStore.forEach((key, value) {

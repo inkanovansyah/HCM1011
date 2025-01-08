@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:hcm1011/data/model/failure_exception.dart';
 
 import 'package:hcm1011/data/model/addTrining.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class addTrining {
@@ -32,7 +31,6 @@ class addTrining {
           "employee_id": employee_id
         }),
       );
-      print('Response body: ${response.body}'); // Cetak response.body
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
         final modelApplytraining = AddTrining.fromJson(decodedResponse);

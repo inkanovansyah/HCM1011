@@ -68,6 +68,7 @@ dependencies:
   image_gallery_saver: ^2.0.3
   permission_handler: ^11.0.1
   image: ^4.2.0
+  device_info_plus: ^9.1.2
 
 dev_dependencies:
   flutter_test:
@@ -118,6 +119,8 @@ flutter:
     - assets/banner/logo.png
     - assets/images/Asset_1.png
     - assets/images/Asset_2.png
+    - assets/images/Asset_3.png
+    - assets/images/Asset_4.png
     - assets/banner/info.png
     - assets/images/Profile_fo.png
     - assets/images/Profile_test.png

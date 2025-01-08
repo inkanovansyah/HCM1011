@@ -14,8 +14,9 @@ class CreadDataLoading extends CreadDataState {}
 class CreadDataLoaded extends CreadDataState {
   final Data detailList;
   final int status;
+  final String? message;
 
-  CreadDataLoaded(this.detailList, this.status);
+  CreadDataLoaded(this.detailList, this.status, this.message);
 
   @override
   List<Object?> get props => [detailList ?? [], status];

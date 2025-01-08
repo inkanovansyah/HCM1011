@@ -29,15 +29,17 @@ class _profileState extends State<profile> {
       Profile profile = Profile();
       Map<String, String> data = await profile.fetchDataProfile();
 
-      setState(() {
-        email = data['email'];
-        fullname = data['fullname'];
-        positionname = data['position_name'];
-        nik = data['nik'];
-        dob = data['dob'];
-        pob = data['pob'];
-        image = data['image'];
-      });
+      if (mounted) {
+        setState(() {
+          email = data['email'];
+          fullname = data['fullname'];
+          positionname = data['position_name'];
+          nik = data['nik'];
+          dob = data['dob'];
+          pob = data['pob'];
+          image = data['image'];
+        });
+      }
     } on FailureException catch (e) {
       // Handle FailureException
       print('Exception: ${e.message}');
@@ -52,19 +54,18 @@ class _profileState extends State<profile> {
       right: 10,
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 1.0, // Ubah sesuai kebutuhan
-        height: 180, // Ubah sesuai kebutuhan
         child: Card(
           elevation: 10,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(20.0),
             child: Row(
               children: [
                 Container(
                   width: 100.0,
-                  height: 150.0,
+                  height: 170.0,
                   child: Stack(
                     children: [
                       Container(
@@ -118,9 +119,15 @@ class _profileState extends State<profile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      fullname ?? 'Data tidak tersedia',
+                      'Profile Details',
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10.0),
+                    Text(
+                      fullname ?? 'Data tidak tersedia',
+                      style: TextStyle(
+                          fontSize: 17.0, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       positionname ?? 'Data tidak tersedia',

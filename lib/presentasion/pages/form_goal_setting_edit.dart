@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
 
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 
@@ -236,7 +237,7 @@ class _FormGoalSetting extends State<infoDetailFrom> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'Bobot',
+                    'Bobot (%)',
                     textAlign: TextAlign.start,
                     style: openSensBoldDark.copyWith(
                       fontSize: 14,
@@ -245,8 +246,15 @@ class _FormGoalSetting extends State<infoDetailFrom> {
                   SizedBox(height: 8),
                   TextFormField(
                     controller: bobotController,
+                    keyboardType: TextInputType.numberWithOptions(
+                        decimal: false,
+                        signed: false), // Pastikan keyboard angka yang keluar
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(
+                          r'^[0-9]*$')), // Hanya angka yang diperbolehkan
+                    ],
                     decoration: InputDecoration(
-                      labelText: 'Bobot',
+                      labelText: 'Bobot (%)',
                       fillColor: Colors.grey[200],
                       filled: true,
                       prefixIcon: Icon(Icons.description),

@@ -34,7 +34,17 @@ import 'package:hcm1011/data/service/api_apply_car.dart';
 import 'package:hcm1011/data/service/api_list_car_type.dart';
 import 'package:hcm1011/data/service/api_delete_story.dart';
 import 'package:hcm1011/data/service/api_delete_booking_room.dart';
+import 'package:hcm1011/data/service/api_attandance.dart';
+import 'package:hcm1011/data/service/api_bos.dart';
+import 'package:hcm1011/data/service/api_approval_leave.dart';
+import 'package:hcm1011/data/service/api_decline_leave.dart';
+import 'package:hcm1011/data/service/api_job_history.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_history_job/job_history_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_form_detail_id/form_detail_id_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_decline_bos/decline_bos_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_approval_bos/approval_bos_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_request_bos/bos_request_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_attandance/bloc_attandance_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_delete_room_booking/delete_booking_room_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_delate_story/delate_story_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_car_type/car_type_bloc.dart';
@@ -187,13 +197,51 @@ Future<void> setup() async {
   getIt.registerFactory<ApiDeleteBookingRoom>(
     () => ApiDeleteBookingRoom(),
   );
-
+  getIt.registerFactory<ApiAttandanceAdd>(
+    () => ApiAttandanceAdd(),
+  );
+  getIt.registerFactory<ApiBos>(
+    () => ApiBos(),
+  );
+  getIt.registerFactory<Jobhistory>(
+    () => Jobhistory(),
+  );
+  getIt.registerFactory<ApiApprovalLeave>(
+    () => ApiApprovalLeave(),
+  );
+  getIt.registerFactory<ApiDeclineLeave>(
+    () => ApiDeclineLeave(),
+  );
+  getIt.registerFactory<JobHistoryBloc>(
+    () => JobHistoryBloc(
+      jobhistory: getIt(),
+    ),
+  );
   getIt.registerFactory<EditKpiBloc>(
     () => EditKpiBloc(
       apiEditKpi: getIt(),
     ),
   );
-
+  getIt.registerFactory<DeclineBosBloc>(
+    () => DeclineBosBloc(
+      apiDeclineLeave: getIt(),
+    ),
+  );
+  getIt.registerFactory<ApprovalBosBloc>(
+    () => ApprovalBosBloc(
+      apiApprovalLeave: getIt(),
+    ),
+  );
+  getIt.registerFactory<BosRequestBloc>(
+    () => BosRequestBloc(
+      listRequstBos: getIt(),
+    ),
+  );
+  getIt.registerFactory<BlocAttandanceBloc>(
+    () => BlocAttandanceBloc(
+      Applyattandance: getIt(),
+    ),
+  );
   getIt.registerFactory<DeleteBookingRoomBloc>(
     () => DeleteBookingRoomBloc(
       dalateGs: getIt(),

@@ -7,7 +7,7 @@ import 'package:hcm1011/data/model/applyCarBooking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApplyCarBooking {
-  final String baseUri = "http://172.16.0.206";
+  final String baseUri = "http://172.16.0.131";
 
   Future<ListtransaksiBooking> fatchDataApplyCarBooking(
       String deskripsi, String bookingStart, String bookingEnd) async {

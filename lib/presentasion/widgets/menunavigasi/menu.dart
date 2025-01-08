@@ -12,6 +12,7 @@ import 'package:hcm1011/presentasion/pages/leave.dart';
 import 'package:hcm1011/presentasion/pages/trainings.dart';
 import 'package:hcm1011/presentasion/pages/kpi.dart';
 import 'package:hcm1011/presentasion/pages/booking.dart';
+import 'package:hcm1011/presentasion/pages/story.dart';
 
 class MenuNavigasi extends StatefulWidget {
   final String imagePath;
@@ -230,7 +231,7 @@ class _NavigasiState extends State<MenuNavigasi> {
                 ),
                 builder: (BuildContext context) {
                   return SizedBox(
-                    height: 300,
+                    height: 350,
                     child: Container(
                       child: Column(
                         children: <Widget>[
@@ -258,6 +259,16 @@ class _NavigasiState extends State<MenuNavigasi> {
                           Expanded(
                             child: ListView(
                               children: <Widget>[
+                                _buildMenuTile(
+                                    'Story', 'assets/images/icon_modal_1.png',
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Story(),
+                                    ),
+                                  );
+                                }),
                                 _buildMenuTile(
                                     'Booking', 'assets/images/icon_modal_1.png',
                                     () {

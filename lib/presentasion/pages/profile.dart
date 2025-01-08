@@ -1,99 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/widgets/MyProfile/userprofile.dart';
 import 'package:hcm1011/presentasion/pages/setting.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_history_job/job_history_bloc.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
 
   @override
-  State<MyProfile> createState() => _profileState();
+  State<MyProfile> createState() => _MyProfileState();
 }
 
-class _profileState extends State<MyProfile> {
+class _MyProfileState extends State<MyProfile> {
+  @override
   void initState() {
     super.initState();
-    checkLoginStatus();
+    _checkLoginStatus();
+    Future.microtask(
+      () => context.read<JobHistoryBloc>().add(const GetListData()),
+    );
   }
 
-  void showSessionTimeoutDialog(BuildContext context) {
+  Future<void> _checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token') ?? '';
+
+    if (token.isNotEmpty) {
+      if (JwtDecoder.isExpired(token)) {
+        _showSessionTimeoutDialog();
+      }
+    } else {
+      _showSessionTimeoutDialog();
+    }
+  }
+
+  void _showSessionTimeoutDialog() {
     showDialog(
       context: context,
-      barrierDismissible:
-          false, // Prevent dismissing the dialog by tapping outside
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 20.0),
+          contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(
-                Icons.info_outline,
-                size: 50,
-                color: Colors.grey,
-              ),
-              SizedBox(height: 16.0),
-              Text(
+            children: [
+              const Icon(Icons.info_outline, size: 50, color: Colors.grey),
+              const SizedBox(height: 16.0),
+              const Text(
                 "Session Timeout!",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10.0),
-              Text(
+              const SizedBox(height: 10.0),
+              const Text(
                 "You have been logged out due to inactivity.",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                  Navigator.of(context)
-                      .pushReplacementNamed('/login'); // Navigate to login
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed('/login');
                 },
-                child: Text("Login"),
                 style: ElevatedButton.styleFrom(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 15.0,
+                  ),
                 ),
+                child: const Text("Login"),
               ),
             ],
           ),
         );
       },
     );
-  }
-
-  Future<void> checkLoginStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token') ?? '';
-
-    if (token.isNotEmpty) {
-      // If the token exists, check if it is expired
-      bool isExpired = JwtDecoder.isExpired(token);
-
-      if (isExpired) {
-        // Token is expired, show session timeout dialog and redirect to login
-        showSessionTimeoutDialog(context);
-      } else {
-        // Token is valid, proceed as normal
-        // You can also check if you need to refresh the token here
-      }
-    } else {
-      // Token does not exist, redirect to login
-      showSessionTimeoutDialog(context);
-    }
   }
 
   @override
@@ -103,63 +90,138 @@ class _profileState extends State<MyProfile> {
         backgroundColor: darkdarkBlueColor,
         centerTitle: true,
         elevation: 0.0,
-        title: Text(
+        title: const Text(
           'My Profile',
-          style: TextStyle(
-            fontSize: 24,
-            color: Colors.white,
-          ),
+          style: TextStyle(fontSize: 24, color: Colors.white),
         ),
-        automaticallyImplyLeading: false, // Menghilangkan tombol back
-        actions: <Widget>[
+        automaticallyImplyLeading: false,
+        actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => Setting(),
-                ),
+                MaterialPageRoute(builder: (context) => const Setting()),
               );
             },
           ),
         ],
       ),
-      backgroundColor: Color(0xffEEF2FD),
       body: SafeArea(
-        child: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(),
-              child: ListView(
-                children: [
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: ClipRRect(
-                      child: Container(
-                        height: MediaQuery.of(context).size.height *
-                            0.24, // 15% of screen height
-                        width: MediaQuery.of(context).size.width,
-                        color:
-                            darkdarkBlueColor, // Background color (darkdarkBlueColor)
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: profile(),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            profile(),
-            SizedBox(
-              height: 20,
-            ),
-          ],
+              const SizedBox(height: 20),
+              const Text(
+                "Job History",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 10),
+              BlocBuilder<JobHistoryBloc, JobHistoryState>(
+                builder: (context, state) {
+                  if (state is JobHistoryLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is JobHistoryLoaded) {
+                    final data = state.data?.data ?? [];
+
+                    if (data.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          "No job history available.",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      );
+                    }
+
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        final item = data[index];
+                        return JobHistoryItem(
+                          title: item.companyName ?? "N/A",
+                          position: item.position ?? "N/A",
+                          date:
+                              '${item.yearStart ?? "-"} - ${item.yearEnd ?? "-"}',
+                        );
+                      },
+                    );
+                  } else if (state is JobHistoryError) {
+                    return Center(
+                      child: Text(
+                        "Error: ${state.messages}",
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
+              const SizedBox(height: 10.0),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class JobHistoryItem extends StatelessWidget {
+  final String title;
+  final String position;
+  final String date;
+
+  const JobHistoryItem({
+    required this.title,
+    required this.position,
+    required this.date,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                position,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+          Text(
+            date,
+            style: const TextStyle(
+              color: Colors.grey,
+              fontSize: 12,
+            ),
+          ),
+        ],
       ),
     );
   }

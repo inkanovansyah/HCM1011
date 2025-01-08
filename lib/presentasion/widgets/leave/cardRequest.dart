@@ -61,7 +61,7 @@ class _CardRequestState extends State<CardRequest> {
             );
           } else {
             // Sort the list by id in ascending order
-            leaveList.sort((a, b) => (a['id'] ?? '').compareTo(b['id'] ?? ''));
+            leaveList.sort((a, b) => (b['id'] ?? '').compareTo(a['id'] ?? ''));
 
             return SingleChildScrollView(
               child: Column(

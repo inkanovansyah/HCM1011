@@ -6,7 +6,7 @@ import 'package:hcm1011/data/model/failure_exception.dart';
 import 'package:hcm1011/data/model/deleteStory.dart';
 
 class DeleteStoryList {
-  final String baseUrl = 'http://172.16.0.206';
+  final String baseUrl = 'http://172.16.0.131';
 
   Future<DeleteStoryModel> fatchDeleteStory(String id) async {
     try {
@@ -23,7 +23,6 @@ class DeleteStoryList {
         ),
       );
 
-      print(response.body);
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
         return DeleteStoryModel.fromJson(decodedResponse);

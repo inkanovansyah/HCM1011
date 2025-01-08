@@ -34,8 +34,8 @@ class ApplyBookingNoData extends ApplyBookingState {
 }
 
 class ApplyBookingError extends ApplyBookingState {
-  final String message;
+  final String? message;
   const ApplyBookingError(this.message);
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [message!];
 }

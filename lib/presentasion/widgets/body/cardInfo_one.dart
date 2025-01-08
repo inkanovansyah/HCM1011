@@ -23,14 +23,14 @@ class _CardInfoOneState extends State<CardInfoOne> {
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
-      offset: Offset(0, -30), // Geser ke atas sebanyak 30 piksel
+      offset: Offset(0, 6), // Geser ke atas sebanyak 30 piksel
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.13,
         width: MediaQuery.of(context).size.width * 0.47, // Lebar disesuaikan
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 0.0), // Padding dikurangi
           child: Card(
-            elevation: 1.0,
+            elevation: 5.0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),

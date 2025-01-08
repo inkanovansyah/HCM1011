@@ -7,7 +7,7 @@ import 'package:hcm1011/data/model/editGoalSetting.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiEditGs {
-  final String baseUri = "https://api.1011.co.id";
+  final String baseUri = "";
 
   Future<SandGoalSetting> fachdataGs(String goalsetting_id) async {
     try {

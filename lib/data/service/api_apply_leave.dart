@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:intl/intl.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,9 +17,11 @@ class ApplyLeave {
       var token = prefs.getString('token');
       var company_id = prefs.getString('company_id');
       var employee_id = prefs.getString('employee_id');
+      var bos_id = prefs.getString('bos_id');
 
       final Uri url =
           Uri.parse('$baseUri/attendance/$company_id/leave-request');
+      String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
       final response = await http.post(
         url,
         headers: {
@@ -27,8 +30,9 @@ class ApplyLeave {
         },
         body: jsonEncode({
           "employee_id": '$employee_id',
-          "subs_id": 54,
-          "letter_no": "",
+          "subs_id": int.parse(bos_id ?? '0'),
+          "company_id": '$company_id',
+          "letter_no": "$formattedDate",
           "letter_date": "",
           "leave_id": leavetype,
           "date_start": startdate,

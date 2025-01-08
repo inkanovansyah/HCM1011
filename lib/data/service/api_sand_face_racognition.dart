@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
 
-import 'package:hcm1011/data/model/faceRacognition.dart';
+// import 'package:hcm1011/data/model/faceRacognition.dart';
 
 class DetailInfo {
   final String baseUrl = "https://fileshare.1011.co.id/";

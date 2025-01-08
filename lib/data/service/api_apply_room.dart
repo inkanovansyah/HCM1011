@@ -35,14 +35,14 @@ class ApplyRoomApi {
             "room_id": room,
             "title": title,
             "description": descrip,
-            "location": "",
+            "location": "pluit",
             "start_date": startdate,
             "end_date": enddate,
             "employee_id": employee_id
           },
         ),
       );
-      print(response.body);
+
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
         final modelApplyRoom = ApplyRoom.fromJson(decodedResponse);

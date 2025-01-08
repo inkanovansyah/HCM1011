@@ -31,7 +31,8 @@ class CreadDataBloc extends Bloc<CreadDataEvent, CreadDataState> {
           sesionId,
         );
         if (result.data != null && result.status == 200) {
-          emit(CreadDataLoaded(result.data!, result.status ?? 0));
+          emit(CreadDataLoaded(
+              result.data!, result.status ?? 0, result.messages ?? ''));
         } else {
           emit(CreadDataNoData(result.status.toString()));
         }

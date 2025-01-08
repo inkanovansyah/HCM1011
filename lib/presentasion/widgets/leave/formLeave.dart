@@ -44,10 +44,18 @@ class _FormLeaveState extends State<FormLeave> {
         return '1'; // Mengembalikan sebagai String
       case 'CUTI MELAHIRKAN':
         return '2';
-      case 'CUTI SPESIAL':
+      case 'CUTI ISTRI MELAHIRKAN/KEGUGURAN':
         return '3';
+      case 'CUTI MENINGGAL (ORANG TUA/ANAK/MERTUA/MENANTU )	NONE':
+        return '4';
+      case 'CUTI PEMBAPTISAN/SUNAT':
+        return '6';
+      case 'CUTI ANAK MENIKAH':
+        return '7';
+      case 'CUTI MENINGGAL (ANGGOTA KELUARGA DALAM SATU RUMAH)':
+        return '8';
       default:
-        return '0';
+        return '9';
     }
   }
 

@@ -21,7 +21,7 @@ class _CardInfotwoState extends State<CardInfoTwo> {
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
-      offset: Offset(0, -30), // Geser ke atas sebanyak 30 piksel
+      offset: Offset(0, 6), // Geser ke atas sebanyak 30 piksel
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.13,
         width:
@@ -29,7 +29,7 @@ class _CardInfotwoState extends State<CardInfoTwo> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 0.4), // Reduced padding
           child: Card(
-            elevation: 1.0,
+            elevation: 5.0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -66,7 +66,7 @@ class _CardInfotwoState extends State<CardInfoTwo> {
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
-                                  '$sisa Days Used',
+                                  '$sisa Not Used Yet',
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: darkdarkBlueColor,

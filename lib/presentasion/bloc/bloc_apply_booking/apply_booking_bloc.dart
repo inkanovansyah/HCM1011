@@ -13,27 +13,29 @@ class ApplyBookingBloc extends Bloc<ApplyBookingEvent, ApplyBookingState> {
 
   ApplyBookingBloc({required this.ApplyRoomapi})
       : super(ApplyBookingInitial()) {
-    on<ApplyBookingSubmitEvent>((event, emit) async {
-      try {
-        emit(ApplyBookingLoading());
-        final room = event.room;
-        final title = event.title;
-        final descrip = event.descrip;
-        final startdate = event.startdate;
-        final enddate = event.enddate;
+    on<ApplyBookingSubmitEvent>(
+      (event, emit) async {
+        try {
+          emit(ApplyBookingLoading());
+          final room = event.room;
+          final title = event.title;
+          final descrip = event.descrip;
+          final startdate = event.startdate;
+          final enddate = event.enddate;
 
-        final result = await ApplyRoomapi.fatchDataApplyRoom(
-            room, title, descrip, startdate, enddate);
+          final result = await ApplyRoomapi.fatchDataApplyRoom(
+              room, title, descrip, startdate, enddate);
 
-        if (result.data != null && result.status == 200) {
-          emit(ApplyBookingLoaded(
-              result.data, result.messages?.toString(), result.status ?? 0));
-        } else {
-          emit(ApplyBookingNoData(result.status.toString()));
+          if (result.data != null && result.status == 200) {
+            emit(ApplyBookingLoaded(
+                result.data, result.messages?.toString(), result.status ?? 0));
+          } else {
+            emit(ApplyBookingNoData(result.status.toString()));
+          }
+        } on FailureException catch (e) {
+          emit(ApplyBookingError(e.message));
         }
-      } on FailureException catch (e) {
-        emit(ApplyBookingError(e.message));
-      }
-    });
+      },
+    );
   }
 }

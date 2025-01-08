@@ -4,6 +4,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:hcm1011/presentasion/widgets/KPI/detail_kpi.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hcm1011/presentasion/widgets/menunavigasi/menu.dart';
 
 class Kpi extends StatefulWidget {
   const Kpi({Key? key}) : super(key: key);
@@ -111,7 +112,10 @@ class _nameKpi extends State<Kpi> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new_sharp),
           onPressed: () {
-            Navigator.of(context).pop(); // Navigate back to the previous page
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                  builder: (context) => MenuNavigasi(imagePath: '')),
+            );
           },
         ),
       ),

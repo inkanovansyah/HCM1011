@@ -124,7 +124,7 @@ class _FormGoalState extends State<FormGoalEdit> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'Bobot',
+                    'Bobot (%)',
                     textAlign: TextAlign.start,
                     style: openSensBoldDark.copyWith(
                       fontSize: 14,
@@ -132,9 +132,9 @@ class _FormGoalState extends State<FormGoalEdit> {
                   ),
                   SizedBox(height: 8),
                   TextFormField(
-                    controller: targetController,
+                    controller: bobotController,
                     decoration: InputDecoration(
-                      labelText: 'Bobot',
+                      labelText: 'Bobot (%)',
                       fillColor: Colors.grey[200],
                       filled: true,
                       prefixIcon: Icon(Icons.description),

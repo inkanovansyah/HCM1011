@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
-import 'package:hcm1011/presentasion/widgets/date/date_myattandance.dart';
+// import 'package:hcm1011/presentasion/widgets/date/date_myattandance.dart';
 import 'package:hcm1011/presentasion/widgets/today/time_card.dart';
 
 // class MyAttandance extends StatefulWidget {
@@ -45,7 +45,7 @@ class MyAttandance extends StatelessWidget {
               unselectedLabelColor: darkdarkBlueColor,
               tabs: [
                 Tab(text: 'Today'),
-                Tab(text: 'History'),
+                // Tab(text: 'History'),
               ],
             ),
             Expanded(
@@ -54,7 +54,7 @@ class MyAttandance extends StatelessWidget {
                   CardTimeState(
                     imagePath: imagePath,
                   ),
-                  DateMyAttandance(),
+                  // DateMyAttandance(),
                   // Tambahkan widget lain untuk konten Tab kedua di sini
                 ],
               ),

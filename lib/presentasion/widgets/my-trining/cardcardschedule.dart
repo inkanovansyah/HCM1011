@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import 'package:hcm1011/presentasion/themes/global_themes.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_achadule_list/schadule_list_bloc.dart';
@@ -59,20 +60,21 @@ class _CardScheduleState extends State<CardSchedule> {
                     .compareTo(a.trainingScheduleId ?? ''));
                 final id = state.data?.data?[index].trainingScheduleId ?? '';
                 final name = state.data?.data?[index].trainingName;
-                // final points = state.data?.data?[index].points;
                 final certificateValue = state.data?.data?[index].description;
-                final String certificateStatus =
-                    certificateValue == 1 ? "No Certificate" : "Certificate";
+                final location = state.data?.data?[index].location;
+                final trainerName = state.data?.data?[index].trainerName;
+                final vendorName = state.data?.data?[index].vendorName;
                 final startDate = state.data?.data?[index].startDate;
                 final endDate = state.data?.data?[index].endDate;
-                // final vendorName = state.data?.data?[index].vendorName;
+                final points = state.data?.data?[index].points;
 
-                // Format dates
+                // Format tanggal
+
                 final String formattedStartDate = startDate != null
-                    ? '${startDate.toLocal().toIso8601String().split('T')[0]}'
+                    ? DateFormat('d MMM yyyy').format(startDate)
                     : 'N/A';
                 final String formattedEndDate = endDate != null
-                    ? '${endDate.toLocal().toIso8601String().split('T')[0]}'
+                    ? DateFormat('d MMM yyyy').format(endDate)
                     : 'N/A';
 
                 return Container(
@@ -84,65 +86,149 @@ class _CardScheduleState extends State<CardSchedule> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(8.0),
-                        leading: Container(
-                          height: 60,
-                          width: 60,
-                          child: Image.asset('assets/images/Profile_fo.png'),
-                        ),
-                        title: Column(
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              name ?? 'N/A',
-                              style: openSensBoldDark.copyWith(
-                                fontSize: 16,
-                                color: darkColor,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 24,
+                                      backgroundImage: AssetImage(
+                                          'assets/images/Profile_fo.png'),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      name ?? 'N/A',
+                                      style: openSensBoldDark.copyWith(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (id.isNotEmpty) {
+                                      context.read<ApplyTrainingBloc>().add(
+                                          ApplyTriningEvent(idschedule: id));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'You have registered for training')),
+                                      );
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        darkdarkBlueColor, // Warna tombol
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 8),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Join',
+                                    style: TextStyle(
+                                        color:
+                                            Colors.white), // Warna teks tombol
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Divider(
+                              color: const Color.fromARGB(
+                                  255, 194, 194, 194), // Warna garis
+                              thickness: 1.0, // Ketebalan garis
                             ),
                             SizedBox(height: 4),
                             Text(
-                              certificateStatus,
+                              certificateValue ?? 'N/A',
                               style: openSensMediumDark.copyWith(
-                                fontSize: 13,
+                                fontSize: 20,
+                                color: const Color.fromARGB(255, 152, 152, 152),
                               ),
+                              textAlign:
+                                  TextAlign.left, // Mengatur teks rata kiri
                             ),
                             SizedBox(height: 4),
-                            Text(
-                              '$formattedStartDate - $formattedEndDate',
-                              style: openSensMediumDark.copyWith(
-                                fontSize: 13,
-                              ),
+                            Row(
+                              children: [
+                                Icon(Icons.person,
+                                    size: 16), // Ikon untuk trainer
+                                SizedBox(width: 4),
+                                Text(
+                                  trainerName ?? 'N/A',
+                                  style: openSensMediumDark.copyWith(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Icon(Icons.business,
+                                    size: 16), // Ikon untuk vendor
+                                SizedBox(width: 4),
+                                Text(
+                                  vendorName ?? 'N/A',
+                                  style: openSensMediumDark.copyWith(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Icon(Icons.location_on,
+                                    size: 16), // Ikon untuk lokasi
+                                SizedBox(width: 4),
+                                Text(
+                                  location ?? 'N/A',
+                                  style: openSensMediumDark.copyWith(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Icon(Icons.star, size: 16), // Ikon untuk poin
+                                SizedBox(width: 4),
+                                Text(
+                                  '$points Point',
+                                  style: openSensMediumDark.copyWith(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Icon(Icons.date_range,
+                                    size: 16), // Ikon untuk tanggal
+                                SizedBox(width: 4),
+                                Text(
+                                  '$formattedStartDate - $formattedEndDate',
+                                  style: openSensMediumDark.copyWith(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
-                        ),
-                        trailing: ElevatedButton(
-                          onPressed: () {
-                            if (id.isNotEmpty) {
-                              context
-                                  .read<ApplyTrainingBloc>()
-                                  .add(ApplyTriningEvent(idschedule: id));
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'You have registered for training')),
-                              );
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue, // Button color
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: Text(
-                            'Join',
-                            style: TextStyle(color: Colors.white), // Text color
-                          ),
                         ),
                       ),
                     ),

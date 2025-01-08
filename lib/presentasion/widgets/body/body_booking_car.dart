@@ -24,30 +24,6 @@ class _cardBookingCarState extends State<cardBookingCar> {
           context.read<TransaksiBookingBloc>().add(const GetTransaksi());
 
           // Menampilkan dialog dengan ikon ceklis saat sukses
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Success'),
-                content: Row(
-                  children: [
-                    const Icon(Icons.check_circle,
-                        color: Colors.green, size: 40),
-                    const SizedBox(width: 10),
-                    const Text('Your booking cancel.'),
-                  ],
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Menutup dialog
-                    },
-                    child: const Text('OK'),
-                  ),
-                ],
-              );
-            },
-          );
         } else if (state is BookingBackapplyError) {
           // Menampilkan dialog dengan ikon silang saat gagal
           showDialog(

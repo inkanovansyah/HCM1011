@@ -15,6 +15,7 @@ class _BodyDashboardState extends State<BodyDashboard> {
   String departmentName = '';
   String image = '';
   String token = '';
+  String nik = '';
 
   @override
   void initState() {
@@ -31,11 +32,13 @@ class _BodyDashboardState extends State<BodyDashboard> {
     final fullName = prefs.getString('fullname') ?? '';
     final departmentName = prefs.getString('position_name') ?? '';
     final image = prefs.getString('image') ?? '';
+    final nik = prefs.getString('nik') ?? '';
 
     setState(() {
       this.fullName = fullName;
       this.departmentName = departmentName;
       this.image = image;
+      this.nik = nik;
     });
   }
 
@@ -47,61 +50,33 @@ class _BodyDashboardState extends State<BodyDashboard> {
         child: ClipRRect(
           child: Container(
             height: MediaQuery.of(context).size.height *
-                0.14, // 15% dari tinggi layar
+                0.10, // 15% dari tinggi layar
             width: MediaQuery.of(context).size.width,
-            color:
-                darkdarkBlueColor, // Warna latar belakang (darkdarkBlueColor)
+            color: darkdarkBlueColor, // Warna latar belakang
             child: Padding(
               padding:
                   const EdgeInsets.only(left: 16.0, top: 12.0, bottom: 12.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment
-                    .spaceBetween, // Mengatur item ke sisi-sisi
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '$fullName',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 4),
-                          child: Text(
-                            '$departmentName',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   ClipOval(
                     child: Container(
-                      width: 80.0,
-                      height: 80.0,
+                      width: 60.0, // Sesuaikan ukuran avatar
+                      height: 60.0,
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
                             color: Colors.blue.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 10,
+                            spreadRadius: 3,
+                            blurRadius: 8,
                             offset: const Offset(0, 0),
                           ),
                         ],
                       ),
                       child: Image.network(
                         image,
-                        fit: BoxFit.cover, // Sesuaikan dengan kebutuhan Anda
+                        fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          // Menambahkan errorBuilder untuk menampilkan gambar default jika terjadi kesalahan
+                          // Menampilkan gambar default jika terjadi kesalahan
                           return Image.asset(
                             'assets/images/Profile_test.png',
                             fit: BoxFit.cover,
@@ -110,8 +85,31 @@ class _BodyDashboardState extends State<BodyDashboard> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 20.0,
+                  const SizedBox(width: 16.0), // Spasi antara avatar dan teks
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment:
+                          MainAxisAlignment.center, // Pusatkan secara vertikal
+                      children: [
+                        Text(
+                          fullName,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 4.0), // Spasi antara nama dan ID
+                        Text(
+                          '$nik - $departmentName', // Tampilkan ID dan nama departemen
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

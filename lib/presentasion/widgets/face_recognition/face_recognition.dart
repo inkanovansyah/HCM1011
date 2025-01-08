@@ -1,8 +1,8 @@
+import 'dart:async';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:hcm1011/presentasion/pages/my_attandance.dart';
-
-import 'dart:async';
 
 enum EnumCameraDescription {
   front,
@@ -29,11 +29,8 @@ class _CameraPageState extends State<CameraPage> {
 
   Future<void> startCamera(EnumCameraDescription cameraDescription) async {
     cameras = await availableCameras();
-
     cameraController?.dispose();
-
     CameraDescription selectedCamera;
-
     switch (cameraDescription) {
       case EnumCameraDescription.front:
         selectedCamera = cameras.firstWhere(
@@ -50,7 +47,6 @@ class _CameraPageState extends State<CameraPage> {
         );
         break;
     }
-
     cameraController = CameraController(
       selectedCamera,
       ResolutionPreset.medium,
@@ -68,9 +64,9 @@ class _CameraPageState extends State<CameraPage> {
     }
   }
 
-  void _saveImageToTimeCard(String imagePath) {
-    Navigator.pop(context, imagePath); // Return image path to previous screen
-  }
+  // void _saveImageToTimeCard(String imagePath) {
+  //   Navigator.pop(context, imagePath); // Return image path to previous screen
+  // }
 
   @override
   void dispose() {
@@ -93,25 +89,17 @@ class _CameraPageState extends State<CameraPage> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.width *
                         cameraController!.value.aspectRatio,
-                    child: CameraPreview(cameraController!),
+                    child: Transform(
+                      alignment: Alignment.center,
+                      transform: Matrix4.rotationY(
+                        3.14159,
+                      ), // Efek mirror untuk kamera depan
+                      child: CameraPreview(cameraController!),
+                    ),
                   ),
                 ),
               ),
             ),
-            // GestureDetector(
-            //   onTap: () {
-            //     setState(() {
-            //       direction = direction == 0
-            //           ? 1
-            //           : 0; // Toggle antara kamera depan dan belakang
-            //       final newCameraDescription = direction == 0
-            //           ? EnumCameraDescription.front
-            //           : EnumCameraDescription.back;
-            //       startCamera(
-            //           newCameraDescription); // Memulai kamera yang baru dipilih
-            //     });
-            //   },
-            // ),
             Positioned(
               top: 0,
               left: 0,
@@ -143,7 +131,7 @@ class _CameraPageState extends State<CameraPage> {
                   onTap: () async {
                     final XFile? imageFile =
                         await cameraController!.takePicture();
-                    print('erorr bang ${imageFile?.path}');
+
                     if (imageFile != null) {
                       try {
                         // Langsung pindah ke halaman berikutnya tanpa menunggu gesture
@@ -279,30 +267,6 @@ class _CameraPageState extends State<CameraPage> {
                               ),
                             ],
                           ),
-                          // actions: [
-                          //   ButtonBar(
-                          //     alignment: MainAxisAlignment.center,
-                          //     mainAxisSize: MainAxisSize
-                          //         .min, // Menyesuaikan lebar sesuai konten
-                          //     children: [
-                          //       ElevatedButton(
-                          //         onPressed: () {
-                          //           Navigator.of(context).pop();
-                          //         },
-                          //         child: Padding(
-                          //           padding: EdgeInsets.symmetric(
-                          //               horizontal:
-                          //                   20), // Sesuaikan jarak horizontal
-                          //           child: Text('OK, Got it!'),
-                          //         ),
-                          //         style: ElevatedButton.styleFrom(
-                          //           primary:
-                          //               Color(0xFF202449), // Ganti warna tombol
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ],
                         );
                       },
                     );

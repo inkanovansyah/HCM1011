@@ -13,8 +13,8 @@ class BookingCarLoading extends BookingCarState {}
 
 class BookingCarLoaded extends BookingCarState {
   final Data? data;
-  final int status;
   final String? message;
+  final int status;
 
   const BookingCarLoaded(
     this.data,
@@ -23,7 +23,7 @@ class BookingCarLoaded extends BookingCarState {
   );
 
   @override
-  List<Object> get props => [data ?? [], status, message ?? ""];
+  List<Object> get props => [data ?? [], message ?? "", status];
 }
 
 class BookingCarNoData extends BookingCarState {

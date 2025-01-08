@@ -6,7 +6,7 @@ import 'package:hcm1011/data/model/failure_exception.dart';
 import 'package:hcm1011/data/model/typecar.dart';
 
 class ListCarType {
-  final String baseUri = "http://172.16.0.206";
+  final String baseUri = "http://172.16.0.131";
 
   Future<TypeCarList> fatchDataListCarType() async {
     try {

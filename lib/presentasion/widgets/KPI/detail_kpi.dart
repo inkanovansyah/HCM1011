@@ -199,7 +199,7 @@ class _nameState extends State<KpiDetail> {
                                               progressValue == '100'
                                                   ? 'KPI Done' // Text when progressValue is '100'
                                                   : (progressValue == '75'
-                                                      ? 'Menunggu Persetujuan'
+                                                      ? 'Waiting for approval'
                                                       : 'View KPI'),
                                             ),
                                           ),
@@ -249,20 +249,20 @@ class _nameState extends State<KpiDetail> {
                                               fontSize: 16,
                                             ),
                                           ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            'Evaluasi yang dilakukan oleh Atasan harus objektif dan berdasarkan kinerja aktual serta perilaku kerja yang diamati. Mendiskusikan hasil evaluasi harus dilakukan untuk mengetahui umpan balik atas pencapaian kinerja dengan Karyawan.',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            'Karyawan dan Atasan akan menandatangani dan memberikan komentar pada halaman 2 untuk menyatakan',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                            ),
-                                          ),
+                                          // SizedBox(height: 10),
+                                          // Text(
+                                          //   'Evaluasi yang dilakukan oleh Atasan harus objektif dan berdasarkan kinerja aktual serta perilaku kerja yang diamati. Mendiskusikan hasil evaluasi harus dilakukan untuk mengetahui umpan balik atas pencapaian kinerja dengan Karyawan.',
+                                          //   style: TextStyle(
+                                          //     fontSize: 16,
+                                          //   ),
+                                          // ),
+                                          // SizedBox(height: 10),
+                                          // Text(
+                                          //   'Karyawan dan Atasan akan menandatangani dan memberikan komentar pada halaman 2 untuk menyatakan',
+                                          //   style: TextStyle(
+                                          //     fontSize: 16,
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ],

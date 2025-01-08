@@ -235,17 +235,17 @@ class _BodyLoginState extends State<BodyLogin> {
     );
   }
 
-  Widget _buildFooterLogo() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Image.asset(
-          'assets/images/Login.png',
-          height: 200,
-        ),
-      ],
-    );
-  }
+  // Widget _buildFooterLogo() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: <Widget>[
+  //       Image.asset(
+  //         'assets/images/Login.png',
+  //         height: 200,
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildTextField(
     TextEditingController controller,

@@ -112,16 +112,16 @@ class _CardKPI extends State<CardKPI> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       child: Card(
-                        elevation: 4.0,
+                        elevation: 8.0,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: InkWell(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                           child: Container(
                             decoration: BoxDecoration(
                               color: whiteColor,
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(10),
                               border: Border.all(
                                 color: Colors.white,
                                 width: 4.0,
@@ -132,16 +132,15 @@ class _CardKPI extends State<CardKPI> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 10),
                                   Text(
                                     '$jobsDesc',
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 24,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(height: 20),
+                                  SizedBox(height: 10),
                                   Text(
                                     'Satuan',
                                     style: TextStyle(
@@ -189,7 +188,7 @@ class _CardKPI extends State<CardKPI> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 20),
+                                  SizedBox(height: 6),
                                   if (salf_submit == "0")
                                     Row(
                                       mainAxisAlignment:

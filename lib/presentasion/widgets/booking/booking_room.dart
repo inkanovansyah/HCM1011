@@ -2,6 +2,7 @@ import 'dart:convert'; // Tambahkan ini untuk menggunakan jsonDecode
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 import 'package:hcm1011/presentasion/bloc/bloc_boocking/booking_bloc.dart';
 import 'package:hcm1011/data/model/booking.dart';
@@ -160,7 +161,7 @@ class _CardBookingRoomState extends State<CardBookingRoom> {
             // Convert startDate and endDate to DateTime if they are Strings
             final startTime = DateTime.parse(startDate);
             final endTime = DateTime.parse(endDate);
-
+            final timeFormat = DateFormat('HH:mm');
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Card(
@@ -168,52 +169,105 @@ class _CardBookingRoomState extends State<CardBookingRoom> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: ListTile(
-                  contentPadding: EdgeInsets.all(20.0),
-                  leading: Icon(Icons.calendar_today, color: Colors.blue),
-                  title: Text(
-                    event.name ?? 'Tanpa Nama',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 5),
-                      Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // Header Title with Date Range
                           Text(
-                            '${startTime.day} ${_monthToString(startTime.month)} ${startTime.year}, ${_formatTime(startTime)} - ${_formatTime(endTime)}',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            event.name ?? 'Tanpa Nama',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            '${startTime.day} ${_monthToString(startTime.month)} ${startTime.year} ${timeFormat.format(startTime)} - '
+                            '${timeFormat.format(endTime)}',
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 14,
+                            ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 5),
-                      Text(
-                        '$title',
-                        style: TextStyle(color: Colors.grey),
+                    ),
+                    Divider(
+                        height: 1,
+                        color: const Color.fromARGB(
+                            255, 181, 181, 181)), // Garis pemisah
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                '$title -',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                location,
+                                style: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            description,
+                            style: TextStyle(
+                              color: Colors.grey[700],
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        '$description - $location',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
+                    ),
+                    // Button Cancel Booking
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 8.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
                           onPressed: () {
                             if (id != null && roomId != null) {
                               context.read<DeleteBookingRoomBloc>().add(
                                   DeleteBookingRoom(id: id, roomid: roomId));
-                            } else {}
+                            }
                           },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red, // Warna tombol
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 12), // Padding vertikal
+                          ),
                           child: Text(
                             'Cancel Booking',
-                            style: TextStyle(color: Colors.red),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );

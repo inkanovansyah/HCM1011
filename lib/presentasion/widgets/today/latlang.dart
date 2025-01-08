@@ -3,8 +3,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
 class LatLeng extends StatefulWidget {
-  const LatLeng({Key? key}) : super(key: key);
-
+  final Function(String) onAddressRetrieved; // Callback function
+  const LatLeng({Key? key, required this.onAddressRetrieved}) : super(key: key);
   @override
   State<LatLeng> createState() => _LatLengState();
 }
@@ -30,7 +30,7 @@ class _LatLengState extends State<LatLeng> {
       Placemark place = placemarks.first;
       String address =
           '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-
+      // print('Address: $address'); // Print address
       return address;
     } catch (e) {
       return 'Failed to fetch address: $e';
@@ -55,6 +55,9 @@ class _LatLengState extends State<LatLeng> {
             ),
           );
         } else if (snapshot.hasData) {
+          // Panggil callback dengan alamat yang berhasil diambil
+          widget.onAddressRetrieved(snapshot.data!);
+
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(

@@ -22,7 +22,7 @@ class CreateGs {
       var company_id = prefs.getString('company_id');
       final Uri url = Uri.parse(
           '$baseUrl/kpi/$company_id/employee/$nik/section/$sesionId/save');
-      print(url);
+
       final response = await http.post(
         url,
         headers: {

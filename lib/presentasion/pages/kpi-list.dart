@@ -9,6 +9,7 @@ import 'package:hcm1011/presentasion/pages/form_goal_setting.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_submit_aproroval_gs/submit_aproroval_gs_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_goal_setting/goal_setting_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hcm1011/presentasion/pages/kpi.dart';
 
 class ListKpi extends StatefulWidget {
   const ListKpi({super.key});
@@ -125,40 +126,14 @@ class _ListKpi extends State<ListKpi> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_sharp),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => Kpi()),
+            );
           },
         ),
       ),
       backgroundColor: const Color(0xffEEF2FD),
-      body: MultiBlocListener(
-        listeners: [
-          BlocListener<SubmitAprovalGsBloc, SubmitAprorovalGsState>(
-            listener: (context, state) {
-              if (state is SubmitAprorovalGsLoaded) {
-                // Trigger refresh after submission
-                context.read<GoalSettingBloc>().add(const GoalSetting());
-              }
-            },
-          ),
-          BlocListener<SubmitGsBloc, SubmitGsState>(
-            listener: (context, state) {
-              if (state is SubmitGsLoaded) {
-                // Trigger refresh after submission
-                context.read<GoalSettingBloc>().add(const GoalSetting());
-              }
-            },
-          ),
-          BlocListener<SubmitAprovalGsBloc, SubmitAprorovalGsState>(
-            listener: (context, state) {
-              if (state is SubmitAprorovalGsLoaded) {
-                // Trigger refresh after submission
-                context.read<GoalSettingBloc>().add(const GoalSetting());
-              }
-            },
-          ),
-        ],
-        child: CardKpi(),
-      ),
+      body: CardListKpi(),
       floatingActionButton: BlocBuilder<GoalSettingBloc, GoalSettingState>(
         builder: (context, state) {
           if (state is GoalSettingLoading) {
@@ -225,6 +200,10 @@ class _ListKpi extends State<ListKpi> {
               final aprovalGolasetting = state.listGoal!.isNotEmpty
                   ? state.listGoal![0].goalApprovalSubmit
                   : null;
+
+              // final selfSubmit = state.listGoal!.isNotEmpty
+              //     ? state.listGoal![0].selfSubmit
+              //     : null;
 
               final totalWeightage = state.listGoal!.fold<int>(
                 0,
@@ -315,13 +294,31 @@ class _ListKpi extends State<ListKpi> {
                         ),
                       if (aprovalGolasetting == "1")
                         buildButton(
-                          label: 'Kirim Ke Atasan',
+                          label: 'Send to Boss',
                           icon: Icons.hourglass_empty,
                           color: Colors.orange,
                           onPressed: () {
                             context
                                 .read<SubmitAprovalGsBloc>()
                                 .add(SubmitAprorovalEvent());
+                          },
+                        ),
+                      if (aprovalGolasetting == "1")
+                        SizedBox(
+                          width: 6,
+                        ),
+                      if (aprovalGolasetting == "1")
+                        buildButton(
+                          label: 'Add Goal Setting',
+                          icon: Icons.add,
+                          color: const Color(0xFF202449),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FormGoalSetting(),
+                              ),
+                            );
                           },
                         ),
                     ],

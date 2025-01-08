@@ -69,7 +69,7 @@ class _LeaveWState extends State<LeaveW> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(3.0),
+                  padding: EdgeInsets.all(0.0),
                   child: Row(
                     children: [
                       Container(
@@ -113,7 +113,7 @@ class _LeaveWState extends State<LeaveW> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 6),
+                                  SizedBox(height: 10.0),
                                   Row(
                                     children: [
                                       Text(
@@ -124,7 +124,7 @@ class _LeaveWState extends State<LeaveW> {
                                         ),
                                       ),
                                       Text(
-                                        '$sisa Days Used',
+                                        '$sisa Not Used Yet',
                                         style: TextStyle(
                                           color: whiteColor,
                                           fontSize: 16,

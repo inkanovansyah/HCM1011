@@ -94,7 +94,7 @@ class _NameState extends State<Screen> {
 
     cameraController = CameraController(
       selectedCamera,
-      ResolutionPreset.medium,
+      ResolutionPreset.low,
       enableAudio: false,
       imageFormatGroup: ImageFormatGroup.yuv420,
     );
@@ -220,8 +220,15 @@ class _NameState extends State<Screen> {
                   ),
                 ),
                 Center(
-                  child: InkWell(
-                    onTap: () async {
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(10),
+                      primary:
+                          Colors.transparent, // Warna background transparan
+                      shadowColor: Colors.transparent, // Hilangkan bayangan
+                    ),
+                    onPressed: () async {
                       if (cameraController != null &&
                           cameraController!.value.isInitialized) {
                         final XFile? imageFile =
@@ -229,32 +236,32 @@ class _NameState extends State<Screen> {
                         if (imageFile != null) {
                           String description = descController.text;
 
-                          // Tampilkan modal setelah berhasil mengambil foto
+                          // Tampilkan modal loading setelah berhasil mengambil foto
                           showDialog(
                             context: context,
+                            barrierDismissible: false,
                             builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Foto Berhasil Diambil'),
-                                content: Text(
-                                    'Foto berhasil diambil dan akan disimpan.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(); // Tutup modal
-                                    },
-                                    child: Text('OK'),
+                              return Dialog(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      CircularProgressIndicator(),
+                                      SizedBox(height: 16),
+                                      Text('Menyimpan foto...'),
+                                    ],
                                   ),
-                                ],
+                                ),
                               );
                             },
                           );
 
-                          // Tunggu selama 4 detik sebelum berpindah halaman
-                          Future.delayed(Duration(seconds: 4), () {
-                            Navigator.of(context).pop(); // Tutup modal otomatis
-                            _saveImageToStory(imageFile.path,
-                                description); // Simpan dan pindah ke halaman berikutnya
+                          // Tunggu selama 2 detik sebelum menyimpan dan berpindah halaman
+                          Future.delayed(Duration(seconds: 2), () {
+                            Navigator.of(context)
+                                .pop(); // Tutup modal loading otomatis
+                            _saveImageToStory(imageFile.path, description);
                           });
                         }
                       }
@@ -264,7 +271,7 @@ class _NameState extends State<Screen> {
                       height: 80,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        gradient: SweepGradient(
+                        gradient: const SweepGradient(
                           startAngle: 0.0,
                           endAngle: 2 * 3.1415,
                           colors: [
@@ -276,7 +283,7 @@ class _NameState extends State<Screen> {
                         ),
                         border: Border.all(color: Colors.white, width: 2),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.camera,
                         color: Colors.white,
                         size: 50,

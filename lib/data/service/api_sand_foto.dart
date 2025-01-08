@@ -46,6 +46,7 @@ class DetailInfo {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final responseData = await response.stream.bytesToString();
+        print('Response Data: $responseData'); // Menampilkan response body
         return responseData;
       } else {
         print('HTTP Error: ${response.statusCode}');

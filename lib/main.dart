@@ -38,6 +38,11 @@ import 'package:hcm1011/presentasion/bloc/bloc_edit_kpi/edit_kpi_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_car_type/car_type_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_delate_story/delate_story_bloc.dart';
 import 'package:hcm1011/presentasion/bloc/bloc_delete_room_booking/delete_booking_room_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_attandance/bloc_attandance_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_request_bos/bos_request_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_approval_bos/approval_bos_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_decline_bos/decline_bos_bloc.dart';
+import 'package:hcm1011/presentasion/bloc/bloc_history_job/job_history_bloc.dart';
 import 'package:hcm1011/presentasion/pages/splashscreen.dart';
 import 'package:hcm1011/presentasion/pages/info_detail.dart';
 import 'package:hcm1011/presentasion/pages/login.dart';
@@ -97,6 +102,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.getIt<CarTypeBloc>()),
         BlocProvider(create: (_) => di.getIt<DelateStoryBloc>()),
         BlocProvider(create: (_) => di.getIt<DeleteBookingRoomBloc>()),
+        BlocProvider(create: (_) => di.getIt<BlocAttandanceBloc>()),
+        BlocProvider(create: (_) => di.getIt<BosRequestBloc>()),
+        BlocProvider(create: (_) => di.getIt<ApprovalBosBloc>()),
+        BlocProvider(create: (_) => di.getIt<DeclineBosBloc>()),
+        BlocProvider(create: (_) => di.getIt<JobHistoryBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

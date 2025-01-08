@@ -166,20 +166,20 @@ class _infoState extends State<infoDetail> {
                               Row(
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 10.0, right: 10.0),
-                                    child: Container(
-                                      height: 240,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            20.0), // Ubah nilai sesuai kebutuhan
-                                      ),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10.0),
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width -
+                                          60, // Lebar mengikuti card
+                                      height:
+                                          200, // Atur tinggi gambar sesuai keinginan
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(
-                                            20.0), // Sama dengan nilai di atas
+                                            10.0), // Sesuaikan radius
                                         child: Image.network(
                                           state.detailList.content,
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit
+                                              .cover, // Mengisi container dengan gambar tanpa distorsi
                                           errorBuilder:
                                               (context, error, stackTrace) {
                                             return Image.asset(

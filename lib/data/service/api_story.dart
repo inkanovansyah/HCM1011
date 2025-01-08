@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hcm1011/data/model/failure_exception.dart';
 
 class InsertStory {
-  final String baseUrl = "http://172.16.0.206/rest-api/public/list-upload/save";
+  final String baseUrl = "http://172.16.0.131/rest-api/public/list-upload/save";
   Future<String> fetchStoryApi(String source, String des) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -31,7 +31,7 @@ class InsertStory {
           "create_at": '$formattedDate'
         }),
       );
-      print(response.body);
+
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
         print('Response from API: $decodedResponse');
